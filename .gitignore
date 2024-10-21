@@ -2,3 +2,5 @@ app/vendor
 *.log
 *.ini
 .env
+**/node_modules/
+package-lock.json

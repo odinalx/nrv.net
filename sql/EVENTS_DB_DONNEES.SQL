@@ -1,40 +1,54 @@
-USE EVENTS_DB;
+\c events_db 
 
-INSERT INTO LIEUX (NAME, ADDRESS, SEATED_CAPACITY, STANDING_CAPACITY, IMAGES) 
+
+
+INSERT INTO lieux (name, address, seated_capacity, standing_capacity, images) 
 VALUES 
-('Zénith de Nancy', 'Rue du Zénith, 54000 Nancy', 2000, 5000, 'zenith.jpg'),
-('Salle Poirel', '3 Rue Victor Poirel, 54000 Nancy', 500, 1000, 'poirel.jpg'),
-('L\'Autre Canal', '45 Boulevard d\'Austrasie, 54000 Nancy', 1000, 2000, 'autre_canal.jpg'),
-('Parc de la Pépinière', 'Avenue Boffrand, 54000 Nancy', 0, 8000, 'pepiniere.jpg');
+('Le Zenith', 'Avenue de la Libération, Nancy', 2000, 1000, 'zenith.jpg'),
+('La Forge', 'Rue de la Forge, Nancy', 500, 300, 'forge.jpg'),
+('L’Autre Canal', 'Avenue de l’Europe, Nancy', 700, 400, 'autre_canal.jpg'),
+('L’Auditorium', 'Rue des États-Unis, Nancy', 1000, 500, 'auditorium.jpg');
 
-INSERT INTO SPECTACLES (TITRE, ARTISTES, STYLE, IMAGES, ESTIMATED_START_TIME, LIEU_ID) 
+
+
+INSERT INTO spectacles (titre, artistes, style, images, estimated_start_time, lieu_id) 
 VALUES 
-('Classic Rock Night', 'The Rolling Stones', 'Classic Rock', 'rolling_stones.jpg', '19:00:00', 1),
-('Blues Vibes', 'BB King', 'Blues', 'bb_king.jpg', '20:00:00', 2),
-('Metal Thunder', 'Metallica', 'Metal', 'metallica.jpg', '21:00:00', 1),
-('French Chanson', 'Édith Piaf', 'Chanson', 'piaf.jpg', '18:00:00', 2),
-('Jazz Fusion', 'Miles Davis', 'Jazz', 'miles_davis.jpg', '20:30:00', 3),
-('Indie Explosion', 'Tame Impala', 'Indie Rock', 'tame_impala.jpg', '19:30:00', 4),
-('Electro Fever', 'Daft Punk', 'Electro', 'daft_punk.jpg', '22:00:00', 3),
-('Reggae Jam', 'Bob Marley', 'Reggae', 'bob_marley.jpg', '19:00:00', 4),
-('Pop Hits', 'Taylor Swift', 'Pop', 'taylor_swift.jpg', '21:30:00', 1),
-('Latin Rhythms', 'Shakira', 'Latin', 'shakira.jpg', '20:00:00', 4);
+('Concert de Rock', 'Groupe Rock 1', 'Rock', 'rock.jpg', '20:00:00', 1),
+('Soirée Blues', 'Artiste Blues 1', 'Blues', 'blues.jpg', '21:00:00', 2),
+('Metal Night', 'Groupe Metal 1', 'Métal', 'metal.jpg', '22:00:00', 1),
+('Chanson Française', 'Chanteur 1', 'Chanson', 'chanson.jpg', '19:00:00', 3),
+('Jazz Session', 'Artiste Jazz 1', 'Jazz', 'jazz.jpg', '20:30:00', 4),
+('Festival de Musique Électronique', 'DJ Électronique 1', 'Électronique', 'electro.jpg', '23:00:00', 2),
+('Concert de Pop', 'Groupe Pop 1', 'Pop', 'pop.jpg', '18:00:00', 3),
+('Soirée Rock Alternatif', 'Groupe Rock Alternatif 1', 'Rock Alternatif', 'alt_rock.jpg', '21:30:00', 4),
+('Performance Acoustique', 'Artiste Acoustique 1', 'Acoustique', 'acoustic.jpg', '17:00:00', 1),
+('Nuit des Talents', 'Groupe Local 1', 'Divers', 'divers.jpg', '19:30:00', 2);
 
 
-INSERT INTO SOIREES (NAME, THEME, SOIREE_DATE, START_TIME, LIEU_ID, NORMAL_PRICE, REDUCED_PRICE) 
+INSERT INTO soirees (name, theme, soiree_date, start_time, normal_price, reduced_price, lieu_id) 
 VALUES 
-('Rock Legends', 'Soirée Rock', '2024-07-01', '19:00:00', 1, 50.00, 35.00),
-('Blues Night', 'Soirée Blues', '2024-07-02', '20:00:00', 2, 40.00, 30.00),
-('Metal Madness', 'Soirée Metal', '2024-07-03', '21:00:00', 1, 55.00, 40.00),
-('French Classics', 'Soirée Chanson', '2024-07-04', '18:00:00', 2, 30.00, 20.00),
-('Jazz Masters', 'Soirée Jazz', '2024-07-05', '20:30:00', 3, 45.00, 35.00),
-('Indie Explosion', 'Soirée Indie', '2024-07-06', '19:30:00', 4, 50.00, 35.00),
-('Electro Beats', 'Soirée Electro', '2024-07-07', '22:00:00', 3, 60.00, 45.00),
-('Reggae Vibes', 'Soirée Reggae', '2024-07-08', '19:00:00', 4, 40.00, 30.00),
-('Pop Extravaganza', 'Soirée Pop', '2024-07-09', '21:30:00', 1, 55.00, 40.00),
-('Latin Heat', 'Soirée Latin', '2024-07-10', '20:00:00', 4, 50.00, 35.00);
+('Soirée Rock', 'Rock', '2024-06-01', '18:00:00', 25.00, 15.00, 1),
+('Soirée Blues', 'Blues', '2024-06-02', '19:00:00', 20.00, 12.00, 2),
+('Festival Métal', 'Métal', '2024-06-03', '20:00:00', 30.00, 20.00, 1),
+('Nuit de la Chanson', 'Chanson', '2024-06-04', '21:00:00', 18.00, 10.00, 3),
+('Jazz au Canal', 'Jazz', '2024-06-05', '19:30:00', 22.00, 14.00, 4),
+('Électronique Fiesta', 'Électronique', '2024-06-06', '23:00:00', 28.00, 18.00, 2),
+('Pop Night', 'Pop', '2024-06-07', '20:00:00', 24.00, 16.00, 3),
+('Rock Alternatif', 'Rock Alternatif', '2024-06-08', '21:30:00', 26.00, 17.00, 4),
+('Acoustic Evening', 'Acoustique', '2024-06-09', '17:00:00', 15.00, 8.00, 1),
+('Talents en Scène', 'Divers', '2024-06-10', '19:00:00', 19.00, 11.00, 2);
 
 
-INSERT INTO SOIREE_SPECTACLES (SOIREE_ID, SPECTACLE_ID) 
+
+INSERT INTO soiree_spectacles (soiree_id, spectacle_id) 
 VALUES 
-(1, 1), (1, 2), (2, 2), (2, 5), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8);
+(1, 1),
+(1, 2),
+(2, 3),
+(2, 4),
+(3, 5),
+(3, 6),
+(4, 7),
+(4, 8),
+(5, 9),
+(5, 10);

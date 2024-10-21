@@ -4,10 +4,10 @@ nrv.net est une application web développée dans le cadre d'un projet étudiant
 
 ## Auteurs
 
-    - ALEXANDRE Odin
-    - GEORGES Victor
-    - Muñoz Ramírez José Guadalupe
-    - MARTINEZ ORTUÑO Galo Eduardo
+- ALEXANDRE Odin
+- GEORGES Victor
+- Muñoz Ramírez José Guadalupe
+- MARTINEZ ORTUÑO Galo Eduardo
 
 ## Fonctionnalités
 

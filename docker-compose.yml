@@ -1,0 +1,43 @@
+version: '3.8'
+
+networks:
+  nrv.net:
+    driver: bridge
+
+services:
+
+  # Servicio de API para la aplicación de billetterie NRV
+  api.nrv:
+    build:
+      context: build
+      dockerfile: 8.3-alpine.Dockerfile  # Usando tu Dockerfile basado en Alpine
+    env_file: ./nrv.env                 # Variables de entorno específicas para la API
+    ports:
+      - '8080:80'                       # Exponer el puerto 80 en el contenedor como 8080 en local
+    volumes:
+      - ./app:/var/php                  # Mapea el directorio local con el código de la app
+    working_dir: /var/php               # Define el directorio de trabajo
+    networks:
+      - nrv.net                         # Conectar al network 'nrv.net'
+    depends_on:
+      - nrv.db                          # Depende del servicio de base de datos
+    command: php -S 0.0.0.0:80 -t /var/php/public  # Ejecutar el servidor PHP localmente
+
+  # Servicio de base de datos PostgreSQL
+  nrv.db:
+    image: 'postgres:latest'            # Imagen oficial de PostgreSQL
+    env_file: ./nrvdb.env               # Variables de entorno para configurar la base de datos
+    ports:
+      - '5432:5432'                     # Exponer el puerto PostgreSQL
+    networks:
+      - nrv.net                         # Conectar al network 'nrv.net'
+    volumes:
+      - ./app/sql:/var/sql              # Volumen para los archivos SQL
+
+  # Servicio Adminer para la administración de la base de datos
+  adminer:
+    image: adminer                      # Imagen de Adminer (cliente web para gestionar bases de datos)
+    ports:
+      - '8081:8080'                     # Exponer el puerto 8080 en el contenedor como 8081 en local
+    networks:
+      - nrv.net                         # Conectar al network 'nrv.net'

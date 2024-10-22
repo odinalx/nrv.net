@@ -3,6 +3,7 @@ namespace nrv\infrastructure\PDO;
 
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\core\domain\entities\spectacle\Spectacle;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use PDO;
 
 class PdoPraticienRepository implements SpectacleRepositoryInterface

@@ -10,7 +10,7 @@ use nrv\application\renderer\JsonRenderer;
 use nrv\core\services\spectacle\ServiceSpectacleNotFoundException;
 use nrv\core\services\soiree\ServiceSoiree;
 
-class GetSpectacleIdByAction extends AbstractAction
+class GetSpectacleByIdAction extends AbstractAction
 {
     private ServiceSpectacleInterface $serviceSpectacle;
     private ServiceSoireeInterface $serviceSoiree;

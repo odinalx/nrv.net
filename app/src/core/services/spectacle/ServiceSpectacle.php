@@ -15,8 +15,24 @@ class ServiceSpectacle implements ServiceSpectacleInterface
 
     
     public function getSpectacleById(string $id): SpectacleDTO
-    {
+    {   
+        //ToDO: Add try catch
         return $this->spectacleRepository->getSpectacleById($id)->toDTO();
+    }
+
+    public function getSpectacles(): array
+    {
+        $spectacles = $this->spectacleRepository->getSpectacles();
+        $spectaclesDTO = [];
+        foreach ($spectacles as $spectacle) {
+            $spectaclesDTO[] = $spectacle->toDTO();
+        }
+        return $spectaclesDTO;
+    }
+
+    public function getImagesSpectacle(string $id): array
+    {
+        return $this->spectacleRepository->getImagesSpectacle($id);
     }
 
     

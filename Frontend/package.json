@@ -1,12 +1,13 @@
 {
   "name": "nrv_front",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "SPA for NRV",
+  "main": "public/js/main.js",
   "scripts": {
-    "start": "node app.js"
+    "build": "esbuild public/js/main.js --bundle --sourcemap --target=es2015 --outfile=public/dist/index.js --loader:.hbs=text"
   },
   "dependencies": {
     "handlebars": "^4.7.8",
-    "minimist": "^1.2.8"
+    "esbuild": "^0.17.18"
   }
 }

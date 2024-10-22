@@ -1,10 +1,10 @@
 <?php
 namespace nrv\core\services\spectacle;
 
+use nrv\core\dto\SpectacleDTO;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
-use nrv\core\exceptions\RepositoryEntityNotFoundException;
 
-class ServiceSpectacle implements ServiceRDVInterface
+class ServiceSpectacle implements ServiceSpectacleInterface
 {
     private SpectacleRepositoryInterface $spectacleRepository;
 
@@ -13,20 +13,10 @@ class ServiceSpectacle implements ServiceRDVInterface
         $this->spectacleRepository = $spectacleRepository;
     }
 
-    /**
-     *
-     * @param int $id
-     * @return Spectacle|null
-     * @throws RepositoryEntityNotFoundException
-     */
-
-    public function getSpectacleById(int $id): Spectacle
+    
+    public function getSpectacleById(string $id): SpectacleDTO
     {
-        $spectacle = $this->spectacleRepository->findById($id);
-        if (!$spectacle) {
-            throw new RepositoryEntityNotFoundException("Spectacle with ID {$id} not found.");
-        }
-        return $spectacle;
+        return $this->spectacleRepository->getSpectacleById($id)->toDTO();
     }
 
     

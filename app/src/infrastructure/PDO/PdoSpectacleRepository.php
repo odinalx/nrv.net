@@ -6,7 +6,7 @@ use nrv\core\domain\entities\spectacle\Spectacle;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use PDO;
 
-class PdoPraticienRepository implements SpectacleRepositoryInterface
+class PdoSpectacleRepository implements SpectacleRepositoryInterface
 {
     private PDO $pdo;
 
@@ -17,13 +17,16 @@ class PdoPraticienRepository implements SpectacleRepositoryInterface
     
     public function getSpectacleById(string $id): Spectacle
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM spectacle WHERE id = :id');
+        $query = "SELECT * FROM spectacle WHERE spectacle_id = :id";
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
-        $spectacle = $stmt->fetchObject(Spectacle::class);
-        if (!$spectacle) {
-            throw new RepositoryEntityNotFoundException("Spectacle with ID {$id} not found.");
-        }
+        $spectacle = $stmt->fetch();
+        // if ($spectacle === false) {
+        //     throw new ServiceSpectacleNotFoundException("Spécialité $id non trouvée");
+        // }
+
+        $spectacle = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id']);
+        $spectacle->setID($id);
         return $spectacle;
     }
-
 }

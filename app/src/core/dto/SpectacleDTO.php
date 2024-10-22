@@ -14,6 +14,7 @@ class SpectacleDTO extends DTO
     protected string $horraire_prev;
     // protected string $image; //provenant de la table pivot
     // protected string $artiste   //provenant de la table pivot
+    protected string $soiree_id;
 
     public function __construct(Spectacle $spectacle)
     {
@@ -21,6 +22,7 @@ class SpectacleDTO extends DTO
         $this->titre = $spectacle->getTitre();
         $this->description = $spectacle->getDescription();
         $this->horraire_prev = $spectacle->getHorairePrev();
+        $this->soiree_id = $spectacle->getSoireeId();
     }   
     public function toEntity(): Spectacle
     {

@@ -8,25 +8,27 @@ use nrv\core\dto\SoireeDTO;
 class Soiree extends Entity
 {
     protected string $soiree_id;
-    protected string $titre;
+    protected string $nom;
     protected \DateTimeImmutable $date; 
     protected string $thematique;
     protected string $lieu_id;
     protected string $horaire_debut;
-    protected string $tarifs;
+    protected string $tarif_normal;
+    protected string $tarif_reduit;
 
-    public function __construct(string $titre, \DateTimeImmutable $date, string $thematique, string $lieu_id, string $horaire_debut, string $tarifs) {
-        $this->titre = $titre;
+    public function __construct(string $nom, \DateTimeImmutable $date, string $thematique, string $lieu_id, string $horaire_debut, string $tarif_normal, string $tarif_reduit) {
+        $this->nom = $nom;
         $this->date = $date;
         $this->thematique = $thematique;
         $this->lieu_id = $lieu_id;
         $this->horaire_debut = $horaire_debut;
-        $this->tarifs = $tarifs;
+        $this->tarif_normal = $tarif_normal;
+        $this->tarif_reduit = $tarif_reduit;
     }
 
     // Getters
-    public function getTitre(): string {
-        return $this->titre;
+    public function getNom(): string {
+        return $this->nom;
     }
 
     public function getDate(): \DateTimeImmutable {
@@ -42,13 +44,16 @@ class Soiree extends Entity
     public function getHoraireDebut(): string {
         return $this->horaire_debut;
     }
-    public function getTarifs(): string {
-        return $this->tarifs;
+    public function getTarifNormal(): string {
+        return $this->tarif_normal;
+    }
+    public function getTarifReduit(): string {
+        return $this->tarif_reduit;
     }
 
     // Setters
-    public function setTitre(string $titre): void {
-        $this->titre = $titre;
+    public function setNom(string $nom): void {
+        $this->nom = $nom;
     }
 
     public function setThematique(string $thematique): void {
@@ -67,8 +72,12 @@ class Soiree extends Entity
         $this->horaire_debut = $horaire_debut;
     }
 
-    public function setTarifs(string $tarifs): void {
-        $this->tarifs = $tarifs;
+    public function setTarifNormal(string $tarif_normal): void {
+        $this->tarif_normal = $tarif_normal;
+    }
+
+    public function setTarifReduit(string $tarif_reduit): void {
+        $this->tarif_reduit = $tarif_reduit;
     }
 
     public function toDTO(): SoireeDTO {

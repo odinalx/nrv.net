@@ -1,11 +1,13 @@
 <?php
-namespace nrv\scr\core\services;
+namespace nrv\core\services\soiree;
 
 use nrv\core\domain\entities\soiree\Soiree;
+use nrv\core\dto\SoireeDTO;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\services\soiree\ServiceSoireeInterface;
 
-class ServiceSoiree
+class ServiceSoiree implements ServiceSoireeInterface
 {
     private SoireeRepositoryInterface $soireeRepository;
 
@@ -20,25 +22,10 @@ class ServiceSoiree
      * @return Soiree|null
      * @throws RepositoryEntityNotFoundException
      */
-    public function getSoireeById(int $id): Soiree
+    public function getSoireeById(string $id): SoireeDTO
     {
-        $soiree = $this->soireeRepository->findById($id);
-        if (!$soiree) {
-            throw new RepositoryEntityNotFoundException("Soirée with ID {$id} not found.");
-        }
-        return $soiree;
-    }
-
-    /**
-     *
-     * @param int $soireeId
-     * @return array
-     */
-
-    public function getSpectaclesBySoireeId(int $soireeId): array
-    {
-        return $this->soireeRepository->findSpectaclesBySoireeId($soireeId);
-    }
+        return $this->soireeRepository->getSoireeById($id)->toDTO();
+    }   
 
     
 }

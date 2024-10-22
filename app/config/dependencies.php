@@ -13,7 +13,7 @@ use nrv\core\services\soiree\ServiceSoiree;
 
 return [
 
-    'praticien.pdo' => function (ContainerInterface $container) {
+    'nrv.pdo' => function (ContainerInterface $container) {
         $config = parse_ini_file(__DIR__ . '/nrv.db.ini');
         $dsn = "{$config['driver']}:host={$config['host']};dbname={$config['database']}";
         $user = $config['username'];
@@ -22,16 +22,15 @@ return [
     },
 
     SpectacleRepositoryInterface::class => function (ContainerInterface $container) {
-        $pdo = $container->get('praticien.pdo');
+        $pdo = $container->get('nrv.pdo');
         return new PdoSpectacleRepository($pdo);
     },
 
     SoireeRepositoryInterface::class => function (ContainerInterface $container) {
-        $pdo = $container->get('praticien.pdo');
+        $pdo = $container->get('nrv.pdo');
         return new PdoSoireeRepository($pdo);
     },
 
-    // Utilisation d'une instance ServicePraticien à chaque utilisation d'une ServicePraticienInterface
     ServiceSpectacleInterface::class => function (ContainerInterface $container) {
         $spectacleRepository = $container->get(SpectacleRepositoryInterface::class);
         return new ServiceSpectacle($spectacleRepository);

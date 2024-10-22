@@ -5699,19 +5699,11 @@
   var import_handlebars = __toESM(require_handlebars());
 
   // public/templates/home.hbs
-  var home_default = '<div class="page">\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n    {{#each items}}\n        <div class="item">\n            <h2>{{this.name}}</h2>\n            <p>{{this.description}}</p>\n        </div>\n    {{/each}}\n</div>';
-
-  // public/templates/about.hbs
-  var about_default = '    <div class="page">\n    <h1>\xC0 propos</h1>\n    <p>{{aboutText}}</p>\n    {{#if team}}\n        <h2>Notre \xE9quipe</h2>\n        <div class="team-members">\n            {{#each team}}\n                <div class="team-member">\n                    <h3>{{this.name}}</h3>\n                    <p>{{this.role}}</p>\n                </div>\n            {{/each}}\n        </div>\n    {{/if}}\n</div>';
-
-  // public/templates/contact.hbs
-  var contact_default = '<div class="page">\n    <h1>Contact</h1>\n    <form id="contact-form">\n        <input type="text" placeholder="Nom" name="name" required>\n        <input type="email" placeholder="Email" name="email" required>\n        <textarea placeholder="Message" name="message" required></textarea>\n        <button type="submit">Envoyer</button>\n    </form>\n</div>';
+  var home_default = '<div class="page">\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n</div>';
 
   // public/js/templateLoader.js
   var templates = {
-    home: import_handlebars.default.compile(home_default),
-    about: import_handlebars.default.compile(about_default),
-    contact: import_handlebars.default.compile(contact_default)
+    home: import_handlebars.default.compile(home_default)
   };
   import_handlebars.default.registerHelper("formatDate", function(date) {
     return new Date(date).toLocaleDateString();
@@ -5727,21 +5719,9 @@
       this.templates = templates;
       this.pageData = {
         home: {
-          title: "Notre SPA",
-          description: "Bienvenue sur notre application mono-page !",
-          items: [
-            { name: "Item 1", description: "Description de l'item 1" },
-            { name: "Item 2", description: "Description de l'item 2" }
-          ]
-        },
-        about: {
-          aboutText: "Nous sommes une entreprise innovante...",
-          team: [
-            { name: "Alice Dupont", role: "CEO" },
-            { name: "Bob Martin", role: "CTO" }
-          ]
-        },
-        contact: {}
+          title: "NRV.net",
+          description: "Bienvenue sur le site boutique nrv!"
+        }
       };
       this.initializeEventListeners();
       this.navigateToPage("home");
@@ -5751,14 +5731,6 @@
         button.addEventListener("click", (e) => {
           this.navigateToPage(e.target.dataset.page);
         });
-      });
-      document.addEventListener("submit", (e) => {
-        if (e.target.id === "contact-form") {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          console.log("Formulaire soumis:", Object.fromEntries(formData));
-          alert("Message envoy\xE9 !");
-        }
       });
     }
     navigateToPage(pageName) {

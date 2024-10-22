@@ -5,7 +5,7 @@ use nrv\core\domain\entities\spectacle\Spectacle;
 use nrv\src\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\core\exceptions\RepositoryEntityNotFoundException;
 
-class SpectacleService
+class ServiceSpectacle implements spectacle
 {
     private SpectacleRepositoryInterface $spectacleRepository;
 

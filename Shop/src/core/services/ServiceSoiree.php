@@ -5,7 +5,7 @@ use nrv\core\domain\entities\soiree\Soiree;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
-class SoireeService
+class ServiceSoiree
 {
     private SoireeRepositoryInterface $soireeRepository;
 

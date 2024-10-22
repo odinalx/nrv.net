@@ -1,10 +1,9 @@
-
 networks:
   nrv.net:
     driver: bridge
+
 services:
-  
-  api.nrv:  
+  api.nrv:
     build:
       context: build
       dockerfile: 8.3-cli.Dockerfile
@@ -20,7 +19,6 @@ services:
       - nrv.db
     command: php -S 0.0.0.0:80 -t /var/php/public
 
-   
   nrv.db:
     image: 'postgres:latest'
     env_file: nrvdb.env
@@ -29,14 +27,28 @@ services:
     networks:
       - nrv.net
     volumes:
-      - ./app/sql:/var/sql'
-  
+      - ./app/sql:/var/sql
+
   adminer:
     image: adminer
     ports:
       - '8081:8080'
     networks:
       - nrv.net
-    # command: php -S 0.0.0.0:8080 -t /var/www/html
 
-
+  front.nrv:
+    build:
+      context: .
+      dockerfile: Frontend/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./Frontend:/usr/src/app/Frontend
+      - /usr/src/app/Frontend/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - nrv.net
+    depends_on:
+      - api.nrv
+    command: npm run dev

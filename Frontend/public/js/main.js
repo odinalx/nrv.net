@@ -20,7 +20,7 @@ class SPA {
 
     async fetchSpectacleData() {
         try {
-            const response = await fetch('URL_DE_VOTRE_API/spectacles');
+            const response = await fetch('http://localhost:7080/spectacles');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

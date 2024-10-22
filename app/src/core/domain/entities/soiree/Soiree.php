@@ -7,84 +7,72 @@ use nrv\core\dto\SoireeDTO;
 
 class Soiree extends Entity
 {
-    protected string $name;
-    protected string $theme;
-    protected string $adresse;
-    protected \DateTime $soiree_date;
-    protected \DateTime $start_time;
-    protected float $normal_price;
-    protected float $reduced_price;
-    protected int $lieu_id;
-    protected int $soiree_id;
+    protected string $soiree_id;
+    protected string $titre;
+    protected \DateTimeImmutable $date; 
+    protected string $thematique;
+    protected string $lieu_id;
+    protected string $horaire_debut;
+    protected string $tarifs;
 
-    
-
-    public function __construct(
-        string $name,
-        string $theme,
-        string $adresse,
-        \DateTime $soiree_date,
-        \DateTime $start_time,
-        float $normal_price,
-        float $reduced_price,
-        int $lieu_id,
-        int $soiree_id
-    ) {
-        $this->name = $name;
-        $this->theme = $theme;
-        $this->adresse = $adresse;
-        $this->soiree_date = $soiree_date;
-        $this->start_time = $start_time;
-        $this->normal_price = $normal_price;
-        $this->reduced_price = $reduced_price;
+    public function __construct(string $titre, \DateTimeImmutable $date, string $thematique, string $lieu_id, string $horaire_debut, string $tarifs) {
+        $this->titre = $titre;
+        $this->date = $date;
+        $this->thematique = $thematique;
         $this->lieu_id = $lieu_id;
-        $this->soiree_id = $soiree_id;
+        $this->horaire_debut = $horaire_debut;
+        $this->tarifs = $tarifs;
     }
 
     // Getters
-
-    public function getName(): string
-    {
-        return $this->name;
+    public function getTitre(): string {
+        return $this->titre;
     }
 
-    public function getTheme(): string
-    {
-        return $this->theme;
+    public function getDate(): \DateTimeImmutable {
+        return $this->date;
     }
 
-    public function getAdresse(): string
-    {
-        return $this->adresse;
+    public function getThematique(): string {
+        return $this->thematique;
     }
-
-    public function getSoireeDate(): \DateTime
-    {
-        return $this->soiree_date;
-    }
-
-    public function getStartTime(): \DateTime
-    {
-        return $this->start_time;
-    }
-
-    public function getNormalPrice(): float
-    {
-        return $this->normal_price;
-    }
-
-    public function getReducedPrice(): float
-    {
-        return $this->reduced_price;
-    }
-
-    public function getLieuId(): int
-    {
+    public function getLieuId(): string {
         return $this->lieu_id;
     }
-
-    public function soiree_id(): int
-    {
-        return $this->soiree_id;
+    public function getHoraireDebut(): string {
+        return $this->horaire_debut;
     }
+    public function getTarifs(): string {
+        return $this->tarifs;
+    }
+
+    // Setters
+    public function setTitre(string $titre): void {
+        $this->titre = $titre;
+    }
+
+    public function setThematique(string $thematique): void {
+        $this->thematique = $thematique;
+    }
+
+    public function setDate(\DateTimeImmutable $date): void {
+        $this->date = $date;
+    }
+
+    public function setLieuId(string $lieu_id): void {
+        $this->lieu_id = $lieu_id;
+    }
+
+    public function setHoraireDebut(string $horaire_debut): void {
+        $this->horaire_debut = $horaire_debut;
+    }
+
+    public function setTarifs(string $tarifs): void {
+        $this->tarifs = $tarifs;
+    }
+
+    public function toDTO(): SoireeDTO {
+        return new SoireeDTO($this);
+    }
+    
 }

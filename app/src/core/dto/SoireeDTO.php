@@ -1,5 +1,4 @@
 <?php
-
 namespace nrv\core\dto;
 
 use nrv\core\domain\entities\soiree\Soiree;
@@ -7,26 +6,34 @@ use nrv\core\dto\DTO;
 
 class SoireeDTO extends DTO
 {
-    protected string $id_soiree;
-    protected string $name;
-    protected string $theme;
-    protected string $adresse;
-    protected \DateTime $soiree_date;
-    protected \DateTime $start_time;
-    protected float $normal_price;
-    protected float $reduced_price;
-    protected int $lieu_id;
+    protected string $soiree_id;
+    protected string $titre;
+    protected string $date;
+    protected string $thematique;
+    protected string $lieu_id;
+    protected string $horaire_debut;
+    protected string $tarifs;
 
-    public function __construct(Soiree $s)
-    {        
-        $this->id_soiree = $s->id_soiree;
-        $this->name = $s->name;
-        $this->theme = $s->theme;
-        $this->adresse = $s->adresse;
-        $this->soiree_date = $s->soiree_date;
-        $this->start_time = $s->start_time;
-        $this->normal_price = $s->normal_price;
-        $this->reduced_price = $s->reduced_price;
-        $this->lieu_id = $s->lieu_id;
+    public function __construct(Soiree $soiree)
+    {
+        $this->soiree_id = $soiree->getId();
+        $this->titre = $soiree->getTitre();
+        $this->date = $soiree->getDate();
+        $this->thematique = $soiree->getThematique();
+        $this->lieu_id = $soiree->getLieuId();
+        $this->horaire_debut = $soiree->getHoraireDebut();
+        $this->tarifs = $soiree->getTarifs();
+    }
+    public function toEntity(): Soiree
+    {
+        $soiree = new Soiree(
+            $this->titre,
+            new \DateTimeImmutable($this->date),
+            $this->thematique,
+            $this->lieu_id,
+            $this->horaire_debut,
+            $this->tarifs
+        );
+        return $soiree;
     }
 }

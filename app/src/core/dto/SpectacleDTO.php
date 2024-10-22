@@ -9,6 +9,7 @@ class SpectacleDTO extends DTO
 {   
     protected string $spectacle_id;
     protected string $titre;
+    protected string $description;  
     // protected string $date; //provenant de la soiree
     protected string $horraire_prev;
     // protected string $image; //provenant de la table pivot
@@ -18,6 +19,7 @@ class SpectacleDTO extends DTO
     {
         $this->spectacle_id = $spectacle->getId();
         $this->titre = $spectacle->getTitre();
+        $this->description = $spectacle->getDescription();
         $this->horraire_prev = $spectacle->getHorairePrev();
     }   
     public function toEntity(): Spectacle

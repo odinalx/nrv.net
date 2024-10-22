@@ -25,15 +25,29 @@ class GetSoireeByIdAction extends AbstractAction
 
         try {
             $soireeDto = $this->serviceSoiree->getSoireeById($id);
+            $spectacles = $this->serviceSoiree->getSpectaclesBySoireeId($id);
+
+            $spectaclesFormatted = [];
+            foreach ($spectacles as $spectacle) {
+                $spectaclesFormatted[] = [  
+                    'self' => "/spectacles/{$spectacle->getID()}",             
+                    'titre' => $spectacle->getTitre(),           
+                    'description' => $spectacle->getDescription(), 
+                    'style' => $spectacle->getStyle(),           
+                    'horaire_prev' => $spectacle->getHorairePrev()   
+                ];
+            }
+
             $responseData = [
                 'self' => "/soirees/{$soireeDto->soiree_id}",
                 'nom' => $soireeDto->nom,
-                'theme' => $soireeDto->theme,
+                'theme' => $soireeDto->thematique,
                 'date' => $soireeDto->date->format('d-m-Y'),
                 'horaire_debut' => $soireeDto->horaire_debut,
                 'lieu_id' => $soireeDto->lieu_id,
                 'tarif_normal' => $soireeDto->tarif_normal,
                 'tarif_reduit' => $soireeDto->tarif_reduit,
+                'spectacles' => $spectaclesFormatted
             ];
             return JsonRenderer::render($rs, 200, $responseData);
 

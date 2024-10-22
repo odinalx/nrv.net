@@ -25,7 +25,12 @@ class ServiceSoiree implements ServiceSoireeInterface
     public function getSoireeById(string $id): SoireeDTO
     {
         return $this->soireeRepository->getSoireeById($id)->toDTO();
-    }   
+    }  
+    
+    public function getSpectaclesBySoireeId(string $id): array
+    {
+        return $this->soireeRepository->getSpectaclesBySoireeId($id);
+    }
 
     
 }

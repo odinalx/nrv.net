@@ -4,6 +4,7 @@ namespace nrv\infrastructure\PDO;
 
 use nrv\core\domain\entities\soiree\Soiree;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\core\domain\entities\spectacle\Spectacle;
 use PDO;
 
 class PdoSoireeRepository implements SoireeRepositoryInterface
@@ -28,6 +29,21 @@ class PdoSoireeRepository implements SoireeRepositoryInterface
         $soiree = new Soiree($soiree['nom'], $date, $soiree['theme'], $soiree['lieu_id'], $soiree['horaire_debut'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
         $soiree->setID($id);
         return $soiree;
+    }
+
+    public function getSpectaclesBySoireeId(string $id): array
+    {
+        $query = "SELECT * FROM spectacle WHERE soiree_id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $spectacles = $stmt->fetchAll();
+        $spectaclesEntities = [];
+        foreach ($spectacles as $spectacle) {
+            $spectacleEntity = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id']);
+            $spectacleEntity->setID($spectacle['spectacle_id']);
+            $spectaclesEntities[] = $spectacleEntity;
+        }
+        return $spectaclesEntities;
     }
     
 

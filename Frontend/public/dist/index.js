@@ -5719,8 +5719,13 @@
       this.templates = templates;
       this.pageData = {
         home: {
+<<<<<<< HEAD
           title: "NRV.net",
           description: "Bienvenue sur le site boutique nrv!"
+=======
+          title: "Notre NRV",
+          description: "Bienvenue sur notre application mono-page NRV!"
+>>>>>>> b5e64ea (fix: rebase with main)
         }
       };
       this.initializeEventListeners();

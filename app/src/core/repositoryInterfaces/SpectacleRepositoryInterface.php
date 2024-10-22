@@ -1,11 +1,10 @@
 <?php   
 
-namespace nrv\src\core\repositoryInterfaces;
+namespace nrv\core\repositoryInterfaces;
 
 use nrv\core\domain\entities\spectacle\Spectacle;
 
 interface SpectacleRepositoryInterface
 {
-    public function getAllSpectacles(): array; 
-    public function getSpectacleById (int $id): ?Spectacle; 
+    public function getSpectacleById(string $id): Spectacle;
 }

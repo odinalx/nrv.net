@@ -7,71 +7,74 @@ use nrv\core\dto\SpectacleDTO;
 
 class Spectacle extends Entity
 {
-    protected int $spectacle_id;
+    protected string $spectacle_id;
     protected string $titre;
-    protected string $artistes;
+    protected string $description;
     protected string $style;
-    protected ?string $images; 
-    protected \DateTime $estimated_start_time;
-    protected int $lieu_id;
-    protected int $soiree_id;
+    protected string $url_video;
+    protected string $horaire_prev;
+    protected string $soiree_id;
 
-    public function __construct(
-        string $titre,
-        string $artistes,
-        string $style,
-        ?string $images,
-        \DateTime $estimated_start_time,
-        int $lieu_id,
-        int $soiree_id
-    ) {
+    public function __construct(string $titre, string $description, string $style, string $horaire_prev, string $soiree_id) {
         $this->titre = $titre;
-        $this->artistes = $artistes;
+        $this->description = $description;
         $this->style = $style;
-        $this->images = $images;
-        $this->estimated_start_time = $estimated_start_time;
-        $this->lieu_id = $lieu_id;
+        $this->horaire_prev = $horaire_prev;
         $this->soiree_id = $soiree_id;
     }
 
     // Getters
-    public function getSpectacleId(): int
-    {
-        return $this->spectacle_id;
-    }
-
-    public function getTitre(): string
-    {
+    public function getTitre(): string {
         return $this->titre;
     }
 
-    public function getArtistes(): string
-    {
-        return $this->artistes;
+    public function getDescription(): string {
+        return $this->description;
     }
 
-    public function getStyle(): string
-    {
+    public function getStyle(): string {
         return $this->style;
     }
 
-    public function getImages(): ?string
-    {
-        return $this->images;
+    public function getUrlVideo(): string {
+        return $this->url_video;
     }
 
-    public function getEstimatedStartTime(): \DateTime
-    {
-        return $this->estimated_start_time;
+    public function getHorairePrev(): string {
+        return $this->horaire_prev;
     }
 
-    public function getLieuId(): int
-    {
-        return $this->lieu_id;
-    }
-
-    public function getSoireeId(): int
-    {
+    public function getSoireeId(): string {
         return $this->soiree_id;
     }
+
+    // Setters
+    public function setTitre(string $titre): void {
+        $this->titre = $titre;
+    }
+
+    public function setDescription(string $description): void {
+        $this->description = $description;
+    }
+
+    public function setStyle(string $style): void {
+        $this->style = $style;
+    }
+
+    public function setUrlVideo(string $url_video): void {
+        $this->url_video = $url_video;
+    }
+
+    public function setHorairePrev(string $horaire_prev): void {
+        $this->horaire_prev = $horaire_prev;
+    }
+
+    public function setSoireeId(string $soiree_id): void {
+        $this->soiree_id = $soiree_id;
+    }
+
+    public function toDTO(): SpectacleDTO {
+        return new SpectacleDTO($this);
+    }
+    
 }

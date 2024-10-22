@@ -1,26 +1,16 @@
 <?php
-namespace nrv\src\core\services;
+namespace nrv\core\services\spectacle;
 
-use nrv\core\domain\entities\spectacle\Spectacle;
-use nrv\src\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\core\exceptions\RepositoryEntityNotFoundException;
 
-class ServiceSpectacle implements spectacle
+class ServiceSpectacle implements ServiceRDVInterface
 {
     private SpectacleRepositoryInterface $spectacleRepository;
 
     public function __construct(SpectacleRepositoryInterface $spectacleRepository)
     {
         $this->spectacleRepository = $spectacleRepository;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public function getAllSpectacles(): array
-    {
-        return $this->spectacleRepository->findAll();
     }
 
     /**

@@ -5720,12 +5720,17 @@
       this.pageData = {
         home: {
 <<<<<<< HEAD
+<<<<<<< HEAD
           title: "NRV.net",
           description: "Bienvenue sur le site boutique nrv!"
 =======
           title: "Notre NRV",
           description: "Bienvenue sur notre application mono-page NRV!"
 >>>>>>> b5e64ea (fix: rebase with main)
+=======
+          title: "NRV.net",
+          description: "Bienvenue sur le site boutique nrv!"
+>>>>>>> 2813cef (fix: strucuture for spa)
         }
       };
       this.initializeEventListeners();

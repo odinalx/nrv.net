@@ -5745,7 +5745,7 @@
   var spectacle_default = '<div class="page">\n  <h1>Nos Spectacles</h1>\n  <div>\n    {{#each spectacles}}\n    <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">\n      <h2>{{titre}}</h2>\n      <div>\n        <p><strong>Date :</strong> {{formatDate date}}</p>\n        <p><strong>Horaire :</strong> {{formatTime horaire}}</p>\n        <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>';
 
   // public/templates/soiree.hbs
-  var soiree_default = '<div class="page">\n  <h1>{{title}}</h1>\n  <div class="soiree-details">\n    <h2>{{soiree.nom}}</h2>\n    <div class="soiree-info">\n      {{#if soiree.description}}\n        <p><strong>Description :</strong> {{soiree.description}}</p>\n      {{/if}}\n      {{#if soiree.tarif_normal}}\n        <p><strong>tarif_normal :</strong> {{soiree.tarif_normal}}</p>\n      {{/if}}\n      {{#if soiree.date}}\n        <p><strong>Date :</strong> {{formatDate soiree.date}}</p>\n      {{/if}}\n    </div>\n  </div>\n  <button data-page="spectacle" class="back-button">Retour aux spectacles</button>\n</div>';
+  var soiree_default = '<div class="page">\n  <h1>{{title}}</h1>\n  <div class="soiree-details">\n    <h2>{{soiree.nom}}</h2>\n    <div class="soiree-info">\n      {{#if soiree.description}}\n        <p><strong>Description :</strong> {{soiree.description}}</p>\n      {{/if}}\n      {{#if soiree.tarif_normal}}\n        <p><strong>tarif_normal :</strong> {{soiree.tarif_normal}}</p>\n      {{/if}}\n      {{#if soiree.date}}\n        <p><strong>Date :</strong> {{formatDate soiree.date}}</p>\n      {{/if}}\n    </div>\n  </div>\n  <button class="back-button" id="backToSpectacles">Retour aux spectacles</button>\n</div>';
 
   // public/js/templateLoader.js
   import_handlebars.default.registerHelper("formatDate", function(dateStr) {
@@ -5849,6 +5849,11 @@
           if (soireeUrl) {
             yield this.fetchSoireeData(soireeUrl);
           }
+          return;
+        }
+        if (e.target.id === "backToSpectacles") {
+          yield this.fetchSpectacleData();
+          this.navigateToPage("spectacle");
         }
       }));
     }

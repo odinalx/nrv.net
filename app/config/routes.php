@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use nrv\application\actions\GetSoireeByIdAction;
 use nrv\application\actions\GetSpectaclesAction;
 use nrv\application\actions\GetSpectacleByIdAction;
+use nrv\application\actions\SigninAction;
 
 
 return function( \Slim\App $app):\Slim\App {
@@ -19,6 +20,10 @@ return function( \Slim\App $app):\Slim\App {
 
     //Routes Soiree
     $app->get('/soirees/{id}', GetSoireeByIdAction::class);
+
+    //Route auth
+    $app->post('/auth/signin', SigninAction::class);
+    
 
     return $app;
 };

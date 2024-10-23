@@ -10,6 +10,9 @@ use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\infrastructure\PDO\PdoSoireeRepository;
 use nrv\core\services\soiree\ServiceSoireeInterface;
 use nrv\core\services\soiree\ServiceSoiree;
+use nrv\core\provider\AuthProvider;
+use nrv\core\services\auth\AuthService;
+use nrv\application\actions\SigninAction;
 
 return [
 
@@ -39,5 +42,12 @@ return [
     ServiceSoireeInterface::class => function (ContainerInterface $container) {
         $soireeRepository = $container->get(SoireeRepositoryInterface::class);
         return new ServiceSoiree($soireeRepository);
-    }
+    },
+    'AuthProvider' => function (ContainerInterface $c) {
+        return new AuthProvider($c->get(AuthService::class), $c->get('jwt.secret'));
+    },
+
+    SigninAction::class => function (ContainerInterface $c) {
+        return new SigninAction($c->get('AuthProvider'));
+    },
 ];

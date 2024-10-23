@@ -1,0 +1,79 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .logo {
+  font-size: 1.5em;
+}
+.header .icons {
+  font-size: 1.2em;
+}
+.header .icons .icon-ticket,
+.header .icons .icon-cart {
+  margin-left: 15px;
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.payment-form .order-summary, .payment-form .payment-options, .payment-form .billing-address {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.payment-form .order-summary p {
+  font-size: 1.2em;
+}
+.payment-form .order-summary p span {
+  font-weight: bold;
+}
+.payment-form .payment-options .payment-method {
+  margin-bottom: 10px;
+}
+.payment-form .payment-options .payment-method input[type=radio] {
+  margin-right: 10px;
+}
+.payment-form .payment-options .payment-method .payment-details input {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  border-radius: 5px;
+}
+.payment-form .pay-button {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  font-size: 1.2em;
+}
+.payment-form .pay-button:hover {
+  background-color: rgb(60.5577689243, 139.4422310757, 63.7450199203);
+}
+
+/*# sourceMappingURL=panier_styles.css.map */

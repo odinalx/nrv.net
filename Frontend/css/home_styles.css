@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #202020;
+  padding: 10px;
+  color: white;
+}
+.header .logo {
+  font-size: 18px;
+}
+.header .icons {
+  display: flex;
+  gap: 10px;
+}
+.header .icons .icon-ticket,
+.header .icons .icon-cart {
+  font-size: 24px;
+}
+
+.main-content {
+  padding: 20px;
+}
+.main-content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.main-content .program-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.main-content .program-section .filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.main-content .program-section .filters .filter-button {
+  padding: 8px 15px;
+  background-color: #7d3cff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.main-content .program-section .filters .filter-button:hover {
+  background-color: #551fff;
+}
+.main-content .program-section .styles {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.main-content .program-section .styles .style-item {
+  background-color: #ececec;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #7d3cff;
+  border: 1px solid #7d3cff;
+  cursor: pointer;
+}
+.main-content .program-section .styles .style-item:hover {
+  background-color: #7d3cff;
+  color: white;
+}
+.main-content .program-section .event {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.main-content .program-section .event .image-placeholder {
+  width: 80px;
+  height: 80px;
+  background-color: #d3d3d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.main-content .program-section .event .event-details {
+  display: flex;
+  flex-direction: column;
+}
+.main-content .program-section .event .event-details .event-group {
+  font-size: 16px;
+  background-color: #7d3cff;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.main-content .program-section .event .event-details .event-date {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+}
+
+/*# sourceMappingURL=home_styles.css.map */

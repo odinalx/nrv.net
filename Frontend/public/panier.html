@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRV Paiement</title>
+    <link rel="stylesheet" href="../css/panier_styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <span>LOGO NRV</span>
+        </div>
+        <div class="icons">
+            <span class="icon-ticket">&#x1F3AB;</span>
+            <span class="icon-cart">&#128722;</span>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1>PAIEMENT</h1>
+        
+        <form action="/process_payment" method="POST" class="payment-form">
+            <section class="order-summary">
+                <h2>Résumé de votre commande</h2>
+                <p>Nombre de billets: <span id="total-tickets">3</span></p>
+                <p>Total: <span id="total-price">2.5€</span></p>
+            </section>
+
+            <section class="payment-options">
+                <h2>Donées de carte bancaire</h2>
+
+                <div class="payment-method">
+
+                    <div class="payment-details">
+                        <input type="text" name="card-number" placeholder="Numéro de carte" required>
+                        <input type="text" name="card-expiry" placeholder="MM/AA" required>
+                        <input type="text" name="card-cvc" placeholder="CVC" required>
+                    </div>
+                </div>
+
+            <button type="submit" class="pay-button">Payer maintenant</button>
+        </form>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

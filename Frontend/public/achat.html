@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRV Réservation</title>
+    <link rel="stylesheet" href="../css/achat_styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <span>LOGO NRV</span>
+        </div>
+        <div class="icons">
+            <span class="icon-ticket">&#x1F3AB;</span>
+            <span class="icon-cart">&#128722;</span>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1>VOTRE RÉSERVATION</h1>
+        
+        <form action="/process_reservation" method="POST" class="reservation-form">
+            <div class="reservation-grid">
+                <div class="reservation">
+                    <div class="image-placeholder">IMAGE</div>
+                    <div class="event-info">
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                </div>
+                <div class="reservation">
+                    <div class="image-placeholder">IMAGE</div>
+                    <div class="event-info">
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                </div>
+                <div class="reservation">
+                    <div class="image-placeholder">IMAGE</div>
+                    <div class="event-info">
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                </div>
+                <div class="reservation">
+                    <div class="image-placeholder">IMAGE</div>
+                    <div class="event-info">
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                </div>
+                <div class="reservation">
+                    <div class="image-placeholder">IMAGE</div>
+                    <div class="event-info">
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                </div>
+                <div class="reservation">
+                    <div class="image-placeholder">IMAGE</div>
+                    <div class="event-info">
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                </div>
+                <div class="reservation">
+                    <div class="image-placeholder">IMAGE</div>
+                    <div class="event-info">
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="available-places">Lieux disponibles: XYZ</p>
+
+            <div class="price-grid">
+                <div class="price-row">
+                    <label for="normal-tariff">Tarif normal</label>
+                    <span>1€</span>
+                    <div class="quantity-control">
+                        <button type="button" class="minus-button" data-target="normal-tariff">-</button>
+                        <input type="number" id="normal-tariff" name="normal-tariff" min="0" value="0">
+                        <button type="button" class="plus-button" data-target="normal-tariff">+</button>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <label for="reduced-tariff">Tarif réduit</label>
+                    <span>0.5€</span>
+                    <div class="quantity-control">
+                        <button type="button" class="minus-button" data-target="reduced-tariff">-</button>
+                        <input type="number" id="reduced-tariff" name="reduced-tariff" min="0" value="0">
+                        <button type="button" class="plus-button" data-target="reduced-tariff">+</button>
+                    </div>
+                </div>
+
+                <p class="ticket-summary">1 billet(s) <br> 0.5€</p>
+
+                <button type="submit" class="reserve-button">Réserver</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="../js/01.js"></script>
+</body>
+</html>

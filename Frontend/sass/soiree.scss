@@ -1,0 +1,113 @@
+@import 'variables';
+
+// Estilos generales para la página
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: $primary-color;
+    color: $secondary-color;
+
+    .logo {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .reserve-btn {
+        background-color: $accent-color;
+        color: $secondary-color;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+}
+
+main {
+    text-align: center;
+    padding: 2rem;
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .filters, .styles {
+        margin: 1rem 0;
+       label {
+            background-color: transparent;
+            border-bottom: 1px solid $accent-color;
+            padding: 0.5rem 1rem;
+            margin: 1rem;
+            cursor: pointer;
+            color: $accent-color;
+            
+        }
+    }
+}
+
+// Mixin para el grid container
+@mixin grid-container($columns, $gap: 20px) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+}
+
+// Mixin para los items de la grilla
+@mixin grid-item($color) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 1rem;
+    border-bottom: 1px solid $accent-color;
+    
+
+    .details {
+        flex-wrap: 1;
+        padding: 1rem;
+        border-bottom: 1px solid $accent-color;
+        color: $accent-color;
+        text-align: center;
+
+        h3 {
+            color:$accent-color;
+            margin: 0;
+        }
+    }
+}
+
+// Estilo para la grilla
+.container {
+    @include grid-container(2, 80px); // 2 columnas con 20px de gap en pantallas grandes
+
+    // Usar for loop para generar las clases
+    @for $i from 1 through 4 {
+        .item {        
+                @include grid-item($secondary-color); 
+        }
+    }
+
+    .item {
+        .image {
+            background-color: $primary-color;
+        }
+    }
+}
+
+// Media queries para diferentes pantallas
+@media (max-width: 768px) {
+    .container {
+        @include grid-container(1, 10px); // 1 columna en pantallas pequeñas
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        @include grid-container(2, 10px); // 2 columnas en pantallas medianas
+    }
+}

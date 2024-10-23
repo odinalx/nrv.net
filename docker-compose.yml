@@ -51,4 +51,6 @@ services:
       - nrv.net
     depends_on:
       - api.nrv
-    command: npm run dev
+    command: >
+      sh -c "npm run build &&
+             npm run dev"

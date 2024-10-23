@@ -24,6 +24,26 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
+  var __async = (__this, __arguments, generator) => {
+    return new Promise((resolve, reject) => {
+      var fulfilled = (value) => {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var rejected = (value) => {
+        try {
+          step(generator.throw(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+      step((generator = generator.apply(__this, __arguments)).next());
+    });
+  };
 
   // node_modules/handlebars/dist/cjs/handlebars/utils.js
   var require_utils = __commonJS({
@@ -805,7 +825,8 @@
           var newObj = {};
           if (obj != null) {
             for (var key in obj) {
-              if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+              if (Object.prototype.hasOwnProperty.call(obj, key))
+                newObj[key] = obj[key];
             }
           }
           newObj["default"] = obj;
@@ -1100,7 +1121,8 @@
       exports.__esModule = true;
       exports["default"] = function(Handlebars2) {
         (function() {
-          if (typeof globalThis === "object") return;
+          if (typeof globalThis === "object")
+            return;
           Object.prototype.__defineGetter__("__magic__", function() {
             return this;
           });
@@ -1134,7 +1156,8 @@
           var newObj = {};
           if (obj != null) {
             for (var key in obj) {
-              if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+              if (Object.prototype.hasOwnProperty.call(obj, key))
+                newObj[key] = obj[key];
             }
           }
           newObj["default"] = obj;
@@ -1473,11 +1496,13 @@
             this.lexer.yy = this.yy;
             this.yy.lexer = this.lexer;
             this.yy.parser = this;
-            if (typeof this.lexer.yylloc == "undefined") this.lexer.yylloc = {};
+            if (typeof this.lexer.yylloc == "undefined")
+              this.lexer.yylloc = {};
             var yyloc = this.lexer.yylloc;
             lstack.push(yyloc);
             var ranges = this.lexer.options && this.lexer.options.ranges;
-            if (typeof this.yy.parseError === "function") this.parseError = this.yy.parseError;
+            if (typeof this.yy.parseError === "function")
+              this.parseError = this.yy.parseError;
             function popStack(n) {
               stack.length = stack.length - 2 * n;
               vstack.length = vstack.length - n;
@@ -1506,9 +1531,10 @@
                 var errStr = "";
                 if (!recovering) {
                   expected = [];
-                  for (p in table[state]) if (this.terminals_[p] && p > 2) {
-                    expected.push("'" + this.terminals_[p] + "'");
-                  }
+                  for (p in table[state])
+                    if (this.terminals_[p] && p > 2) {
+                      expected.push("'" + this.terminals_[p] + "'");
+                    }
                   if (this.lexer.showPosition) {
                     errStr = "Parse error on line " + (yylineno + 1) + ":\n" + this.lexer.showPosition() + "\nExpecting " + expected.join(", ") + ", got '" + (this.terminals_[symbol] || symbol) + "'";
                   } else {
@@ -1532,7 +1558,8 @@
                     yytext = this.lexer.yytext;
                     yylineno = this.lexer.yylineno;
                     yyloc = this.lexer.yylloc;
-                    if (recovering > 0) recovering--;
+                    if (recovering > 0)
+                      recovering--;
                   } else {
                     symbol = preErrorSymbol;
                     preErrorSymbol = null;
@@ -1584,7 +1611,8 @@
               this.yytext = this.matched = this.match = "";
               this.conditionStack = ["INITIAL"];
               this.yylloc = { first_line: 1, first_column: 0, last_line: 1, last_column: 0 };
-              if (this.options.ranges) this.yylloc.range = [0, 0];
+              if (this.options.ranges)
+                this.yylloc.range = [0, 0];
               this.offset = 0;
               return this;
             },
@@ -1602,7 +1630,8 @@
               } else {
                 this.yylloc.last_column++;
               }
-              if (this.options.ranges) this.yylloc.range[1]++;
+              if (this.options.ranges)
+                this.yylloc.range[1]++;
               this._input = this._input.slice(1);
               return ch;
             },
@@ -1615,7 +1644,8 @@
               var oldLines = this.match.split(/(?:\r\n?|\n)/g);
               this.match = this.match.substr(0, this.match.length - 1);
               this.matched = this.matched.substr(0, this.matched.length - 1);
-              if (lines.length - 1) this.yylineno -= lines.length - 1;
+              if (lines.length - 1)
+                this.yylineno -= lines.length - 1;
               var r = this.yylloc.range;
               this.yylloc = {
                 first_line: this.yylloc.first_line,
@@ -1655,7 +1685,8 @@
               if (this.done) {
                 return this.EOF;
               }
-              if (!this._input) this.done = true;
+              if (!this._input)
+                this.done = true;
               var token, match, tempMatch, index, col, lines;
               if (!this._more) {
                 this.yytext = "";
@@ -1667,12 +1698,14 @@
                 if (tempMatch && (!match || tempMatch[0].length > match[0].length)) {
                   match = tempMatch;
                   index = i;
-                  if (!this.options.flex) break;
+                  if (!this.options.flex)
+                    break;
                 }
               }
               if (match) {
                 lines = match[0].match(/(?:\r\n?|\n).*/g);
-                if (lines) this.yylineno += lines.length;
+                if (lines)
+                  this.yylineno += lines.length;
                 this.yylloc = {
                   first_line: this.yylloc.last_line,
                   last_line: this.yylineno + 1,
@@ -1690,9 +1723,12 @@
                 this._input = this._input.slice(match[0].length);
                 this.matched += match[0];
                 token = this.performAction.call(this, this.yy, this, rules[index], this.conditionStack[this.conditionStack.length - 1]);
-                if (this.done && this._input) this.done = false;
-                if (token) return token;
-                else return;
+                if (this.done && this._input)
+                  this.done = false;
+                if (token)
+                  return token;
+                else
+                  return;
               }
               if (this._input === "") {
                 return this.EOF;
@@ -1741,7 +1777,8 @@
                 } else {
                   this.begin("mu");
                 }
-                if (yy_.yytext) return 15;
+                if (yy_.yytext)
+                  return 15;
                 break;
               case 1:
                 return 15;
@@ -2388,7 +2425,8 @@
           var newObj = {};
           if (obj != null) {
             for (var key in obj) {
-              if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+              if (Object.prototype.hasOwnProperty.call(obj, key))
+                newObj[key] = obj[key];
             }
           }
           newObj["default"] = obj;
@@ -2784,7 +2822,8 @@
         return new env.JavaScriptCompiler().compile(environment, options);
       }
       function compile(input, options, env) {
-        if (options === void 0) options = {};
+        if (options === void 0)
+          options = {};
         if (input == null || typeof input !== "string" && input.type !== "Program") {
           throw new _exception2["default"]("You must pass a string or Handlebars AST to Handlebars.compile. You passed " + input);
         }
@@ -4338,7 +4377,8 @@
         this.source = aSource == null ? null : aSource;
         this.name = aName == null ? null : aName;
         this[isSourceNode] = true;
-        if (aChunks != null) this.add(aChunks);
+        if (aChunks != null)
+          this.add(aChunks);
       }
       SourceNode.fromStringWithSourceMap = function SourceNode_fromStringWithSourceMap(aGeneratedCode, aSourceMapConsumer, aRelativePath) {
         var node = new SourceNode();
@@ -5701,9 +5741,13 @@
   // public/templates/home.hbs
   var home_default = '<div class="page">\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n</div>';
 
+  // public/templates/spectacle.hbs
+  var spectacle_default = '<div class="page">\n{{#each spectacle}}\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n    <p>{{style}}</p>\n{{/each}}\n</div>';
+
   // public/js/templateLoader.js
   var templates = {
-    home: import_handlebars.default.compile(home_default)
+    home: import_handlebars.default.compile(home_default),
+    spectacle: import_handlebars.default.compile(spectacle_default)
   };
   import_handlebars.default.registerHelper("formatDate", function(date) {
     return new Date(date).toLocaleDateString();
@@ -5719,34 +5763,59 @@
       this.templates = templates;
       this.pageData = {
         home: {
-<<<<<<< HEAD
-<<<<<<< HEAD
-          title: "NRV.net",
-          description: "Bienvenue sur le site boutique nrv!"
-=======
           title: "Notre NRV",
           description: "Bienvenue sur notre application mono-page NRV!"
->>>>>>> b5e64ea (fix: rebase with main)
-=======
-          title: "NRV.net",
-          description: "Bienvenue sur le site boutique nrv!"
->>>>>>> 2813cef (fix: strucuture for spa)
-        }
+        },
+        spectacle: null
+        // Sera rempli par l'API
       };
       this.initializeEventListeners();
       this.navigateToPage("home");
     }
+    fetchSpectacleData() {
+      return __async(this, null, function* () {
+        try {
+          const response = yield fetch("http://localhost:7080/spectacles");
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = yield response.json();
+          this.pageData.spectacle = {
+            title: "Nos Spectacles",
+            description: "D\xE9couvrez notre programmation",
+            style: "Style unique",
+            spectacles: data
+            // Supposant que l'API renvoie un tableau de spectacles
+          };
+        } catch (error) {
+          console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es:", error);
+          this.pageData.spectacle = {
+            title: "Nos Spectacles",
+            description: "Erreur lors du chargement des spectacles",
+            style: "Style unique",
+            spectacles: []
+          };
+        }
+      });
+    }
     initializeEventListeners() {
       document.querySelectorAll("button[data-page]").forEach((button) => {
-        button.addEventListener("click", (e) => {
-          this.navigateToPage(e.target.dataset.page);
-        });
+        button.addEventListener("click", (e) => __async(this, null, function* () {
+          const pageName = e.target.dataset.page;
+          if (pageName === "spectacle") {
+            yield this.fetchSpectacleData();
+          }
+          this.navigateToPage(pageName);
+        }));
       });
     }
     navigateToPage(pageName) {
       if (this.templates[pageName]) {
-        const html = this.templates[pageName](this.pageData[pageName]);
-        this.contentDiv.innerHTML = html;
+        const pageData = this.pageData[pageName];
+        if (pageData) {
+          const html = this.templates[pageName](pageData);
+          this.contentDiv.innerHTML = html;
+        }
       }
     }
   };

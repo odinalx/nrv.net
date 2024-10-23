@@ -1,7 +1,15 @@
 <div class="page">
-{{#each spectacle}}
-    <h1>Bienvenue sur {{title}}</h1>
-    <p>{{description}}</p>
-    <p>{{style}}</p>
-{{/each}}
+  <h1>Nos Spectacles</h1>
+  <div>
+    {{#each spectacles}}
+      <div>
+        <h2>{{titre}}</h2>
+        <div>
+          <p><strong>Date :</strong> {{formatDate date}}</p>
+          <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
+          <p><strong>Soirée :</strong> {{soiree.nom}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 </div>

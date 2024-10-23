@@ -11,7 +11,7 @@ class SPA {
                 title: "Notre NRV",
                 description: "Bienvenue sur notre application mono-page NRV!",
             },
-            spectacle: null  // Sera rempli par l'API
+            spectacle: null 
         };
 
         this.initializeEventListeners();
@@ -29,7 +29,11 @@ class SPA {
                 title: "Nos Spectacles",
                 description: "Découvrez notre programmation",
                 style: "Style unique",
-                spectacles: data // Supposant que l'API renvoie un tableau de spectacles
+                spectacles: data.map(spectacle => ({
+                    titre: spectacle.titre,
+                    horaire: spectacle.horaire,
+                    soiree: spectacle.soiree
+                }))
             };
         } catch (error) {
             console.error('Erreur lors de la récupération des données:', error);

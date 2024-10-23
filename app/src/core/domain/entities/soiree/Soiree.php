@@ -7,7 +7,6 @@ use nrv\core\dto\SoireeDTO;
 
 class Soiree extends Entity
 {
-    protected string $soiree_id;
     protected string $nom;
     protected \DateTimeImmutable $date; 
     protected string $thematique;

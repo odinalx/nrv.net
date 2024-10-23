@@ -7,7 +7,6 @@ use nrv\core\dto\SpectacleDTO;
 
 class Spectacle extends Entity
 {
-    protected string $spectacle_id;
     protected string $titre;
     protected string $description;
     protected string $style;

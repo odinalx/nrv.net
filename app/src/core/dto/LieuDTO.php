@@ -7,20 +7,29 @@ use nrv\core\dto\DTO;
 
 class LieuDTO extends DTO
 {
-    protected int $id_lieu;
-    protected string $name;
-    protected string $address;
-    protected int $seated_capacity;
-    protected int $standing_capacity;
-    protected ?string $images;
+    protected string $lieu_id;
+    protected string $nom;
+    protected string $adresse;
+    protected float $nb_place_assise;
+    protected float $nb_place_debout;
 
     public function __construct(Lieu $lieu)
     {
-        $this->id_lieu = $lieu->id_lieu;
-        $this->name = $lieu->name;
-        $this->address = $lieu->address;
-        $this->seated_capacity = $lieu->seated_capacity;
-        $this->standing_capacity = $lieu->standing_capacity;
-        $this->images = $lieu->images;
+        $this->lieu_id = $lieu->getId();
+        $this->nom = $lieu->getNom();
+        $this->adresse = $lieu->getAdresse();
+        $this->nb_place_assise = $lieu->getNbPlaceAssise();
+        $this->nb_place_debout = $lieu->getNbPlaceDebout();
+    }
+
+    public function toEntity() : Lieu
+    {
+        $lieu = new Lieu(
+            $this->nom,
+            $this->adresse,
+            $this->nb_place_assise,
+            $this->nb_place_debout
+        );
+        return $lieu;
     }
 }

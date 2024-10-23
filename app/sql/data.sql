@@ -19,22 +19,19 @@ VALUES
 ('3f21fbad-6fbc-420e-a3d2-1ee9452baafc', 'b46f2a91-94a0-46a6-b613-92777bc96803'),
 ('f28faace-e443-41fe-b780-480fdbb9312a', 'ed3b0c9f-a912-4106-a0d1-f4dfc7a2b54a');
 
-
-#################### BD SOIREE ####################
-INSERT INTO soiree (soiree_id, nom, theme, date, horaire_debut, lieu_id, tarif_normal, tarif_reduit)
+INSERT INTO soiree (soiree_id, nom, theme, date, horaire_debut, lieu_id, tarif_normal, tarif_reduit,places_dispo)
 VALUES
-('55351cb5-c06b-400e-89b5-f8866fd9c163', 'Soirée Rock', 'Rock', '2024-06-01', '18:00:00', '1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 25.00, 15.00),
-('b2ea189e-2ac3-4293-8b87-2824114da008', 'Soirée Blues', 'Blues', '2024-06-02', '19:00:00', '81d8b308-c442-4a08-9381-4f7e9a88183c', 20.00, 12.00),
-('b279833a-478a-4603-b761-34735e396b34', 'Festival Métal', 'Métal', '2024-06-03', '20:00:00', '3f21fbad-6fbc-420e-a3d2-1ee9452baafc', 30.00, 20.00),
-('48fb140c-4d5d-471f-a897-b11f74691f7c', 'Nuit de la Chanson', 'Chanson', '2024-06-04', '21:00:00', 'f28faace-e443-41fe-b780-480fdbb9312a', 18.00, 10.00),
-('39d7b04f-8b0c-4c0f-acb1-1f6169ad79ee', 'Jazz au Canal', 'Jazz', '2024-06-05', '19:30:00', '1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 22.00, 14.00),
-('f7d5ada0-084a-4a12-ba7a-22075fdc8064', 'Électronique Fiesta', 'Électronique', '2024-06-06', '23:00:00', '81d8b308-c442-4a08-9381-4f7e9a88183c', 28.00, 18.00),
-('c1234567-89ab-cdef-0123-456789abcdef', 'Pop Night', 'Pop', '2024-06-07', '20:00:00', '3f21fbad-6fbc-420e-a3d2-1ee9452baafc', 24.00, 16.00),
-('d1234567-89ab-cdef-0123-456789abcdef', 'Rock Alternatif', 'Rock Alternatif', '2024-06-08', '21:30:00', 'f28faace-e443-41fe-b780-480fdbb9312a', 26.00, 17.00),
-('e1234567-89ab-cdef-0123-456789abcdef', 'Acoustic Evening', 'Acoustique', '2024-06-09', '17:00:00', '1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 15.00, 8.00),
-('f1234567-89ab-cdef-0123-456789abcdef', 'Talents en Scène', 'Divers', '2024-06-10', '19:00:00', '81d8b308-c442-4a08-9381-4f7e9a88183c', 19.00, 11.00);
+('55351cb5-c06b-400e-89b5-f8866fd9c163', 'Soirée Rock', 'Rock', '2024-06-01', '18:00:00', '1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 25.00, 15.00,3000),
+('b2ea189e-2ac3-4293-8b87-2824114da008', 'Soirée Blues', 'Blues', '2024-06-02', '19:00:00', '81d8b308-c442-4a08-9381-4f7e9a88183c', 20.00, 12.00,800),
+('b279833a-478a-4603-b761-34735e396b34', 'Festival Métal', 'Métal', '2024-06-03', '20:00:00', '3f21fbad-6fbc-420e-a3d2-1ee9452baafc', 30.00, 20.00,1100),
+('48fb140c-4d5d-471f-a897-b11f74691f7c', 'Nuit de la Chanson', 'Chanson', '2024-06-04', '21:00:00', 'f28faace-e443-41fe-b780-480fdbb9312a', 18.00, 10.00,1500),
+('39d7b04f-8b0c-4c0f-acb1-1f6169ad79ee', 'Jazz au Canal', 'Jazz', '2024-06-05', '19:30:00', '1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 22.00, 14.00,3000),
+('f7d5ada0-084a-4a12-ba7a-22075fdc8064', 'Électronique Fiesta', 'Électronique', '2024-06-06', '23:00:00', '81d8b308-c442-4a08-9381-4f7e9a88183c', 28.00, 18.00,800),
+('c1234567-89ab-cdef-0123-456789abcdef', 'Pop Night', 'Pop', '2024-06-07', '20:00:00', '3f21fbad-6fbc-420e-a3d2-1ee9452baafc', 24.00, 16.00,1100),
+('d1234567-89ab-cdef-0123-456789abcdef', 'Rock Alternatif', 'Rock Alternatif', '2024-06-08', '21:30:00', 'f28faace-e443-41fe-b780-480fdbb9312a', 26.00, 17.00,1500),
+('e1234567-89ab-cdef-0123-456789abcdef', 'Acoustic Evening', 'Acoustique', '2024-06-09', '17:00:00', '1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 15.00, 8.00,3000),
+('f1234567-89ab-cdef-0123-456789abcdef', 'Talents en Scène', 'Divers', '2024-06-10', '19:00:00', '81d8b308-c442-4a08-9381-4f7e9a88183c', 19.00, 11.00,800);
 
-#################### BD SPECTACLE ####################
 INSERT INTO spectacle (spectacle_id,titre, description, style, url_video, horaire_prev, soiree_id)
 VALUES
 ('43856f56-3cd4-4e35-9814-f5ae888f3b77', 'Concert de Rock', 'C''est un concert de Rock', 'Rock', 'rock.mp4', '20:00:00', '55351cb5-c06b-400e-89b5-f8866fd9c163'),
@@ -61,3 +58,44 @@ VALUES
 ('6a7ccffa-f238-4555-8812-f29450ab6525', 'alt_rock.jpg'),
 ('52a7ed02-1ada-4bb3-b06b-a38a547837ef', 'acoustic.jpg'),
 ('283078ea-dd03-4f05-8856-e3f420413e43', 'divers.jpg');
+
+INSERT INTO spectacle2spectacleimage (spectacle_id, spectacleimage_id)
+VALUES
+('43856f56-3cd4-4e35-9814-f5ae888f3b77', 'eeb1d0c5-46c9-4a93-8973-148de6bb19d0'),
+('cac53278-131f-4527-a65f-138713432222', 'e1c305bb-2f02-46a2-bac4-14fdc8b5f5ae'),
+('810f8b94-55ae-4015-a4d3-fd4ec712fd93', 'eeb1d0c5-46c9-4a93-8973-148de6bb19d0'),
+('87cc8ddd-df4e-425e-83cb-9c152bb0369b', 'e1c305bb-2f02-46a2-bac4-14fdc8b5f5ae'),
+('1c2048fb-50a3-4df9-a453-7f396915e52e', '2632d9b6-7bb8-466e-9cc5-f1d255ddec1e'),
+('362be1a6-8ee6-4127-abaf-3c5d37bf9f87', '2801b3da-799e-4953-b2a9-563fbb808340'),
+('819cce78-101e-40a1-9658-51343fe5ffa0', '2632d9b6-7bb8-466e-9cc5-f1d255ddec1e'),
+('58a4a9fc-2c3f-4d70-a5ea-85280a609472', '2801b3da-799e-4953-b2a9-563fbb808340'),
+('e082642d-6970-4840-ac55-a216c4feb015', '52a7ed02-1ada-4bb3-b06b-a38a547837ef'),
+('6743fe9e-3ecd-468f-9189-7949b5f1ebea', '283078ea-dd03-4f05-8856-e3f420413e43');
+
+
+INSERT INTO utilisateur (user_id, nom, prenom, email, password, role)
+VALUES
+('1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 'Dupont', 'Jean', 'jean@gmail.com', 'password', 'admin'),
+('81d8b308-c442-4a08-9381-4f7e9a88183c', 'Durand', 'Paul', 'paul@gmail.com' , 'oui', 'user'),
+('e9e224d3-7d15-4078-bf52-2ef5036e5747', 'Doe', 'John', 'john@gmail.com', 'mdp', 'user');
+
+INSERT INTO panier(panier_id, user_id)
+VALUES
+('f76e2644-f264-4d54-992b-ed0d2e28bd91', '1b1aa5ad-cdfe-4d89-b121-e92dfd530999'),
+('b1bca165-01e7-4fc0-b0a1-9d513f3d845b', '81d8b308-c442-4a08-9381-4f7e9a88183c');
+
+INSERT INTO billet_panier(id,panier_id,soiree_id,quantite,prix)
+VALUES
+('4a54f88a-7dbe-412c-8b5b-9e1e9a492bb0','f76e2644-f264-4d54-992b-ed0d2e28bd91','55351cb5-c06b-400e-89b5-f8866fd9c163',2,50.00),
+('625f9f16-737f-40b3-a61d-ff95a2b99d8f','b1bca165-01e7-4fc0-b0a1-9d513f3d845b','b2ea189e-2ac3-4293-8b87-2824114da008',1,20.00);
+
+INSERT INTO commande (commande_id,user_id,panier_id,prix_total,status)
+VALUES
+('180b1348-9721-4e5c-9417-18dbf6f7ce27','1b1aa5ad-cdfe-4d89-b121-e92dfd530999','f76e2644-f264-4d54-992b-ed0d2e28bd91',100.00,'en attente'),
+('06f3b61c-3cd1-4a29-b86b-df0fc7fd9602','81d8b308-c442-4a08-9381-4f7e9a88183c','b1bca165-01e7-4fc0-b0a1-9d513f3d845b',20.00,'en attente');
+
+
+INSERT INTO billet(billet_id,commande_id,soiree_id)
+VALUES
+('f2fd4fc6-2613-4407-8ac3-efe0206e3109','180b1348-9721-4e5c-9417-18dbf6f7ce27','55351cb5-c06b-400e-89b5-f8866fd9c163'),
+('4505ea3b-55df-4864-808d-9c9942275fbc','06f3b61c-3cd1-4a29-b86b-df0fc7fd9602','b2ea189e-2ac3-4293-8b87-2824114da008');

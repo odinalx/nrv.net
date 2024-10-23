@@ -1,0 +1,17 @@
+meta {
+  name: CreatePanier
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:7080/paniers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "user_id": "e9e224d3-7d15-4078-bf52-2ef5036e5747"  
+  }
+}

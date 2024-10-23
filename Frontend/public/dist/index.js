@@ -5742,19 +5742,24 @@
   var home_default = '<div class="page">\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n</div>';
 
   // public/templates/spectacle.hbs
-  var spectacle_default = '<div class="page">\n{{#each spectacle}}\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n    <p>{{style}}</p>\n{{/each}}\n</div>';
+  var spectacle_default = '<div class="page">\n  <h1>Nos Spectacles</h1>\n  <div>\n    {{#each spectacles}}\n      <div>\n        <h2>{{titre}}</h2>\n        <div>\n          <p><strong>Date :</strong> {{formatDate date}}</p>\n          <p><strong>Horaire :</strong> {{formatTime horaire}}</p>\n          <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>\n        </div>\n      </div>\n    {{/each}}\n  </div>\n</div>';
 
   // public/js/templateLoader.js
+  import_handlebars.default.registerHelper("formatDate", function(dateStr) {
+    const [day, month, year] = dateStr.split("-");
+    return (/* @__PURE__ */ new Date(`${year}-${month}-${day}`)).toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+  });
+  import_handlebars.default.registerHelper("formatTime", function(timeStr) {
+    return timeStr.slice(0, 5);
+  });
   var templates = {
     home: import_handlebars.default.compile(home_default),
     spectacle: import_handlebars.default.compile(spectacle_default)
   };
-  import_handlebars.default.registerHelper("formatDate", function(date) {
-    return new Date(date).toLocaleDateString();
-  });
-  import_handlebars.default.registerHelper("uppercase", function(text) {
-    return text.toUpperCase();
-  });
 
   // public/js/main.js
   var SPA = class {
@@ -5767,7 +5772,6 @@
           description: "Bienvenue sur notre application mono-page NRV!"
         },
         spectacle: null
-        // Sera rempli par l'API
       };
       this.initializeEventListeners();
       this.navigateToPage("home");
@@ -5784,8 +5788,11 @@
             title: "Nos Spectacles",
             description: "D\xE9couvrez notre programmation",
             style: "Style unique",
-            spectacles: data
-            // Supposant que l'API renvoie un tableau de spectacles
+            spectacles: data.map((spectacle) => ({
+              titre: spectacle.titre,
+              horaire: spectacle.horaire,
+              soiree: spectacle.soiree
+            }))
           };
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es:", error);

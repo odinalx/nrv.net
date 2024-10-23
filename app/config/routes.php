@@ -8,7 +8,7 @@ use nrv\application\actions\GetSoireeByIdAction;
 use nrv\application\actions\GetSpectaclesAction;
 use nrv\application\actions\GetSpectacleByIdAction;
 use nrv\application\actions\HomeAction;
-use nrv\middlewares\CorsMiddleware;
+use app\middlewares\CorsMiddleware;
 
 
 return function( \Slim\App $app):\Slim\App {

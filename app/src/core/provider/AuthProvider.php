@@ -22,7 +22,7 @@ class AuthProvider
     {
         $authDTO = $this->authService->verifyCredentials($email, $password);
 
-        #TODO testear la vigencia de tokens
+        
         $issuedAt = new DateTimeImmutable();
         $expire = $issuedAt->modify('+1 hour')->getTimestamp();
         $serverName = "nrv.com";
@@ -39,7 +39,7 @@ class AuthProvider
         $accessToken = JWT::encode($data, $this->jwtSecret, 'HS256');
         $refreshToken = JWT::encode($data, $this->jwtSecret, 'HS256');
 
-        // Set tokens in DTO
+        
         $authDTO->setAccessToken($accessToken);
         $authDTO->setRefreshToken($refreshToken);
 

@@ -54,7 +54,7 @@ class Utilisateur extends Entity
         return $this->role;
     }
 
-    public function getPassword(){
+    public function getPass(){
         return $this->pass;
     }
 

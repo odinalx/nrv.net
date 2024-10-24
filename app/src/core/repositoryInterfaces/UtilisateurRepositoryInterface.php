@@ -44,4 +44,6 @@ interface UtilisateurRepositoryInterface
      * @return array Liste d'utilisateurs
      */
     public function getAll(): array;
+
+    
 }

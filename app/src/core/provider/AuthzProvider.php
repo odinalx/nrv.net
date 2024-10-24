@@ -11,13 +11,13 @@ class AuthzService
 
     
 
-    public function isPraticienOrAdmin(AuthDTO $authDTO): bool
+    public function isClientOrAdmin(AuthDTO $authDTO): bool
     {
         return in_array($authDTO->getRole(), [self::ROLE_CLIENT, self::ROLE_ADMIN]);
     }
 
-    public function canAccessPraticienProfile(AuthDTO $authDTO, string $praticienId): bool
+    public function canAccessAdminProfile(AuthDTO $authDTO, string $id): bool
     {
-        return $authDTO->getRole() === self::ROLE_CLIENT && $authDTO->getId() === $praticienId;
+        return $authDTO->getRole() === self::ROLE_CLIENT && $authDTO->getId() === $id;
     }
 }

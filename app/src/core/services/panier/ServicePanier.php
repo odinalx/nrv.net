@@ -38,24 +38,6 @@ class ServicePanier implements ServicePanierInterface {
         return $this->panierRepository->createPanier($userId)->toDTO();
     }   
 
-    public function createCommande(string $userid, string $panierid, float $prixtotal, string $status): string
-    {
-        //ToDo Try catch
-        return $this->panierRepository->createCommande($userid, $panierid, $prixtotal, $status);
-    }
-
-    public function getUserByPanier(string $panierId): string
-    {
-        //ToDo Try catch
-        return $this->panierRepository->getUserByPanier($panierId);
-    }
-
-    public function prixTotal(string $panierId): float
-    {
-        //ToDo Try catch
-        return $this->panierRepository->prixTotal($panierId);
-    }
-
     public function validerPanier(string $panierId): PanierDTO
     {
         //ToDo Try catch
@@ -78,7 +60,7 @@ class ServicePanier implements ServicePanierInterface {
             foreach ($billets as $billetData) { // billets différents dans le panier
                 //nombre de bilets de même type
                 $this->billetRepository->createBillet($commandeId, $billetData->getSoireeId(), $billetData->getQuantite());
-                //décrémenter le nombre de places disponibles
+                //
                 $this->soireeRepository->decrementPlaces($billetData->getSoireeId(), $billetData->getQuantite());
             }
 
@@ -89,7 +71,24 @@ class ServicePanier implements ServicePanierInterface {
         
         return $panier->toDTO();     
 
-    }  
+    } 
     
+    private function createCommande(string $userid, string $panierid, float $prixtotal, string $status): string
+    {
+        //ToDo Try catch
+        return $this->panierRepository->createCommande($userid, $panierid, $prixtotal, $status);
+    }
+
+    private function getUserByPanier(string $panierId): string
+    {
+        //ToDo Try catch
+        return $this->panierRepository->getUserByPanier($panierId);
+    }
+
+    private function prixTotal(string $panierId): float
+    {
+        //ToDo Try catch
+        return $this->panierRepository->prixTotal($panierId);
+    }    
     
 }

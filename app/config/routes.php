@@ -13,6 +13,7 @@ use nrv\application\actions\AddBilletPanierAction;
 use nrv\application\actions\CreerPanierAction;
 use nrv\application\actions\GetBilletsPanierAction;
 use nrv\application\actions\ValiderPanierAction;
+use nrv\application\actions\SupprimerBilletAction;
 
 return function( \Slim\App $app):\Slim\App {
 
@@ -44,6 +45,9 @@ return function( \Slim\App $app):\Slim\App {
     $app->post('/paniers/{id}/billet', AddBilletPanierAction::class); //ajout d'un billet dans un panier
     $app->get('/paniers/{id}/billet', GetBilletsPanierAction::class); //récupération des billets d'un panier
     $app->post('/paniers/{id}/valider', ValiderPanierAction::class); //validation d'un panier
+
+    //Route Billets
+    $app->post('/billetspanier/{id}/supprimer', SupprimerBilletAction::class); //surrpession d'un billet dans un panier
 
     
     return $app;

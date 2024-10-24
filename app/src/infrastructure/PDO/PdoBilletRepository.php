@@ -71,4 +71,20 @@ class PdoBilletRepository implements BilletRepositoryInterface
         return $result['id'];        
     } 
 
+    public function supprimerBillet(string $billetId): BilletPanier
+    {
+        $query = "DELETE FROM billet_panier WHERE id = :id RETURNING *";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $billetId]);
+        $billet = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($billet === false) {
+            throw new \Exception("Erreur lors de la suppression du billet.");
+        }
+
+        $billetEntity = new BilletPanier($billet['panier_id'], $billet['soiree_id'], $billet['quantite'], $billet['prix']);
+        $billetEntity->setID($billetId);
+        return $billetEntity;
+    }
+
 }

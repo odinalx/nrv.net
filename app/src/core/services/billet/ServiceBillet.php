@@ -5,6 +5,7 @@ namespace nrv\core\services\billet;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
 use nrv\core\services\billet\ServiceBilletInterface;
 use nrv\core\dto\BilletDTO;
+use nrv\core\dto\BilletPanierDTO;
 use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
 
 class ServiceBillet implements ServiceBilletInterface {
@@ -37,6 +38,12 @@ class ServiceBillet implements ServiceBilletInterface {
         }
 
         return $this->billetRepository->ajouterBillet($panierId, $soireeId, $quantite, $prix);
+    }
+
+    public function supprimerBillet(string $billetId): BilletPanierDTO
+    {
+        //ToDo Try catch
+        return $this->billetRepository->supprimerBillet($billetId)->toDTO();
     }
 
     

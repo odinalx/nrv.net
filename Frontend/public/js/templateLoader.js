@@ -18,7 +18,8 @@ Handlebars.registerHelper('formatDateButton', function(dateStr) {
     const [day, month, year] = dateStr.split('-');
     const date = new Date(`${year}-${month}-${day}`);
     const days = ['DIM', 'LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM'];
-    return `${days[date.getDay()]} ${day} ${month}`;
+    const months = ['JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUIN', 'JUIL', 'AOUT', 'SEP', 'OCT', 'NOV', 'DEC'];
+    return `${days[date.getDay()]} ${day} ${months[date.getMonth()]}`;
 });
 
 // Helper pour le formatage de l'heure

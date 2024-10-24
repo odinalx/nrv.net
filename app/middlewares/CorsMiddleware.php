@@ -12,13 +12,14 @@ class CorsMiddleware implements MiddlewareInterface
 {
     public function process(Request $request, RequestHandlerInterface $handler): Response 
     {
-        if (!$request->hasHeader('Origin')) {
+        /*if (!$request->hasHeader('Origin')) {
             throw new HttpUnauthorizedException($request, "missing Origin Header (cors)");
-        }
+        }*/
 
         $origin = $request->getHeaderLine('Origin');
         $response = $handler->handle($request);
-
+        
+        // Handle preflight OPTIONS request
         return $response
             ->withHeader('Access-Control-Allow-Origin', $origin)
             ->withHeader('Access-Control-Allow-Methods', 'POST, PUT, GET')

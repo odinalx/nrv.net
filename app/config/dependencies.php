@@ -22,6 +22,11 @@ use nrv\core\services\billet\ServiceBillet;
 use nrv\infrastructure\PDO\PdoLieuRepository;
 use nrv\core\services\lieu\ServiceLieuInterface;
 use nrv\core\services\lieu\ServiceLieu;
+use nrv\core\services\auth\AuthServiceInterface;
+use nrv\infrastructure\PDO\PdoUserRepository;
+use nrv\core\services\auth\AuthService;
+use nrv\core\repositoryInterfaces\UserRepositoryInterface;
+use app\providers\JwtAuthProvider;
 
 return [
 
@@ -84,7 +89,26 @@ return [
     ServiceLieuInterface::class => function (ContainerInterface $container) {
         $lieuRepository = $container->get(LieuRepositoryInterface::class);
         return new ServiceLieu($lieuRepository);
+    },
+
+    UserRepositoryInterface::class => function (ContainerInterface $container) {
+        $pdo = $container->get('nrv.pdo');
+        return new PdoUserRepository($pdo);
+    },
+
+    AuthServiceInterface::class => function (ContainerInterface $container) {
+        $userRepository = $container->get(UserRepositoryInterface::class);
+        return new AuthService($userRepository);
+    },
+
+    AuthService::class => function (ContainerInterface $container) {
+        $userRepository = $container->get(UserRepositoryInterface::class);
+        return new AuthService($userRepository);
+    },
+
+    JwtAuthProvider::class => function (ContainerInterface $container) {
+        $authService = $container->get(AuthService::class);
+        return new JwtAuthProvider($authService, $container->get(UserRepositoryInterface::class));
     }
-
-
+    
 ];

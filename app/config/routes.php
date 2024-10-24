@@ -15,7 +15,8 @@ use nrv\application\actions\GetBilletsPanierAction;
 use nrv\application\actions\ValiderPanierAction;
 use nrv\application\actions\SupprimerBilletAction;
 use nrv\application\actions\GetBilletsByUserIdAction;
-
+use nrv\application\actions\AuthLoginAction;
+use nrv\application\actions\AuthRegisterAction;
 
 return function( \Slim\App $app):\Slim\App {
 
@@ -52,6 +53,8 @@ return function( \Slim\App $app):\Slim\App {
     $app->post('/billetspanier/{id}/supprimer', SupprimerBilletAction::class); //surrpession d'un billet dans un panier
     $app->get('/billets/{id}', GetBilletsByUserIdAction::class); //récupération des billets d'un panier
 
-    
+    //Route Auth
+    $app->post('/auth/login', AuthLoginAction::class);
+    $app->post('/auth/register', AuthRegisterAction::class);
     return $app;
 };

@@ -1,0 +1,21 @@
+meta {
+  name: Register
+  type: http
+  seq: 12
+}
+
+post {
+  url: http://localhost:7080/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "jmarin@riviere.com",
+    "password": "jmarin",
+    "nom": "Marin",
+    "prenom": "Jean",
+    "role": "user"
+  }
+}

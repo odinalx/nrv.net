@@ -24,7 +24,7 @@ class SupprimerBilletAction extends AbstractAction
 
             $newBillet = $this->serviceBillet->supprimerBillet($billetpanier_id);
             $responseData = [
-                'billet supprimé' => $newBillet->id,
+                'billet supprimé' => $billetpanier_id,
                 'panier' => $newBillet->panier_id,
                 'soiree' => $newBillet->soiree_id
             ];

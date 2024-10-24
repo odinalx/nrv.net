@@ -9,15 +9,18 @@ use nrv\core\services\billet\ServiceBilletInvalidDataException;
 use nrv\core\services\billet\ServiceBilletNotFoundException;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\services\soiree\ServiceSoireeInterface;
+use nrv\core\services\panier\ServicePanierInterface;
 
 class GetBilletsPanierAction extends AbstractAction
 {
     private ServiceBilletInterface $serviceBillet;
     private ServiceSoireeInterface $serviceSoiree;
+    private ServicePanierInterface $servicePanier;
     
-    public function __construct(ServiceBilletInterface $serviceBillet, ServiceSoireeInterface $serviceSoiree) {
+    public function __construct(ServiceBilletInterface $serviceBillet, ServiceSoireeInterface $serviceSoiree, ServicePanierInterface $servicePanier) {
         $this->serviceBillet = $serviceBillet;
         $this->serviceSoiree = $serviceSoiree;
+        $this->servicePanier = $servicePanier;
     }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface {
@@ -39,10 +42,12 @@ class GetBilletsPanierAction extends AbstractAction
                     'prix' => $billetDTO->prix
                 ];
             }
-
+            $prixtotal = $this->servicePanier->prixTotal($panier_id);
+            
             $responseData = [
                 'panier_id' => $panier_id,
-                'billets' => $billetsResponse
+                'billets' => $billetsResponse,
+                'prix_total' => $prixtotal
             ];
 
             return JsonRenderer::render($rs, 200, $responseData);

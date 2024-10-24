@@ -79,7 +79,7 @@ class PdoBilletRepository implements BilletRepositoryInterface
         $billet = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($billet === false) {
-            throw new \Exception("Erreur lors de la suppression du billet.");
+            throw new \Exception("Le billet n'existe pas.");
         }
 
         $billetEntity = new BilletPanier($billet['panier_id'], $billet['soiree_id'], $billet['quantite'], $billet['prix']);

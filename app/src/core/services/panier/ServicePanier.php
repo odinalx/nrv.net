@@ -72,6 +72,12 @@ class ServicePanier implements ServicePanierInterface {
         return $panier->toDTO();     
 
     } 
+
+    public function prixTotal(string $panierId): float
+    {
+        //ToDo Try catch
+        return $this->panierRepository->prixTotal($panierId);
+    } 
     
     private function createCommande(string $userid, string $panierid, float $prixtotal, string $status): string
     {
@@ -85,10 +91,6 @@ class ServicePanier implements ServicePanierInterface {
         return $this->panierRepository->getUserByPanier($panierId);
     }
 
-    private function prixTotal(string $panierId): float
-    {
-        //ToDo Try catch
-        return $this->panierRepository->prixTotal($panierId);
-    }    
+       
     
 }

@@ -87,4 +87,26 @@ class PdoBilletRepository implements BilletRepositoryInterface
         return $billetEntity;
     }
 
+    public function getBilletsByUserId(string $userId): array {
+        $query = "SELECT *
+                  FROM billet b
+                  JOIN commande c ON b.commande_id = c.commande_id
+                  JOIN panier p ON c.panier_id = p.panier_id
+                  JOIN utilisateur u ON p.user_id = u.user_id
+                  WHERE u.user_id = :user_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['user_id' => $userId]);
+        $billets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $billetsEntities = [];
+        foreach ($billets as $billet) {
+            $billetEntity = new Billet($billet['commande_id'], $billet['soiree_id']);
+            $billetEntity->setID($billet['billet_id']);
+            $billetsEntities[] = $billetEntity;
+        }        
+        return $billetsEntities;
+    }
+
+            
+
 }

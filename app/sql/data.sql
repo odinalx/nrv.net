@@ -1,23 +1,38 @@
 INSERT INTO lieu (lieu_id, nom, adresse, nb_place_assise, nb_place_debout)
 VALUES
 ('1b1aa5ad-cdfe-4d89-b121-e92dfd530999','Le Zenith', 'Avenue de la Libération, Nancy', 2000, 1000),
-('81d8b308-c442-4a08-9381-4f7e9a88183c','La Forge', 'Rue de la Forge, Nancy', 500, 300),
+('81d8b308-c442-4a08-9381-4f7e9a88183c','Place Stanislas', 'Place Stanislas, Nancy', 500, 300),
 ('3f21fbad-6fbc-420e-a3d2-1ee9452baafc','L’Autre Canal', 'Avenue de l’Europe, Nancy', 700, 400),
 ('f28faace-e443-41fe-b780-480fdbb9312a','L’Auditorium', 'Rue des États-Unis, Nancy', 1000, 500);
 
 INSERT INTO lieuimage (lieuimage_id, image)
 VALUES 
-('a966bee0-f85e-46aa-8d18-1983a1782d92','zenith.jpg'),
-('7e69765c-8068-4986-b83b-66ca0a0fa34c','forge.jpg'),
-('b46f2a91-94a0-46a6-b613-92777bc96803', 'autre_canal.jpg'),
-('ed3b0c9f-a912-4106-a0d1-f4dfc7a2b54a','auditorium.jpg');
+('712623bd-fc8a-49f0-a211-bd3815b53d64','zenith1.jpg'),
+('5d6c2d87-a8c1-4367-bbd1-b3dcbea2f018','zenith2.jpg'),
+('74c551b8-be74-4c9a-9fd7-b1172b56832a','zenith3.jpg'),
+('9319ccef-8fc6-4311-b227-ee45d5bf52ed','canal1.jpg'),
+('65074ad1-4149-4592-b607-ae28ae11e280','canal2.jpg'),
+('0ef9ab9a-9b5d-47b4-a3aa-ab3b7752d129','canal3.jpg'),
+('e59b8b8c-0e29-40c1-a44b-8ef50a0e3946','stan1.jpg'),
+('4ad152cb-6115-43db-b42e-c1a899f35867','stan2.jpg'),
+('19e5d5e6-100e-4e45-b504-92304950305d','stan3.jpg'),
+('9a89c7f6-7f70-4172-a9f3-3f56dc6425cc','auditorium1.jpg'),
+('09849bbe-d535-400c-85c9-f6d30d7145a3','auditorium2.jpg');
 
 INSERT INTO lieu2lieuimage (lieu_id, lieuimage_id)
 VALUES 
-('1b1aa5ad-cdfe-4d89-b121-e92dfd530999', 'a966bee0-f85e-46aa-8d18-1983a1782d92'),
-('81d8b308-c442-4a08-9381-4f7e9a88183c', '7e69765c-8068-4986-b83b-66ca0a0fa34c'),
-('3f21fbad-6fbc-420e-a3d2-1ee9452baafc', 'b46f2a91-94a0-46a6-b613-92777bc96803'),
-('f28faace-e443-41fe-b780-480fdbb9312a', 'ed3b0c9f-a912-4106-a0d1-f4dfc7a2b54a');
+('1b1aa5ad-cdfe-4d89-b121-e92dfd530999', '712623bd-fc8a-49f0-a211-bd3815b53d64'),
+('1b1aa5ad-cdfe-4d89-b121-e92dfd530999', '5d6c2d87-a8c1-4367-bbd1-b3dcbea2f018'),
+('1b1aa5ad-cdfe-4d89-b121-e92dfd530999', '74c551b8-be74-4c9a-9fd7-b1172b56832a'),
+('3f21fbad-6fbc-420e-a3d2-1ee9452baafc', '9319ccef-8fc6-4311-b227-ee45d5bf52ed'),
+('3f21fbad-6fbc-420e-a3d2-1ee9452baafc', '65074ad1-4149-4592-b607-ae28ae11e280'),
+('3f21fbad-6fbc-420e-a3d2-1ee9452baafc', '0ef9ab9a-9b5d-47b4-a3aa-ab3b7752d129'),
+('81d8b308-c442-4a08-9381-4f7e9a88183c', 'e59b8b8c-0e29-40c1-a44b-8ef50a0e3946'),
+('81d8b308-c442-4a08-9381-4f7e9a88183c', '4ad152cb-6115-43db-b42e-c1a899f35867'),
+('81d8b308-c442-4a08-9381-4f7e9a88183c', '19e5d5e6-100e-4e45-b504-92304950305d'),
+('f28faace-e443-41fe-b780-480fdbb9312a', '9a89c7f6-7f70-4172-a9f3-3f56dc6425cc'),
+('f28faace-e443-41fe-b780-480fdbb9312a', '09849bbe-d535-400c-85c9-f6d30d7145a3');
+
 
 INSERT INTO soiree (soiree_id, nom, theme, date, horaire_debut, lieu_id, tarif_normal, tarif_reduit,places_dispo)
 VALUES
@@ -35,15 +50,15 @@ VALUES
 INSERT INTO spectacle (spectacle_id,titre, description, style, url_video, horaire_prev, soiree_id)
 VALUES
 ('43856f56-3cd4-4e35-9814-f5ae888f3b77', 'Concert de Rock', 'C''est un concert de Rock', 'Rock', 'rock.mp4', '20:00:00', '55351cb5-c06b-400e-89b5-f8866fd9c163'),
-('cac53278-131f-4527-a65f-138713432222', 'Soirée Blues', 'Artiste Blues 1', 'Blues', 'blues.jpg', '21:00:00', 'b2ea189e-2ac3-4293-8b87-2824114da008'),
-('810f8b94-55ae-4015-a4d3-fd4ec712fd93', 'Metal Night', 'Groupe Metal 1', 'Métal', 'metal.jpg', '22:00:00', 'b279833a-478a-4603-b761-34735e396b34'),
-('87cc8ddd-df4e-425e-83cb-9c152bb0369b', 'Chanson Française', 'Chanteur 1', 'Chanson', 'chanson.jpg', '19:00:00', '48fb140c-4d5d-471f-a897-b11f74691f7c'),
-('1c2048fb-50a3-4df9-a453-7f396915e52e', 'Jazz Session', 'Artiste Jazz 1', 'Jazz', 'jazz.jpg', '20:30:00', '39d7b04f-8b0c-4c0f-acb1-1f6169ad79ee'),
-('362be1a6-8ee6-4127-abaf-3c5d37bf9f87', 'Festival de Musique Électronique', 'DJ Électronique 1', 'Électronique', 'electro.jpg', '23:00:00', 'f7d5ada0-084a-4a12-ba7a-22075fdc8064'),
-('819cce78-101e-40a1-9658-51343fe5ffa0', 'Concert de Pop', 'Groupe Pop 1', 'Pop', 'pop.jpg', '18:00:00', '48fb140c-4d5d-471f-a897-b11f74691f7c'),
-('58a4a9fc-2c3f-4d70-a5ea-85280a609472', 'Soirée Rock Alternatif', 'Groupe Rock Alternatif 1', 'Rock Alternatif', 'alt_rock.jpg', '21:30:00', '55351cb5-c06b-400e-89b5-f8866fd9c163'),
-('e082642d-6970-4840-ac55-a216c4feb015', 'Performance Acoustique', 'Artiste Acoustique 1', 'Acoustique', 'acoustic.jpg', '17:00:00', 'b2ea189e-2ac3-4293-8b87-2824114da008'),
-('6743fe9e-3ecd-468f-9189-7949b5f1ebea', 'Nuit des Talents', 'Groupe Local 1', 'Divers', 'divers.jpg', '19:30:00', '39d7b04f-8b0c-4c0f-acb1-1f6169ad79ee');
+('cac53278-131f-4527-a65f-138713432222', 'Soirée Blues', 'Artiste Blues 1', 'Blues', 'blues.mp4', '21:00:00', 'b2ea189e-2ac3-4293-8b87-2824114da008'),
+('810f8b94-55ae-4015-a4d3-fd4ec712fd93', 'Metal Night', 'Groupe Metal 1', 'Métal', 'metal.mp4', '22:00:00', 'b279833a-478a-4603-b761-34735e396b34'),
+('87cc8ddd-df4e-425e-83cb-9c152bb0369b', 'Chanson Française', 'Chanteur 1', 'Chanson', 'chanson.mp4', '19:00:00', '48fb140c-4d5d-471f-a897-b11f74691f7c'),
+('1c2048fb-50a3-4df9-a453-7f396915e52e', 'Jazz Session', 'Artiste Jazz 1', 'Jazz', 'jazz.mp4', '20:30:00', '39d7b04f-8b0c-4c0f-acb1-1f6169ad79ee'),
+('362be1a6-8ee6-4127-abaf-3c5d37bf9f87', 'Festival de Musique Électronique', 'DJ Électronique 1', 'Électronique', 'electro.mp4', '23:00:00', 'f7d5ada0-084a-4a12-ba7a-22075fdc8064'),
+('819cce78-101e-40a1-9658-51343fe5ffa0', 'Concert de Pop', 'Groupe Pop 1', 'Pop', 'pop.mp4', '18:00:00', '48fb140c-4d5d-471f-a897-b11f74691f7c'),
+('58a4a9fc-2c3f-4d70-a5ea-85280a609472', 'Soirée Rock Alternatif', 'Groupe Rock Alternatif 1', 'Rock Alternatif', 'gens.mp4', '21:30:00', '55351cb5-c06b-400e-89b5-f8866fd9c163'),
+('e082642d-6970-4840-ac55-a216c4feb015', 'Performance Acoustique', 'Artiste Acoustique 1', 'Acoustique', 'acoustic.mp4', '17:00:00', 'b2ea189e-2ac3-4293-8b87-2824114da008'),
+('6743fe9e-3ecd-468f-9189-7949b5f1ebea', 'Nuit des Talents', 'Groupe Local 1', 'Divers', 'disco.mp4', '19:30:00', '39d7b04f-8b0c-4c0f-acb1-1f6169ad79ee');
 
 
 INSERT INTO spectacleimage (spectacleimage_id, image)
@@ -99,3 +114,18 @@ INSERT INTO billet(billet_id,commande_id,soiree_id)
 VALUES
 ('f2fd4fc6-2613-4407-8ac3-efe0206e3109','180b1348-9721-4e5c-9417-18dbf6f7ce27','55351cb5-c06b-400e-89b5-f8866fd9c163'),
 ('4505ea3b-55df-4864-808d-9c9942275fbc','06f3b61c-3cd1-4a29-b86b-df0fc7fd9602','b2ea189e-2ac3-4293-8b87-2824114da008');
+
+
+INSERT INTO artiste(artiste_id,nom,prenom)
+VALUES
+('5e260c64-a6c1-491c-b2b5-44ee2dfb367e','Arcelin','Nino'),
+('166f1042-bdf0-4023-9169-e62e9005f41c','Vela-Mena','Dimitri'),
+('50e25062-c083-474e-a500-0e23661b80cc','Ratovobodo','Nicka'),
+('f9b45070-120f-49a4-9f4c-9b648ba3586d','Amaglio','Matias');
+
+INSERT INTO spectacle2artiste(spectacle_id,artiste_id)
+VALUES
+('43856f56-3cd4-4e35-9814-f5ae888f3b77','5e260c64-a6c1-491c-b2b5-44ee2dfb367e'),
+('cac53278-131f-4527-a65f-138713432222','166f1042-bdf0-4023-9169-e62e9005f41c'),
+('810f8b94-55ae-4015-a4d3-fd4ec712fd93','50e25062-c083-474e-a500-0e23661b80cc'),
+('87cc8ddd-df4e-425e-83cb-9c152bb0369b','f9b45070-120f-49a4-9f4c-9b648ba3586d');

@@ -9,16 +9,19 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\services\spectacle\ServiceSpectacleNotFoundException;
 use nrv\core\services\soiree\ServiceSoiree;
+use nrv\core\services\lieu\ServiceLieuInterface;
 
 class GetSpectaclesAction extends AbstractAction
 {
     private ServiceSpectacleInterface $serviceSpectacle;
     private ServiceSoireeInterface $serviceSoiree;
+    private ServiceLieuInterface $serviceLieu;
 
-    public function __construct(ServiceSpectacleInterface $serviceSpectacle, ServiceSoiree $serviceSoiree)
+    public function __construct(ServiceSpectacleInterface $serviceSpectacle, ServiceSoiree $serviceSoiree, ServiceLieuInterface $serviceLieu)
     {
         $this->serviceSpectacle = $serviceSpectacle;
         $this->serviceSoiree = $serviceSoiree;
+        $this->serviceLieu = $serviceLieu;
     }
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
@@ -32,9 +35,8 @@ class GetSpectaclesAction extends AbstractAction
                 $soireeDto = $this->serviceSoiree->getSoireeById($spectacleDto->soiree_id);
                                 
                 $images = $this->serviceSpectacle->getImagesSpectacle($spectacleDto->spectacle_id);
-                $imageUrls = array_map(function($image) {
-                    return $image['image'];
-                }, $images);
+                $lieu = $this->serviceLieu->getLieuById($soireeDto->lieu_id);
+                $artistes = $this->serviceSpectacle->getArtistes($spectacleDto->spectacle_id);
 
                 $spectaclesResponse[] = [
                     'self' => "/spectacles/{$spectacleDto->spectacle_id}",
@@ -43,9 +45,12 @@ class GetSpectaclesAction extends AbstractAction
                     'horaire' => $spectacleDto->horraire_prev,
                     'soiree' => [
                         'self' => "/soirees/{$soireeDto->soiree_id}",
-                        'nom' => $soireeDto->nom
+                        'nom' => $soireeDto->nom,
+                        'lieu' => $lieu->nom
                     ],
-                    'images' => $imageUrls
+                    'style' => $spectacleDto->style,
+                    'artistes' => $artistes,
+                    'images' => $images
                 ];
             }
             return JsonRenderer::render($rs, 200, ['spectacles' => $spectaclesResponse]);

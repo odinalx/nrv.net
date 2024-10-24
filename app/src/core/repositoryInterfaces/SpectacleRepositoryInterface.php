@@ -9,4 +9,5 @@ interface SpectacleRepositoryInterface
     public function getSpectacleById(string $id): Spectacle;
     public function getSpectacles(): array;
     public function getImagesSpectacle(string $id): array;
+    public function getArtistes(string $id): array;
 }

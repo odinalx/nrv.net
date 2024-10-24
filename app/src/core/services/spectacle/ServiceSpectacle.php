@@ -32,8 +32,21 @@ class ServiceSpectacle implements ServiceSpectacleInterface
 
     public function getImagesSpectacle(string $id): array
     {
-        return $this->spectacleRepository->getImagesSpectacle($id);
+        $images = $this->spectacleRepository->getImagesSpectacle($id);
+        return array_map(function ($image) {
+            return $image['image']; 
+        }, $images);
     }
-
+    
+    public function getArtistes(string $id): array
+    {
+        $artistes = $this->spectacleRepository->getArtistes($id);
+        return array_map(function ($artiste) {
+            return [
+                'nom' => $artiste['nom'],
+                'prenom' => $artiste['prenom']
+            ];
+        }, $artistes);
+    }
     
 }

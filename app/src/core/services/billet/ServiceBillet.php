@@ -46,5 +46,16 @@ class ServiceBillet implements ServiceBilletInterface {
         return $this->billetRepository->supprimerBillet($billetId)->toDTO();
     }
 
+    public function getBilletsByUserId(string $userId): array
+    {
+        //ToDo Try catch
+        $billets = $this->billetRepository->getBilletsByUserId($userId);
+        $billetsDTO = [];
+        foreach ($billets as $billet) {
+            $billetsDTO[] = $billet->toDTO();
+        }
+        return $billetsDTO;
+    }
+
     
 }

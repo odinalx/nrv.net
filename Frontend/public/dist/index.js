@@ -5745,13 +5745,42 @@
   var spectacle_default = `<div class="page">
     <h1>Nos Spectacles</h1>
     
-    <div class="sorting-controls">
-        <button class="sort-btn {{#if (eq currentSort 'date')}}active{{/if}}" data-sort-key="date">
-            Trier par date {{#if (eq currentSort 'date')}}{{#if (eq sortOrder 'asc')}}\u2191{{else}}\u2193{{/if}}{{/if}}
+    <div class="filter-types">
+        <button class="filter-type-button {{#if (eq activeFilter 'dates')}}active{{/if}}" data-filter-type="dates">
+            DATES
+        </button>
+        <button class="filter-type-button {{#if (eq activeFilter 'lieux')}}active{{/if}}" data-filter-type="lieux">
+            LIEUX
         </button>
     </div>
 
-    <div>
+    {{#if (eq activeFilter 'dates')}}
+    <div class="filter-buttons">
+        <button class="date-button {{#if (eq selectedDate 'all')}}active{{/if}}" data-date="all">
+            TOUS LES JOURS
+        </button>
+        {{#each availableDates}}
+        <button class="date-button {{#if (eq ../selectedDate this)}}active{{/if}}" data-date="{{this}}">
+            {{formatDateButton this}}
+        </button>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if (eq activeFilter 'lieux')}}
+    <div class="filter-buttons">
+        <button class="lieu-button {{#if (eq selectedLieu 'all')}}active{{/if}}" data-lieu="all">
+            TOUS LES LIEUX
+        </button>
+        {{#each availableLieux}}
+        <button class="lieu-button {{#if (eq ../selectedLieu this)}}active{{/if}}" data-lieu="{{this}}">
+            {{this}}
+        </button>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    <div class="spectacles-grid">
         {{#each spectacles}}
         <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
             <h2>{{titre}}</h2>
@@ -5759,6 +5788,7 @@
                 <p><strong>Date :</strong> {{formatDate date}}</p>
                 <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
                 <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>
+                <p><strong>Lieu :</strong> {{lieu}}</p>
             </div>
         </div>
         {{/each}}
@@ -5777,17 +5807,22 @@
       year: "numeric"
     });
   });
-  import_handlebars.default.registerHelper("eq", function(a, b) {
-    return a === b;
+  import_handlebars.default.registerHelper("formatDateButton", function(dateStr) {
+    const [day, month, year] = dateStr.split("-");
+    const date = /* @__PURE__ */ new Date(`${year}-${month}-${day}`);
+    const days = ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"];
+    return `${days[date.getDay()]} ${day} ${month}`;
   });
   import_handlebars.default.registerHelper("formatTime", function(timeStr) {
     return timeStr.slice(0, 5);
+  });
+  import_handlebars.default.registerHelper("eq", function(a, b) {
+    return a === b;
   });
   var templates = {
     home: import_handlebars.default.compile(home_default),
     spectacle: import_handlebars.default.compile(spectacle_default),
     soiree: import_handlebars.default.compile(soiree_default)
-    // Ajouter cette ligne
   };
 
   // public/js/main.js
@@ -5795,8 +5830,10 @@
     constructor() {
       this.contentDiv = document.getElementById("content");
       this.templates = templates;
-      this.currentSortKey = "date";
-      this.sortOrder = "asc";
+      this.activeFilter = "dates";
+      this.selectedDate = "all";
+      this.selectedLieu = "all";
+      this.originalSpectacles = [];
       this.pageData = {
         home: {
           title: "Notre NRV",
@@ -5808,20 +5845,27 @@
       this.initializeEventListeners();
       this.navigateToPage("home");
     }
-    sortSpectacles(spectacles, sortKey, order) {
-      return [...spectacles].sort((a, b) => {
-        let comparison = 0;
-        switch (sortKey) {
-          case "date":
-            const [dayA, monthA, yearA] = a.date.split("-");
-            const [dayB, monthB, yearB] = b.date.split("-");
-            const dateA = /* @__PURE__ */ new Date(`${yearA}-${monthA}-${dayA}`);
-            const dateB = /* @__PURE__ */ new Date(`${yearB}-${monthB}-${dayB}`);
-            comparison = dateA - dateB;
-            break;
-        }
-        return order === "asc" ? comparison : -comparison;
+    getAvailableDates(spectacles) {
+      return [...new Set(spectacles.map((s) => s.date))].sort((a, b) => {
+        const [dayA, monthA, yearA] = a.split("-");
+        const [dayB, monthB, yearB] = b.split("-");
+        const dateA = /* @__PURE__ */ new Date(`${yearA}-${monthA}-${dayA}`);
+        const dateB = /* @__PURE__ */ new Date(`${yearB}-${monthB}-${dayB}`);
+        return dateA - dateB;
       });
+    }
+    getAvailableLieux(spectacles) {
+      return [...new Set(spectacles.map((s) => s.lieu))].sort();
+    }
+    filterSpectacles(spectacles) {
+      let filtered = [...spectacles];
+      if (this.activeFilter === "dates" && this.selectedDate !== "all") {
+        filtered = filtered.filter((s) => s.date === this.selectedDate);
+      }
+      if (this.activeFilter === "lieux" && this.selectedLieu !== "all") {
+        filtered = filtered.filter((s) => s.lieu === this.selectedLieu);
+      }
+      return filtered;
     }
     fetchSpectacleData() {
       return __async(this, null, function* () {
@@ -5831,17 +5875,16 @@
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const data = yield response.json();
-          const spectacles = data.spectacles || [];
-          this.pageData.spectacle = {
-            currentSort: this.currentSortKey,
-            sortOrder: this.sortOrder,
-            spectacles: this.sortSpectacles(spectacles, this.currentSortKey, this.sortOrder)
-          };
+          this.originalSpectacles = data.spectacles || [];
+          this.updateSpectacleDisplay();
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es:", error);
           this.pageData.spectacle = {
-            currentSort: this.currentSortKey,
-            sortOrder: this.sortOrder,
+            activeFilter: this.activeFilter,
+            selectedDate: this.selectedDate,
+            selectedLieu: this.selectedLieu,
+            availableDates: [],
+            availableLieux: [],
             spectacles: []
           };
         }
@@ -5866,6 +5909,19 @@
         }
       });
     }
+    updateSpectacleDisplay() {
+      if (this.originalSpectacles) {
+        this.pageData.spectacle = {
+          activeFilter: this.activeFilter,
+          selectedDate: this.selectedDate,
+          selectedLieu: this.selectedLieu,
+          availableDates: this.getAvailableDates(this.originalSpectacles),
+          availableLieux: this.getAvailableLieux(this.originalSpectacles),
+          spectacles: this.filterSpectacles(this.originalSpectacles)
+        };
+        this.navigateToPage("spectacle");
+      }
+    }
     initializeEventListeners() {
       document.querySelectorAll("button[data-page]").forEach((button) => {
         button.addEventListener("click", (e) => __async(this, null, function* () {
@@ -5877,24 +5933,18 @@
         }));
       });
       this.contentDiv.addEventListener("click", (e) => __async(this, null, function* () {
-        if (e.target.matches(".sort-btn")) {
-          const sortKey = e.target.dataset.sortKey;
-          if (sortKey === this.currentSortKey) {
-            this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
-          } else {
-            this.currentSortKey = sortKey;
-            this.sortOrder = "asc";
-          }
-          if (this.pageData.spectacle && this.pageData.spectacle.spectacles) {
-            this.pageData.spectacle.spectacles = this.sortSpectacles(
-              this.pageData.spectacle.spectacles,
-              this.currentSortKey,
-              this.sortOrder
-            );
-            this.pageData.spectacle.currentSort = this.currentSortKey;
-            this.pageData.spectacle.sortOrder = this.sortOrder;
-            this.navigateToPage("spectacle");
-          }
+        if (e.target.matches(".filter-type-button")) {
+          const filterType = e.target.dataset.filterType;
+          this.activeFilter = filterType;
+          this.updateSpectacleDisplay();
+        }
+        if (e.target.matches(".date-button")) {
+          this.selectedDate = e.target.dataset.date;
+          this.updateSpectacleDisplay();
+        }
+        if (e.target.matches(".lieu-button")) {
+          this.selectedLieu = e.target.dataset.lieu;
+          this.updateSpectacleDisplay();
         }
         const spectacleCard = e.target.closest(".spectacle-card");
         if (spectacleCard) {

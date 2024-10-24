@@ -4,13 +4,15 @@ class SPA {
     constructor() {
         this.contentDiv = document.getElementById('content');
         this.templates = templates;
-        this.currentSortKey = 'date'; 
-        this.sortOrder = 'asc'; 
+        this.activeFilter = 'dates';
+        this.selectedDate = 'all';
+        this.selectedLieu = 'all';
+        this.originalSpectacles = [];
         
         this.pageData = {
             home: {
                 title: "Notre NRV",
-                description: "Bienvenue sur notre application mono-page NRV!",
+                description: "Bienvenue sur notre application mono-page NRV!"
             },
             spectacle: null,
             soiree: null
@@ -20,20 +22,32 @@ class SPA {
         this.navigateToPage('home');
     }
 
-    sortSpectacles(spectacles, sortKey, order) {
-        return [...spectacles].sort((a, b) => {
-            let comparison = 0;
-            switch (sortKey) {
-                case 'date':
-                    const [dayA, monthA, yearA] = a.date.split('-');
-                    const [dayB, monthB, yearB] = b.date.split('-');
-                    const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
-                    const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
-                    comparison = dateA - dateB;
-                    break;
-            }
-            return order === 'asc' ? comparison : -comparison;
+    getAvailableDates(spectacles) {
+        return [...new Set(spectacles.map(s => s.date))].sort((a, b) => {
+            const [dayA, monthA, yearA] = a.split('-');
+            const [dayB, monthB, yearB] = b.split('-');
+            const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+            const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+            return dateA - dateB;
         });
+    }
+
+    getAvailableLieux(spectacles) {
+        return [...new Set(spectacles.map(s => s.lieu))].sort();
+    }
+
+    filterSpectacles(spectacles) {
+        let filtered = [...spectacles];
+
+        if (this.activeFilter === 'dates' && this.selectedDate !== 'all') {
+            filtered = filtered.filter(s => s.date === this.selectedDate);
+        }
+
+        if (this.activeFilter === 'lieux' && this.selectedLieu !== 'all') {
+            filtered = filtered.filter(s => s.lieu === this.selectedLieu);
+        }
+
+        return filtered;
     }
 
     async fetchSpectacleData() {
@@ -44,19 +58,17 @@ class SPA {
             }
             const data = await response.json();
             
-            const spectacles = data.spectacles || [];
+            this.originalSpectacles = data.spectacles || [];
             
-            // Ajout des données de tri dans pageData
-            this.pageData.spectacle = {
-                currentSort: this.currentSortKey,
-                sortOrder: this.sortOrder,
-                spectacles: this.sortSpectacles(spectacles, this.currentSortKey, this.sortOrder)
-            };
+            this.updateSpectacleDisplay();
         } catch (error) {
             console.error('Erreur lors de la récupération des données:', error);
             this.pageData.spectacle = {
-                currentSort: this.currentSortKey,
-                sortOrder: this.sortOrder,
+                activeFilter: this.activeFilter,
+                selectedDate: this.selectedDate,
+                selectedLieu: this.selectedLieu,
+                availableDates: [],
+                availableLieux: [],
                 spectacles: []
             };
         }
@@ -64,7 +76,6 @@ class SPA {
 
     async fetchSoireeData(soireeUrl) {
         try {
-            // Enlever le premier "/" de l'URL si présent
             const cleanUrl = soireeUrl.startsWith('/') ? soireeUrl.slice(1) : soireeUrl;
             const response = await fetch(`http://localhost:7080/${cleanUrl}`);
             if (!response.ok) {
@@ -83,8 +94,21 @@ class SPA {
         }
     }
 
+    updateSpectacleDisplay() {
+        if (this.originalSpectacles) {
+            this.pageData.spectacle = {
+                activeFilter: this.activeFilter,
+                selectedDate: this.selectedDate,
+                selectedLieu: this.selectedLieu,
+                availableDates: this.getAvailableDates(this.originalSpectacles),
+                availableLieux: this.getAvailableLieux(this.originalSpectacles),
+                spectacles: this.filterSpectacles(this.originalSpectacles)
+            };
+            this.navigateToPage('spectacle');
+        }
+    }
+
     initializeEventListeners() {
-        // Gestion de la navigation principale
         document.querySelectorAll('button[data-page]').forEach(button => {
             button.addEventListener('click', async (e) => {
                 const pageName = e.target.dataset.page;
@@ -95,31 +119,23 @@ class SPA {
             });
         });
 
-        // Délégation d'événements pour les clics
         this.contentDiv.addEventListener('click', async (e) => {
-            // Gestion du tri
-            if (e.target.matches('.sort-btn')) {
-                const sortKey = e.target.dataset.sortKey;
-                if (sortKey === this.currentSortKey) {
-                    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-                } else {
-                    this.currentSortKey = sortKey;
-                    this.sortOrder = 'asc';
-                }
-                
-                if (this.pageData.spectacle && this.pageData.spectacle.spectacles) {
-                    this.pageData.spectacle.spectacles = this.sortSpectacles(
-                        this.pageData.spectacle.spectacles,
-                        this.currentSortKey,
-                        this.sortOrder
-                    );
-                    this.pageData.spectacle.currentSort = this.currentSortKey;
-                    this.pageData.spectacle.sortOrder = this.sortOrder;
-                    this.navigateToPage('spectacle');
-                }
+            if (e.target.matches('.filter-type-button')) {
+                const filterType = e.target.dataset.filterType;
+                this.activeFilter = filterType;
+                this.updateSpectacleDisplay();
             }
             
-            // Gestion du clic sur une carte de spectacle
+            if (e.target.matches('.date-button')) {
+                this.selectedDate = e.target.dataset.date;
+                this.updateSpectacleDisplay();
+            }
+
+            if (e.target.matches('.lieu-button')) {
+                this.selectedLieu = e.target.dataset.lieu;
+                this.updateSpectacleDisplay();
+            }
+            
             const spectacleCard = e.target.closest('.spectacle-card');
             if (spectacleCard) {
                 const soireeUrl = spectacleCard.dataset.soireeId;
@@ -141,8 +157,6 @@ class SPA {
     }
 }
 
-// Initialisation de l'application
 document.addEventListener('DOMContentLoaded', () => {
     new SPA();
 });
-

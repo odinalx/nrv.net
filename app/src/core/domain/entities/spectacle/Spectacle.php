@@ -7,7 +7,6 @@ use nrv\core\dto\SpectacleDTO;
 
 class Spectacle extends Entity
 {
-    protected string $spectacle_id;
     protected string $titre;
     protected string $description;
     protected string $style;
@@ -15,12 +14,13 @@ class Spectacle extends Entity
     protected string $horaire_prev;
     protected string $soiree_id;
 
-    public function __construct(string $titre, string $description, string $style, string $horaire_prev, string $soiree_id) {
+    public function __construct(string $titre, string $description, string $style, string $horaire_prev, string $soiree_id, string $url_video) {
         $this->titre = $titre;
         $this->description = $description;
         $this->style = $style;
         $this->horaire_prev = $horaire_prev;
         $this->soiree_id = $soiree_id;
+        $this->url_video = $url_video;
     }
 
     // Getters

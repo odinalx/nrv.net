@@ -1,0 +1,19 @@
+meta {
+  name: AddBillet
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:7080/paniers/7df45b6e-5fc3-42e8-af8a-9cce6465ac24/billet
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "soiree_id": "f7d5ada0-084a-4a12-ba7a-22075fdc8064",
+    "quantite" : "3",
+    "prix": "14"
+  }
+}

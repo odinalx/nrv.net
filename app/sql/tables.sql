@@ -38,6 +38,7 @@ CREATE TABLE soiree (
     lieu_id UUID NOT NULL,
     tarif_normal FLOAT NOT NULL,
     tarif_reduit FLOAT NOT NULL,
+    places_dispo INT NOT NULL,
     FOREIGN KEY (lieu_id) REFERENCES lieu(lieu_id)
 );
 
@@ -88,6 +89,63 @@ CREATE TABLE spectacle2spectacleimage (
     FOREIGN KEY (spectacle_id) REFERENCES spectacle(spectacle_id),
     FOREIGN KEY (spectacleimage_id) REFERENCES spectacleimage(spectacleimage_id)
 );
+
+DROP TABLE IF EXISTS "utilisateur" CASCADE;
+
+CREATE TABLE utilisateur (
+    user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS "panier" CASCADE;
+
+CREATE TABLE panier (
+    panier_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL,
+    is_validated BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(user_id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS "billet_panier" CASCADE;
+
+CREATE TABLE billet_panier (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    panier_id UUID NOT NULL,
+    soiree_id UUID NOT NULL,
+    quantite INT NOT NULL,
+    prix FLOAT NOT NULL,
+    FOREIGN KEY (panier_id) REFERENCES panier(panier_id) ON DELETE CASCADE,
+    FOREIGN KEY (soiree_id) REFERENCES soiree(soiree_id)
+);
+
+DROP TABLE IF EXISTS "commande" CASCADE;
+
+CREATE TABLE commande (
+    commande_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL,
+    panier_id UUID NOT NULL,
+    prix_total FLOAT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(user_id),
+    FOREIGN KEY (panier_id) REFERENCES panier(panier_id)
+);
+
+DROP TABLE IF EXISTS "billet" CASCADE;
+
+CREATE TABLE billet (
+    billet_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    commande_id UUID NOT NULL,
+    soiree_id UUID NOT NULL,
+    FOREIGN KEY (commande_id) REFERENCES commande(commande_id),
+    FOREIGN KEY (soiree_id) REFERENCES soiree(soiree_id)
+);
+
+
+
 
 
 

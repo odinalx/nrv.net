@@ -29,7 +29,18 @@ class ServiceSoiree implements ServiceSoireeInterface
     
     public function getSpectaclesBySoireeId(string $id): array
     {
-        return $this->soireeRepository->getSpectaclesBySoireeId($id);
+        $spectacles = $this->soireeRepository->getSpectaclesBySoireeId($id);
+
+        return array_map(function ($spectacle) {
+            return [
+                'self' => "/spectacles/{$spectacle->getID()}",
+                'titre' => $spectacle->getTitre(),
+                'description' => $spectacle->getDescription(),
+                'style' => $spectacle->getStyle(),
+                'horaire_prev' => $spectacle->getHorairePrev(),
+                'url_video' => $spectacle->getUrlVideo()
+            ];
+        }, $spectacles);
     }
 
     

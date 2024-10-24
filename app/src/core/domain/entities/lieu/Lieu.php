@@ -1,62 +1,43 @@
 <?php
 
-namespace nrv\core\domain\entities;
+namespace nrv\core\domain\entities\lieu;
 
 use nrv\core\domain\entities\Entity;
 use nrv\core\dto\LieuDTO;
 
 class Lieu extends Entity
 {
-    protected int $id_lieu;
-    protected string $name;
-    protected string $address;
-    protected int $seated_capacity;
-    protected int $standing_capacity;
-    protected ?string $images;
+    protected string $nom;
+    protected string $adresse;
+    protected float $nb_place_assise;
+    protected float $nb_place_debout;
 
-    public function __construct(
-        string $name, 
-        string $address, 
-        int $seated_capacity, 
-        int $standing_capacity, 
-        ?string $images = null
-    ) {
-        $this->name = $name;
-        $this->address = $address;
-        $this->seated_capacity = $seated_capacity;
-        $this->standing_capacity = $standing_capacity;
-        $this->images = $images;
+    public function __construct(string $nom, string $adresse, float $nb_place_assise, float $nb_place_debout)
+    {
+        $this->nom = $nom;
+        $this->adresse = $adresse;
+        $this->nb_place_assise = $nb_place_assise;
+        $this->nb_place_debout = $nb_place_debout;
     }
 
     // Getters
-    public function getIdLieu(): int
-    {
-        return $this->id_lieu;
+    public function getNom() {
+        return $this->nom;
     }
 
-    public function getName(): string
-    {
-        return $this->name;
+    public function getAdresse() {
+        return $this->adresse;
     }
 
-    public function getAddress(): string
-    {
-        return $this->address;
+    public function getNbPlaceAssise() {
+        return $this->nb_place_assise;
     }
 
-    public function getSeatedCapacity(): int
-    {
-        return $this->seated_capacity;
+    public function getNbPlaceDebout() {
+        return $this->nb_place_debout;
     }
 
-    public function getStandingCapacity(): int
-    {
-        return $this->standing_capacity;
+    public function toDTO() : LieuDTO {
+        return new LieuDTO($this);
     }
-
-    public function getImages(): ?string
-    {
-        return $this->images;
-    }
-
 }

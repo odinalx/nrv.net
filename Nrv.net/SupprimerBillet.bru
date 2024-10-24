@@ -1,0 +1,19 @@
+meta {
+  name: SupprimerBillet
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://localhost:7080/billetspanier/99a9e79c-3feb-485a-80c3-e3c7b6fbc289/supprimer
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "soiree_id": "f7d5ada0-084a-4a12-ba7a-22075fdc8064",
+    "quantite" : "1",
+    "prix": "50"
+  }
+}

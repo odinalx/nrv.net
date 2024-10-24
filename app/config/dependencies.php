@@ -1,15 +1,27 @@
 <?php
 
-use nrv\core\domain\entities\soiree\Soiree;
+use nrv\core\domain\entities\lieu\Lieu;
+use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
+use nrv\core\repositoryInterfaces\LieuRepositoryInterface;
+use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
 use Psr\Container\ContainerInterface;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\infrastructure\PDO\PdoSpectacleRepository;
 use nrv\core\services\spectacle\ServiceSpectacleInterface;
 use nrv\core\services\spectacle\ServiceSpectacle;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\core\services\billet\ServiceBilletInterface;
+use nrv\core\services\panier\ServicePanierInterface;
 use nrv\infrastructure\PDO\PdoSoireeRepository;
 use nrv\core\services\soiree\ServiceSoireeInterface;
 use nrv\core\services\soiree\ServiceSoiree;
+use nrv\infrastructure\PDO\PdoPanierRepository;
+use nrv\core\services\panier\ServicePanier;
+use nrv\infrastructure\PDO\PdoBilletRepository;
+use nrv\core\services\billet\ServiceBillet;
+use nrv\infrastructure\PDO\PdoLieuRepository;
+use nrv\core\services\lieu\ServiceLieuInterface;
+use nrv\core\services\lieu\ServiceLieu;
 
 return [
 
@@ -31,6 +43,21 @@ return [
         return new PdoSoireeRepository($pdo);
     },
 
+    PanierRepositoryInterface::class => function (ContainerInterface $container) {
+        $pdo = $container->get('nrv.pdo');
+        return new PdoPanierRepository($pdo);
+    },
+
+    BilletRepositoryInterface::class => function (ContainerInterface $container) {
+        $pdo = $container->get('nrv.pdo');
+        return new PdoBilletRepository($pdo);
+    },
+
+    LieuRepositoryInterface::class => function (ContainerInterface $container) {
+        $pdo = $container->get('nrv.pdo');
+        return new PdoLieuRepository($pdo);
+    },
+
     ServiceSpectacleInterface::class => function (ContainerInterface $container) {
         $spectacleRepository = $container->get(SpectacleRepositoryInterface::class);
         return new ServiceSpectacle($spectacleRepository);
@@ -39,5 +66,25 @@ return [
     ServiceSoireeInterface::class => function (ContainerInterface $container) {
         $soireeRepository = $container->get(SoireeRepositoryInterface::class);
         return new ServiceSoiree($soireeRepository);
+    },
+
+    ServicePanierInterface::class => function (ContainerInterface $container) {
+        $panierRepository = $container->get(PanierRepositoryInterface::class);
+        $billetRepository = $container->get(BilletRepositoryInterface::class);
+        $soireeRepository = $container->get(SoireeRepositoryInterface::class);
+        return new ServicePanier($panierRepository, $billetRepository, $soireeRepository);
+    },
+
+    ServiceBilletInterface::class => function (ContainerInterface $container) {
+        $billetRepository = $container->get(BilletRepositoryInterface::class);
+        $panierRepository = $container->get(PanierRepositoryInterface::class);
+        return new ServiceBillet($billetRepository, $panierRepository);
+    },
+
+    ServiceLieuInterface::class => function (ContainerInterface $container) {
+        $lieuRepository = $container->get(LieuRepositoryInterface::class);
+        return new ServiceLieu($lieuRepository);
     }
+
+
 ];

@@ -39,11 +39,18 @@ class PdoSoireeRepository implements SoireeRepositoryInterface
         $spectacles = $stmt->fetchAll();
         $spectaclesEntities = [];
         foreach ($spectacles as $spectacle) {
-            $spectacleEntity = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id']);
+            $spectacleEntity = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id'], $spectacle['url_video']);
             $spectacleEntity->setID($spectacle['spectacle_id']);
             $spectaclesEntities[] = $spectacleEntity;
         }
         return $spectaclesEntities;
+    }
+
+    public function decrementPlaces(string $soireeId, int $quantite): void
+    {
+        $query = "UPDATE soiree SET places_dispo = places_dispo - :quantite WHERE soiree_id = :soireeId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['quantite' => $quantite, 'soireeId' => $soireeId]);
     }
     
 

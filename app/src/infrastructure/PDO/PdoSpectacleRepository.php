@@ -25,7 +25,7 @@ class PdoSpectacleRepository implements SpectacleRepositoryInterface
         //     throw new ServiceSpectacleNotFoundException("Spécialité $id non trouvée");
         // }
 
-        $spectacle = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id']);
+        $spectacle = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id'], $spectacle['url_video']);
         $spectacle->setID($id);
         return $spectacle;
     }
@@ -37,7 +37,7 @@ class PdoSpectacleRepository implements SpectacleRepositoryInterface
         $spectacles = $stmt->fetchAll();
         $spectaclesEntities = [];
         foreach ($spectacles as $spectacle) {
-            $spectacleEntity = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id']);
+            $spectacleEntity = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['style'], $spectacle['horaire_prev'], $spectacle['soiree_id'], $spectacle['url_video']);
             $spectacleEntity->setID($spectacle['spectacle_id']);
             $spectaclesEntities[] = $spectacleEntity;
         }
@@ -45,18 +45,33 @@ class PdoSpectacleRepository implements SpectacleRepositoryInterface
     }
 
     public function getImagesSpectacle(string $id): array
-{
-    $query = "
-        SELECT image
-        FROM spectacleimage img
-        INNER JOIN spectacle2spectacleimage spi ON img.spectacleimage_id = spi.spectacleimage_id
-        WHERE spi.spectacle_id = :id
-    ";    
-    $stmt = $this->pdo->prepare($query);
-    $stmt->execute(['id' => $id]);
-    $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    return $images;
-}
+    {
+        $query = "
+            SELECT image
+            FROM spectacleimage img
+            INNER JOIN spectacle2spectacleimage spi ON img.spectacleimage_id = spi.spectacleimage_id
+            WHERE spi.spectacle_id = :id
+        ";    
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $images;
+    }
+
+    public function getArtistes(string $id): array
+    {
+        $query = "
+            SELECT nom,prenom
+            FROM artiste a
+            INNER JOIN spectacle2artiste sa ON a.artiste_id = sa.artiste_id
+            WHERE sa.spectacle_id = :id
+        ";    
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $artistes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $artistes;
+    }
 
 }

@@ -8,4 +8,5 @@ interface ServiceSpectacleInterface
     public function getSpectacleById(string $id): SpectacleDTO;
     public function getSpectacles(): array;
     public function getImagesSpectacle(string $id): array;
+    public function getArtistes(string $id): array;
 }

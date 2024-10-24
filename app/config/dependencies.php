@@ -61,7 +61,8 @@ return [
     ServicePanierInterface::class => function (ContainerInterface $container) {
         $panierRepository = $container->get(PanierRepositoryInterface::class);
         $billetRepository = $container->get(BilletRepositoryInterface::class);
-        return new ServicePanier($panierRepository, $billetRepository);
+        $soireeRepository = $container->get(SoireeRepositoryInterface::class);
+        return new ServicePanier($panierRepository, $billetRepository, $soireeRepository);
     },
 
     ServiceBilletInterface::class => function (ContainerInterface $container) {

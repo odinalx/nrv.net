@@ -17,11 +17,6 @@ class ServiceBillet implements ServiceBilletInterface {
         $this->panierRepository = $panierRepository;
     }
 
-    public function createBillet(string $commandeid, string $soiree_id): BilletDTO
-    {
-        //ToDo Try catch
-        return $this->billetRepository->createBillet($commandeid, $soiree_id)->toDTO();
-    }
 
     public function getBilletsPanier(string $panierid): array
     {

@@ -12,6 +12,7 @@ use app\middlewares\CorsMiddleware;
 use nrv\application\actions\AddBilletPanierAction;
 use nrv\application\actions\CreerPanierAction;
 use nrv\application\actions\GetBilletsPanierAction;
+use nrv\application\actions\ValiderPanierAction;
 
 return function( \Slim\App $app):\Slim\App {
 
@@ -42,6 +43,7 @@ return function( \Slim\App $app):\Slim\App {
     $app->post('/paniers', CreerPanierAction::class); //création d'un panier
     $app->post('/paniers/{id}/billet', AddBilletPanierAction::class); //ajout d'un billet dans un panier
     $app->get('/paniers/{id}/billet', GetBilletsPanierAction::class); //récupération des billets d'un panier
+    $app->post('/paniers/{id}/valider', ValiderPanierAction::class); //validation d'un panier
 
     
     return $app;

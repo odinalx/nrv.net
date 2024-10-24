@@ -45,6 +45,13 @@ class PdoSoireeRepository implements SoireeRepositoryInterface
         }
         return $spectaclesEntities;
     }
+
+    public function decrementPlaces(string $soireeId, int $quantite): void
+    {
+        $query = "UPDATE soiree SET places_dispo = places_dispo - :quantite WHERE soiree_id = :soireeId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['quantite' => $quantite, 'soireeId' => $soireeId]);
+    }
     
 
 }

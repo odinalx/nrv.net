@@ -15,18 +15,28 @@ class PdoBilletRepository implements BilletRepositoryInterface
         $this->pdo = $pdo;
     } 
 
-    public function createBillet(string $commandeId, string $soireeId): Billet {
+    public function createBillet(string $commandeId, string $soireeId, int $quantite): array {
+        $billets = [];
         $query = "INSERT INTO billet (commande_id, soiree_id) VALUES (:commande_id, :soiree_id)";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute([
-            'commande_id' => $commandeId,
-            'soiree_id' => $soireeId
-        ]);
-        $billet = $stmt->fetch();
-        $billet = new Billet($commandeId, $soireeId);
-        $billet->setID($stmt->fetchColumn());
-        return $billet;
+    
+        for ($i = 0; $i < $quantite; $i++) {
+            $stmt->execute([
+                'commande_id' => $commandeId,
+                'soiree_id' => $soireeId
+            ]);
+
+            // Si besoin d'afficher les billets qui viennent d'être créés
+            // $billetId = $this->pdo->lastInsertId();
+            // $billet = new Billet($commandeId, $soireeId);
+            // $billet->setID($billetId);
+    
+            // $billets[] = $billet;
+        }
+    
+        return $billets; 
     }
+    
     
     public function getBilletsPanier(string $panierId): array {
         $query = "SELECT * FROM billet_panier WHERE panier_id = :panier_id";

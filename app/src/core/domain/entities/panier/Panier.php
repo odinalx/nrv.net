@@ -25,6 +25,10 @@ class Panier extends Entity
         return $this->is_validated;
     }
 
+    public function setValidated(bool $is_validated) {
+        $this->is_validated = $is_validated;
+    }
+
     public function toDTO() : PanierDTO {
         return new PanierDTO($this);
     }

@@ -14,11 +14,26 @@ class PdoPanierRepository implements PanierRepositoryInterface
         $this->pdo = $pdo;
     } 
     
+    public function getPanierById($panierId): Panier {
+        $query = "SELECT * FROM panier WHERE panier_id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $panierId]);
+        $panierData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($panierData) {
+            $panier = new Panier($panierData['user_id']);
+            $panier->setID($panierId);
+            $valide = (bool)$panierData['is_validated'];
+            $panier->setValidated($valide);    
+            return $panier;
+        }
+    }
+
     public function getPanierByUserId(string $userid): Panier {
         $query = "SELECT * FROM panier WHERE user_id = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $userid]);
-        $panier = $stmt->fetch();
+        $panier = $stmt->fetch(PDO::FETCH_ASSOC);
         $panier = new Panier($panier['user_id']);
         $panier->setID($panier['panier_id']);
         return $panier;
@@ -47,16 +62,23 @@ class PdoPanierRepository implements PanierRepositoryInterface
         return null;
     }       
 
-    public function createCommande(string $userId, string $panierId, float $prixTotal, string $status): bool {
-        $query = "INSERT INTO commande (user_id, panier_id, prix_total, status) VALUES (:user_id, :panier_id, :prix_total, 'pending') RETURNING commande_id";
+    public function createCommande(string $userId, string $panierId, float $prixTotal, string $status): string {
+        $query = "INSERT INTO commande (user_id, panier_id, prix_total, status) VALUES (:user_id, :panier_id, :prix_total, :status) RETURNING commande_id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([
             'user_id' => $userId,
             'panier_id' => $panierId,
-            'prix_total' => $prixTotal
+            'prix_total' => $prixTotal,
+            'status' => $status
         ]);
-        
-        return $stmt->fetchColumn();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result && isset($result['commande_id'])) {
+            return $result['commande_id'];
+        } else {
+            throw new \Exception("Erreur lors de la création de la commande ou commande_id non retourné.");
+        }
     }
 
     public function getUserByPanier(string $panierId): string {
@@ -76,24 +98,15 @@ class PdoPanierRepository implements PanierRepositoryInterface
     }
 
     public function validerPanier(string $panierId): bool {
-        $stmt = $this->pdo->prepare("SELECT is_validated FROM panier WHERE panier_id = :panier_id");
-        $stmt->execute(['panier_id' => $panierId]);
-        $panierData = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        if ($panierData && $panierData['is_validated']) {
-            return false;
-        }
-    
-        // Mettre à jour l'état du panier
-        $this->updateStatusPanier($panierId);
-    
-        return true;
-    }
-
-    private function updateStatusPanier(string $panierId): void {
         $query = "UPDATE panier SET is_validated = TRUE WHERE panier_id = :panier_id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['panier_id' => $panierId]);
+
+        if ($stmt->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }    
     }
 
     public function issetPanier(string $panierId): bool {

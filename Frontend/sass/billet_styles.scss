@@ -1,0 +1,106 @@
+
+$background-color: #f4f4f9;
+$primary-color: #2c3e50;
+$secondary-color: rgb(198, 76, 198);
+$border-color: #bdc3c7;
+$text-color: #34495e;
+
+
+body {
+  font-family:  sans-serif;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+.ticket {
+  background-color: white;
+  border: 2px solid $border-color;
+  border-radius: 10px;
+  padding: 20px;
+  width: 350px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+  text-align: center;
+
+  
+  h1 {
+    font-size: 22px;
+    color: $primary-color;
+    margin-bottom: 20px;
+    border-bottom: 2px solid $primary-color;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  
+  p {
+    font-size: 16px;
+    color: $text-color;
+    margin: 10px 0;
+
+    strong {
+      color: $secondary-color;
+    }
+  }
+
+  
+  .date-time {
+    background-color: $primary-color;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+  }
+
+  
+  .tariff-category {
+    color: $secondary-color;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+}
+
+
+.print-section {
+  margin-top: 20px; 
+}
+
+
+button {
+  background-color: $secondary-color;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($secondary-color, 10%);
+  }
+}
+
+
+@media print {
+  button {
+    display: none; 
+  }
+
+  .ticket {
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  body {
+    margin: 0;
+  }
+}

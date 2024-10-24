@@ -4,18 +4,50 @@ class SPA {
     constructor() {
         this.contentDiv = document.getElementById('content');
         this.templates = templates;
+        this.activeFilter = 'dates';
+        this.selectedDate = 'all';
+        this.selectedLieu = 'all';
+        this.originalSpectacles = [];
         
-        // Données pour chaque page
         this.pageData = {
             home: {
                 title: "Notre NRV",
-                description: "Bienvenue sur notre application mono-page NRV!",
+                description: "Bienvenue sur notre application mono-page NRV!"
             },
-            spectacle: null 
+            spectacle: null,
+            soiree: null
         };
 
         this.initializeEventListeners();
         this.navigateToPage('home');
+    }
+
+    getAvailableDates(spectacles) {
+        return [...new Set(spectacles.map(s => s.date))].sort((a, b) => {
+            const [dayA, monthA, yearA] = a.split('-');
+            const [dayB, monthB, yearB] = b.split('-');
+            const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+            const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+            return dateA - dateB;
+        });
+    }
+
+    getAvailableLieux(spectacles) {
+        return [...new Set(spectacles.map(s => s.lieu))].sort();
+    }
+
+    filterSpectacles(spectacles) {
+        let filtered = [...spectacles];
+
+        if (this.activeFilter === 'dates' && this.selectedDate !== 'all') {
+            filtered = filtered.filter(s => s.date === this.selectedDate);
+        }
+
+        if (this.activeFilter === 'lieux' && this.selectedLieu !== 'all') {
+            filtered = filtered.filter(s => s.lieu === this.selectedLieu);
+        }
+
+        return filtered;
     }
 
     async fetchSpectacleData() {
@@ -25,37 +57,91 @@ class SPA {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            this.pageData.spectacle = {
-                title: "Nos Spectacles",
-                description: "Découvrez notre programmation",
-                style: "Style unique",
-                spectacles: data.map(spectacle => ({
-                    titre: spectacle.titre,
-                    horaire: spectacle.horaire,
-                    soiree: spectacle.soiree
-                }))
-            };
+            
+            this.originalSpectacles = data.spectacles || [];
+            
+            this.updateSpectacleDisplay();
         } catch (error) {
             console.error('Erreur lors de la récupération des données:', error);
             this.pageData.spectacle = {
-                title: "Nos Spectacles",
-                description: "Erreur lors du chargement des spectacles",
-                style: "Style unique",
+                activeFilter: this.activeFilter,
+                selectedDate: this.selectedDate,
+                selectedLieu: this.selectedLieu,
+                availableDates: [],
+                availableLieux: [],
                 spectacles: []
             };
         }
     }
 
+    async fetchSoireeData(soireeUrl) {
+        try {
+            const cleanUrl = soireeUrl.startsWith('/') ? soireeUrl.slice(1) : soireeUrl;
+            const response = await fetch(`http://localhost:7080/${cleanUrl}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const soireeData = await response.json();
+            this.pageData.soiree = {
+                title: "Détails de la soirée",
+                soiree: soireeData
+            };
+            
+            this.navigateToPage('soiree');
+        } catch (error) {
+            console.error('Erreur lors de la récupération des données de la soirée:', error);
+        }
+    }
+
+    updateSpectacleDisplay() {
+        if (this.originalSpectacles) {
+            this.pageData.spectacle = {
+                activeFilter: this.activeFilter,
+                selectedDate: this.selectedDate,
+                selectedLieu: this.selectedLieu,
+                availableDates: this.getAvailableDates(this.originalSpectacles),
+                availableLieux: this.getAvailableLieux(this.originalSpectacles),
+                spectacles: this.filterSpectacles(this.originalSpectacles)
+            };
+            this.navigateToPage('spectacle');
+        }
+    }
+
     initializeEventListeners() {
-        // Gestion de la navigation
         document.querySelectorAll('button[data-page]').forEach(button => {
             button.addEventListener('click', async (e) => {
                 const pageName = e.target.dataset.page;
                 if (pageName === 'spectacle') {
-                    await this.fetchSpectacleData(); // Récupère les données avant d'afficher la page
+                    await this.fetchSpectacleData();
                 }
                 this.navigateToPage(pageName);
             });
+        });
+
+        this.contentDiv.addEventListener('click', async (e) => {
+            if (e.target.matches('.filter-type-button')) {
+                const filterType = e.target.dataset.filterType;
+                this.activeFilter = filterType;
+                this.updateSpectacleDisplay();
+            }
+            
+            if (e.target.matches('.date-button')) {
+                this.selectedDate = e.target.dataset.date;
+                this.updateSpectacleDisplay();
+            }
+
+            if (e.target.matches('.lieu-button')) {
+                this.selectedLieu = e.target.dataset.lieu;
+                this.updateSpectacleDisplay();
+            }
+            
+            const spectacleCard = e.target.closest('.spectacle-card');
+            if (spectacleCard) {
+                const soireeUrl = spectacleCard.dataset.soireeId;
+                if (soireeUrl) {
+                    await this.fetchSoireeData(soireeUrl);
+                }
+            }
         });
     }
 
@@ -70,7 +156,6 @@ class SPA {
     }
 }
 
-// Initialisation de l'application
 document.addEventListener('DOMContentLoaded', () => {
     new SPA();
 });

@@ -1,8 +1,6 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
-    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -37,4 +35,82 @@ input, textarea {
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 4px;
+}
+
+
+/* page spectacle*/
+
+
+.filter-types {
+    margin: 20px 0 10px 0;
+}
+
+.filter-type-button {
+    background-color: #4B0082;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-right: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.filter-type-button.active {
+    opacity: 1;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.date-button,
+.lieu-button {
+    padding: 8px 16px;
+    border: 2px solid #4B0082;
+    border-radius: 4px;
+    background: white;
+    color: #4B0082;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.date-button.active,
+.lieu-button.active {
+    background-color: #4B0082;
+    color: white;
+}
+
+.date-button:hover,
+.lieu-button:hover {
+    background-color: #4B0082;
+    color: white;
+}
+
+.spectacles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.spectacle-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spectacle-card h2 {
+    margin-top: 0;
+    color: #4B0082;
+}
+
+.spectacle-card p {
+    margin: 8px 0;
 }

@@ -2,6 +2,7 @@
 
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
+use app\middlewares\CorsMiddleware;
 
 
 
@@ -23,6 +24,5 @@ $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false)
 
 $app = (require_once __DIR__ . '/routes.php')($app);
 $routeParser = $app->getRouteCollector()->getRouteParser();
-
-
+$app->add(new CorsMiddleware());
 return $app;

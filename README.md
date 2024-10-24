@@ -13,12 +13,32 @@ nrv.net est une application web développée dans le cadre d'un projet étudiant
 
 ### Client
 
-Fonctionnalités client ici
+#### Programme du festival
+
+- [x] Affichage de la liste des spectacles (titre, date, horaire, image)
+- [x] Affichage du détail d'une soirée (nom, thématique, date, horaire, lieu, tarifs, liste des spectacles)
+- [x] Navigation vers le détail de la soirée depuis un spectacle
+- [x] Filtrage des spectacles par date
+- [x] Filtrage des spectacles par style de musique
+- [x] Filtrage des spectacles par lieu
+
+#### Compte et Profil d'utilisateur
+
+- [ ] Inscription sur la plateforme et création d'un compte
+- [ ] Accès aux billets achetés ("mes billets")
+
+#### Achats de billets
+
+- [ ] Ajout de billets au panier depuis la page d'une soirée
+- [ ] Visualisation du panier et calcul du montant total
+- [ ] Validation du panier et transformation en commande
+- [ ] Simulation de paiement avec contrôle de disponibilité des places
+- [ ] Génération de billets imprimables (HTML/CSS avec @media print)
 
 ### Backoffice
 
-Fonctionnalités du backoffice ici
+- [ ] Affichage de la jauge des spectacles (nombre de places vendues par soirée)
 
 ### Fonctionnalités supplémentaires
 
-Fonctionnalités supplémentaires ici
+- [ ] Affichage de la jauge des spectacles (nombre de places vendues par soirée)

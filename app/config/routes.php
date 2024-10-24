@@ -16,6 +16,7 @@ use nrv\application\actions\ValiderPanierAction;
 use nrv\application\actions\SupprimerBilletAction;
 use nrv\application\actions\GetBilletsByUserIdAction;
 
+
 return function( \Slim\App $app):\Slim\App {
 
     // Middleware CORS

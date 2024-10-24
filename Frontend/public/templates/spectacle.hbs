@@ -1,15 +1,52 @@
 <div class="page">
-  <h1>Nos Spectacles</h1>
-  <div>
-    {{#each spectacles}}
-      <div>
-        <h2>{{titre}}</h2>
-        <div>
-          <p><strong>Date :</strong> {{formatDate date}}</p>
-          <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
-          <p><strong>Soirée :</strong> {{soiree.nom}}</p>
+    <h1>Nos Spectacles</h1>
+    
+    <div class="filter-types">
+        <button class="filter-type-button {{#if (eq activeFilter 'dates')}}active{{/if}}" data-filter-type="dates">
+            DATES
+        </button>
+        <button class="filter-type-button {{#if (eq activeFilter 'lieux')}}active{{/if}}" data-filter-type="lieux">
+            LIEUX
+        </button>
+    </div>
+
+    {{#if (eq activeFilter 'dates')}}
+    <div class="filter-buttons">
+        <button class="date-button {{#if (eq selectedDate 'all')}}active{{/if}}" data-date="all">
+            TOUS LES JOURS
+        </button>
+        {{#each availableDates}}
+        <button class="date-button {{#if (eq ../selectedDate this)}}active{{/if}}" data-date="{{this}}">
+            {{formatDateButton this}}
+        </button>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if (eq activeFilter 'lieux')}}
+    <div class="filter-buttons">
+        <button class="lieu-button {{#if (eq selectedLieu 'all')}}active{{/if}}" data-lieu="all">
+            TOUS LES LIEUX
+        </button>
+        {{#each availableLieux}}
+        <button class="lieu-button {{#if (eq ../selectedLieu this)}}active{{/if}}" data-lieu="{{this}}">
+            {{this}}
+        </button>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    <div class="spectacles-grid">
+        {{#each spectacles}}
+        <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+            <h2>{{titre}}</h2>
+            <div>
+                <p><strong>Date :</strong> {{formatDate date}}</p>
+                <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
+                <p><strong>Soirée :</strong> {{soiree.nom}}</p>
+                <p><strong>Lieu :</strong> {{lieu}}</p>
+            </div>
         </div>
-      </div>
-    {{/each}}
-  </div>
+        {{/each}}
+    </div>
 </div>

@@ -18,9 +18,9 @@ nrv.net est une application web développée dans le cadre d'un projet étudiant
 - [x] Affichage de la liste des spectacles (titre, date, horaire, image)
 - [x] Affichage du détail d'une soirée (nom, thématique, date, horaire, lieu, tarifs, liste des spectacles)
 - [x] Navigation vers le détail de la soirée depuis un spectacle
-- [ ] Filtrage des spectacles par date
-- [ ] Filtrage des spectacles par style de musique
-- [ ] Filtrage des spectacles par lieu
+- [x] Filtrage des spectacles par date
+- [x] Filtrage des spectacles par style de musique
+- [x] Filtrage des spectacles par lieu
 
 #### Compte et Profil d'utilisateur
 

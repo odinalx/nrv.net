@@ -82,7 +82,6 @@ class SPA {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const soireeData = await response.json();
-            
             this.pageData.soiree = {
                 title: "Détails de la soirée",
                 soiree: soireeData

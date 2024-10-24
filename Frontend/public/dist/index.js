@@ -5796,7 +5796,7 @@
 </div>`;
 
   // public/templates/soiree.hbs
-  var soiree_default = '<div class="page">\n  <h1>{{title}}</h1>\n  <div class="soiree-details">\n    <h2>{{soiree.nom}}</h2>\n    <div class="soiree-info">\n      {{#if soiree.description}}\n        <p><strong>Description :</strong> {{soiree.description}}</p>\n      {{/if}}\n      {{#if soiree.tarif_normal}}\n        <p><strong>tarif_normal :</strong> {{soiree.tarif_normal}}</p>\n      {{/if}}\n      {{#if soiree.date}}\n        <p><strong>Date :</strong> {{formatDate soiree.date}}</p>\n      {{/if}}\n    </div>\n  </div>\n</div>';
+  var soiree_default = '<div class="page">\n  <h1>{{title}}</h1>\n  \n  <div class="soiree-details">\n    <h2>{{soiree.nom}}</h2>\n    \n    <div class="soiree-info">\n      {{#if soiree.description}}\n        <p><strong>Description :</strong> {{soiree.description}}</p>\n      {{/if}}\n      \n      {{#if soiree.tarif_normal}}\n        <p><strong>Tarif normal :</strong> {{soiree.tarif_normal}}\u20AC</p>\n      {{/if}}\n      \n      {{#if soiree.tarif_reduit}}\n        <p><strong>Tarif r\xE9duit :</strong> {{soiree.tarif_reduit}}\u20AC</p>\n      {{/if}}\n      \n      {{#if soiree.date}}\n        <p><strong>Date :</strong> {{formatDate soiree.date}}</p>\n      {{/if}}\n      \n      {{#if soiree.horaire_debut}}\n        <p><strong>Heure de d\xE9but :</strong> {{formatTime soiree.horaire_debut}}</p>\n      {{/if}}\n      \n      {{#if soiree.theme}}\n        <p><strong>Th\xE8me :</strong> {{soiree.theme}}</p>\n      {{/if}}\n    </div>\n\n    {{#if soiree.spectacles.length}}\n      <div class="spectacles-grid">\n        {{#each soiree.spectacles}}\n            <div class="spectacle-card">\n              <h3>{{titre}}</h3>\n              {{#if description}}\n                <p><strong>Description :</strong> {{description}}</p>\n              {{/if}}\n              {{#if style}}\n                <p><strong>Style :</strong> {{style}}</p>\n              {{/if}}\n              {{#if horaire_prev}}\n                <p><strong>Horaire :</strong> {{formatTime horaire_prev}}</p>\n              {{/if}}\n            </div>\n        {{/each}}\n      </div>\n    {{/if}}\n  </div>\n</div>';
 
   // public/js/templateLoader.js
   import_handlebars.default.registerHelper("formatDate", function(dateStr) {
@@ -5900,6 +5900,7 @@
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const soireeData = yield response.json();
+          console.log("soireeData:", soireeData);
           this.pageData.soiree = {
             title: "D\xE9tails de la soir\xE9e",
             soiree: soireeData

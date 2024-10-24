@@ -5742,7 +5742,28 @@
   var home_default = '<div class="page">\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n</div>';
 
   // public/templates/spectacle.hbs
-  var spectacle_default = '<div class="page">\n  <h1>Nos Spectacles</h1>\n  <div>\n    {{#each spectacles}}\n    <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">\n      <h2>{{titre}}</h2>\n      <div>\n        <p><strong>Date :</strong> {{formatDate date}}</p>\n        <p><strong>Horaire :</strong> {{formatTime horaire}}</p>\n        <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>';
+  var spectacle_default = `<div class="page">
+    <h1>Nos Spectacles</h1>
+    
+    <div class="sorting-controls">
+        <button class="sort-btn {{#if (eq currentSort 'date')}}active{{/if}}" data-sort-key="date">
+            Trier par date {{#if (eq currentSort 'date')}}{{#if (eq sortOrder 'asc')}}\u2191{{else}}\u2193{{/if}}{{/if}}
+        </button>
+    </div>
+
+    <div>
+        {{#each spectacles}}
+        <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+            <h2>{{titre}}</h2>
+            <div>
+                <p><strong>Date :</strong> {{formatDate date}}</p>
+                <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
+                <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>`;
 
   // public/templates/soiree.hbs
   var soiree_default = '<div class="page">\n  <h1>{{title}}</h1>\n  <div class="soiree-details">\n    <h2>{{soiree.nom}}</h2>\n    <div class="soiree-info">\n      {{#if soiree.description}}\n        <p><strong>Description :</strong> {{soiree.description}}</p>\n      {{/if}}\n      {{#if soiree.tarif_normal}}\n        <p><strong>tarif_normal :</strong> {{soiree.tarif_normal}}</p>\n      {{/if}}\n      {{#if soiree.date}}\n        <p><strong>Date :</strong> {{formatDate soiree.date}}</p>\n      {{/if}}\n    </div>\n  </div>\n</div>';
@@ -5755,6 +5776,9 @@
       month: "long",
       year: "numeric"
     });
+  });
+  import_handlebars.default.registerHelper("eq", function(a, b) {
+    return a === b;
   });
   import_handlebars.default.registerHelper("formatTime", function(timeStr) {
     return timeStr.slice(0, 5);
@@ -5771,6 +5795,8 @@
     constructor() {
       this.contentDiv = document.getElementById("content");
       this.templates = templates;
+      this.currentSortKey = "date";
+      this.sortOrder = "asc";
       this.pageData = {
         home: {
           title: "Notre NRV",
@@ -5782,6 +5808,21 @@
       this.initializeEventListeners();
       this.navigateToPage("home");
     }
+    sortSpectacles(spectacles, sortKey, order) {
+      return [...spectacles].sort((a, b) => {
+        let comparison = 0;
+        switch (sortKey) {
+          case "date":
+            const [dayA, monthA, yearA] = a.date.split("-");
+            const [dayB, monthB, yearB] = b.date.split("-");
+            const dateA = /* @__PURE__ */ new Date(`${yearA}-${monthA}-${dayA}`);
+            const dateB = /* @__PURE__ */ new Date(`${yearB}-${monthB}-${dayB}`);
+            comparison = dateA - dateB;
+            break;
+        }
+        return order === "asc" ? comparison : -comparison;
+      });
+    }
     fetchSpectacleData() {
       return __async(this, null, function* () {
         try {
@@ -5792,22 +5833,15 @@
           const data = yield response.json();
           const spectacles = data.spectacles || [];
           this.pageData.spectacle = {
-            title: "Nos Spectacles",
-            description: "D\xE9couvrez notre programmation",
-            style: "Style unique",
-            spectacles: spectacles.map((spectacle) => ({
-              titre: spectacle.titre,
-              date: spectacle.date,
-              horaire: spectacle.horaire,
-              soiree: spectacle.soiree
-            }))
+            currentSort: this.currentSortKey,
+            sortOrder: this.sortOrder,
+            spectacles: this.sortSpectacles(spectacles, this.currentSortKey, this.sortOrder)
           };
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es:", error);
           this.pageData.spectacle = {
-            title: "Nos Spectacles",
-            description: "Erreur lors du chargement des spectacles",
-            style: "Style unique",
+            currentSort: this.currentSortKey,
+            sortOrder: this.sortOrder,
             spectacles: []
           };
         }
@@ -5843,6 +5877,25 @@
         }));
       });
       this.contentDiv.addEventListener("click", (e) => __async(this, null, function* () {
+        if (e.target.matches(".sort-btn")) {
+          const sortKey = e.target.dataset.sortKey;
+          if (sortKey === this.currentSortKey) {
+            this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
+          } else {
+            this.currentSortKey = sortKey;
+            this.sortOrder = "asc";
+          }
+          if (this.pageData.spectacle && this.pageData.spectacle.spectacles) {
+            this.pageData.spectacle.spectacles = this.sortSpectacles(
+              this.pageData.spectacle.spectacles,
+              this.currentSortKey,
+              this.sortOrder
+            );
+            this.pageData.spectacle.currentSort = this.currentSortKey;
+            this.pageData.spectacle.sortOrder = this.sortOrder;
+            this.navigateToPage("spectacle");
+          }
+        }
         const spectacleCard = e.target.closest(".spectacle-card");
         if (spectacleCard) {
           const soireeUrl = spectacleCard.dataset.soireeId;

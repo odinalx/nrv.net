@@ -4,6 +4,8 @@ class SPA {
     constructor() {
         this.contentDiv = document.getElementById('content');
         this.templates = templates;
+        this.currentSortKey = 'date'; 
+        this.sortOrder = 'asc'; 
         
         this.pageData = {
             home: {
@@ -18,6 +20,22 @@ class SPA {
         this.navigateToPage('home');
     }
 
+    sortSpectacles(spectacles, sortKey, order) {
+        return [...spectacles].sort((a, b) => {
+            let comparison = 0;
+            switch (sortKey) {
+                case 'date':
+                    const [dayA, monthA, yearA] = a.date.split('-');
+                    const [dayB, monthB, yearB] = b.date.split('-');
+                    const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+                    const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+                    comparison = dateA - dateB;
+                    break;
+            }
+            return order === 'asc' ? comparison : -comparison;
+        });
+    }
+
     async fetchSpectacleData() {
         try {
             const response = await fetch('http://localhost:7080/spectacles');
@@ -28,23 +46,17 @@ class SPA {
             
             const spectacles = data.spectacles || [];
             
+            // Ajout des données de tri dans pageData
             this.pageData.spectacle = {
-                title: "Nos Spectacles",
-                description: "Découvrez notre programmation",
-                style: "Style unique",
-                spectacles: spectacles.map(spectacle => ({
-                    titre: spectacle.titre,
-                    date: spectacle.date,
-                    horaire: spectacle.horaire,
-                    soiree: spectacle.soiree
-                }))
+                currentSort: this.currentSortKey,
+                sortOrder: this.sortOrder,
+                spectacles: this.sortSpectacles(spectacles, this.currentSortKey, this.sortOrder)
             };
         } catch (error) {
             console.error('Erreur lors de la récupération des données:', error);
             this.pageData.spectacle = {
-                title: "Nos Spectacles",
-                description: "Erreur lors du chargement des spectacles",
-                style: "Style unique",
+                currentSort: this.currentSortKey,
+                sortOrder: this.sortOrder,
                 spectacles: []
             };
         }
@@ -83,8 +95,31 @@ class SPA {
             });
         });
 
-        // Délégation d'événements pour les clics sur les spectacles
+        // Délégation d'événements pour les clics
         this.contentDiv.addEventListener('click', async (e) => {
+            // Gestion du tri
+            if (e.target.matches('.sort-btn')) {
+                const sortKey = e.target.dataset.sortKey;
+                if (sortKey === this.currentSortKey) {
+                    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+                } else {
+                    this.currentSortKey = sortKey;
+                    this.sortOrder = 'asc';
+                }
+                
+                if (this.pageData.spectacle && this.pageData.spectacle.spectacles) {
+                    this.pageData.spectacle.spectacles = this.sortSpectacles(
+                        this.pageData.spectacle.spectacles,
+                        this.currentSortKey,
+                        this.sortOrder
+                    );
+                    this.pageData.spectacle.currentSort = this.currentSortKey;
+                    this.pageData.spectacle.sortOrder = this.sortOrder;
+                    this.navigateToPage('spectacle');
+                }
+            }
+            
+            // Gestion du clic sur une carte de spectacle
             const spectacleCard = e.target.closest('.spectacle-card');
             if (spectacleCard) {
                 const soireeUrl = spectacleCard.dataset.soireeId;
@@ -110,3 +145,4 @@ class SPA {
 document.addEventListener('DOMContentLoaded', () => {
     new SPA();
 });
+

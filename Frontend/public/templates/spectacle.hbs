@@ -1,15 +1,22 @@
 <div class="page">
-  <h1>Nos Spectacles</h1>
-  <div>
-    {{#each spectacles}}
-    <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
-      <h2>{{titre}}</h2>
-      <div>
-        <p><strong>Date :</strong> {{formatDate date}}</p>
-        <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
-        <p><strong>Soirée :</strong> {{soiree.nom}}</p>
-      </div>
+    <h1>Nos Spectacles</h1>
+    
+    <div class="sorting-controls">
+        <button class="sort-btn {{#if (eq currentSort 'date')}}active{{/if}}" data-sort-key="date">
+            Trier par date {{#if (eq currentSort 'date')}}{{#if (eq sortOrder 'asc')}}↑{{else}}↓{{/if}}{{/if}}
+        </button>
     </div>
-    {{/each}}
-  </div>
+
+    <div>
+        {{#each spectacles}}
+        <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+            <h2>{{titre}}</h2>
+            <div>
+                <p><strong>Date :</strong> {{formatDate date}}</p>
+                <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
+                <p><strong>Soirée :</strong> {{soiree.nom}}</p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
 </div>

@@ -13,7 +13,9 @@ Handlebars.registerHelper('formatDate', function(dateStr) {
         year: 'numeric'
     });
 });
-
+Handlebars.registerHelper('eq', function(a, b) {
+    return a === b;
+});
 Handlebars.registerHelper('formatTime', function(timeStr) {
     return timeStr.slice(0, 5); // Garde seulement HH:MM
 });

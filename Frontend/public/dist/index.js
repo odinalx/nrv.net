@@ -5900,7 +5900,6 @@
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const soireeData = yield response.json();
-          console.log("soireeData:", soireeData);
           this.pageData.soiree = {
             title: "D\xE9tails de la soir\xE9e",
             soiree: soireeData

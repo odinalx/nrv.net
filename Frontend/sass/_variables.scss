@@ -90,7 +90,7 @@ body{
         }
     }
     .details{
-        background-color:$accent-color;
+        background-color:$color;
         border-radius: 5px;
         text-align: center;
         color: white;
@@ -111,4 +111,57 @@ body{
     @include container-mixin($sm-columns, $sm-ancho);
     }
 }
-    
+
+@mixin forms(){
+    form {
+        padding-top: 4rem;
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centra los elementos en el eje horizontal */
+        flex-direction: column; /* Alinea los elementos en columna */
+        align-items: center; /* Centra los elementos en el eje vertical */
+        gap: 20px; /* Añade espacio entre los elementos */
+        padding: 20px;
+        //border: 2px solid $accent-color;
+        border-radius: 10px;
+        h1{
+            color: black;
+        }
+        label, p, button, input,a {
+            width: 100%; /* Ajusta el ancho de los elementos */
+            //max-width: 400px; /* Limita el ancho máximo */
+            margin: auto; /* Añade espacio entre los elementos */
+            padding: 10px; /* Da espacio interior a los elementos */
+            border: none;
+            text-decoration: none;
+            
+            @include textos-mixin();
+        }
+        div{
+            border-bottom: 2px solid $accent-color;
+            width: 100%;
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+        input{
+            color: $accent-color;
+            &::placeholder{
+                color: $accent-color;
+            }
+        }
+        button {
+            cursor: pointer;
+            background-color: $accent-color;
+            color: white;
+            border: 1px solid white;
+            transition: background-color 0.3s ease;
+           
+            &:hover {
+                color: $accent-color;
+                background-color: white;
+                border: 1px solid $accent-color;
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reservation.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Réservation</h1>
+    </header>
+    <div class="container">
+        <div class="items"></div>
+        <div class="items">
+            <form action="/process_reservation" method="POST" class="reservation-form">
+                <div class="reservation-grid">
+                    <div class="imagen">
+                        <img src="../img/img.png" alt="" srcset="">
+                    </div>
+                    <div>
+                        <span class="event-name">Nom de soirée</span>
+                        <span class="event-location">Lieu</span>
+                        <span class="event-date">Date et lieu</span>
+                    </div>
+                            
+                </div>
+    
+                <p class="available-places">Lieux disponibles: XYZ</p>
+    
+                <div class="price-grid">
+                    <div class="price-row">
+                        <label for="normal-tariff">Tarif normal</label>
+                        <span>1€</span>
+                        <div class="quantity-control">
+                            <button type="button" class="minus-button" data-target="normal-tariff">-</button>
+                            <input type="number" id="normal-tariff" name="normal-tariff" min="0" value="0">
+                            <button type="button" class="plus-button" data-target="normal-tariff">+</button>
+                        </div>
+                    </div>
+    
+                    <div class="price-row">
+                        <label for="reduced-tariff">Tarif réduit</label>
+                        <span>0.5€</span>
+                        <div class="quantity-control">
+                            <button type="button" class="minus-button" data-target="reduced-tariff">-</button>
+                            <input type="number" id="reduced-tariff" name="reduced-tariff" min="0" value="0">
+                            <button type="button" class="plus-button" data-target="reduced-tariff">+</button>
+                        </div>
+                    </div>
+    
+                    <p class="ticket-summary">1 billet(s) <br> 0.5€</p>
+    
+                    <button type="submit" class="reserve-button">Réserver</button>
+                </div>
+            </form>
+        </div>
+        <div class="items"></div>
+    </div>
+</body>
+</html>

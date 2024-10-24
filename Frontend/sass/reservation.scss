@@ -1,0 +1,25 @@
+@import 'variables';
+header{
+    @include header-mixin();
+}
+.container{
+    @include responsive(3,1fr,3,1fr,3,1fr);
+    //background-color: aquamarine;
+}
+.items{
+    @include responsive(1,1fr,1,1fr,1,1fr);
+    @include forms();
+    
+}
+
+.reservation-grid{
+    @include responsive(2,1fr,2,1fr,1,1fr);
+    @include grid-item(green);
+    @include textos-mixin();
+    background-color: aliceblue;
+    span{
+        display: flex;
+        color: $accent-color;
+        text-align: justify;
+    }
+}

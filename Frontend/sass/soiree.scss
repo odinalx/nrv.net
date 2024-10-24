@@ -11,7 +11,7 @@ nav{
     @include textos-mixin();
 }
 .item{
-    @include container-mixin(1,1fr);
+    @include responsive(1,1fr,1,1fr,1,1fr);
     h1{
         text-align: center;
     }

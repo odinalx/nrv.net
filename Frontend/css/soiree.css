@@ -78,15 +78,32 @@ nav {
   text-align: justify;
   text-decoration: none; }
 
-.item {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto;
-  gap: 20px;
-  padding: 1em;
-  margin: 0; }
-  .item h1 {
-    text-align: center; }
+@media (min-width: 1200px) {
+  .item {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 1em;
+    margin: 0; } }
+@media (max-width: 1199px) and (min-width: 768px) {
+  .item {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 1em;
+    margin: 0; } }
+@media (max-width: 767px) {
+  .item {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 1em;
+    margin: 0; } }
+.item h1 {
+  text-align: center; }
 
 .info {
   border-bottom: 1px solid #6A0DAD; }

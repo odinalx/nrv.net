@@ -1,0 +1,109 @@
+@charset "UTF-8";
+body {
+  margin: 0px; }
+
+.container {
+  padding-top: 30rem; }
+  @media (min-width: 1200px) {
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 20px;
+      padding: 1em;
+      margin: 0; } }
+  @media (max-width: 1199px) and (min-width: 768px) {
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 20px;
+      padding: 1em;
+      margin: 0; } }
+  @media (max-width: 767px) {
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 20px;
+      padding: 1em;
+      margin: 0; } }
+
+@media (min-width: 1200px) {
+  .items {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 1em;
+    margin: 0; } }
+@media (max-width: 1199px) and (min-width: 768px) {
+  .items {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 1em;
+    margin: 0; } }
+@media (max-width: 767px) {
+  .items {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 1em;
+    margin: 0; } }
+.items h1, .items h2, .items h3, .items p, .items ul, .items li, .items label {
+  color: #6A0DAD;
+  text-align: justify;
+  text-decoration: none; }
+.items form {
+  padding-top: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* Centra los elementos en el eje horizontal */
+  flex-direction: column;
+  /* Alinea los elementos en columna */
+  align-items: center;
+  /* Centra los elementos en el eje vertical */
+  gap: 20px;
+  /* Añade espacio entre los elementos */
+  padding: 20px;
+  border-radius: 10px; }
+  .items form h1 {
+    color: black; }
+  .items form label, .items form p, .items form button, .items form input, .items form a {
+    width: 100%;
+    /* Ajusta el ancho de los elementos */
+    margin: auto;
+    /* Añade espacio entre los elementos */
+    padding: 10px;
+    /* Da espacio interior a los elementos */
+    border: none;
+    text-decoration: none; }
+    .items form label h1, .items form label h2, .items form label h3, .items form label p, .items form label ul, .items form label li, .items form label label, .items form p h1, .items form p h2, .items form p h3, .items form p p, .items form p ul, .items form p li, .items form p label, .items form button h1, .items form button h2, .items form button h3, .items form button p, .items form button ul, .items form button li, .items form button label, .items form input h1, .items form input h2, .items form input h3, .items form input p, .items form input ul, .items form input li, .items form input label, .items form a h1, .items form a h2, .items form a h3, .items form a p, .items form a ul, .items form a li, .items form a label {
+      color: #6A0DAD;
+      text-align: justify;
+      text-decoration: none; }
+  .items form div {
+    border-bottom: 2px solid #6A0DAD;
+    width: 100%; }
+    .items form div:last-of-type {
+      border-bottom: none; }
+  .items form input {
+    color: #6A0DAD; }
+    .items form input::placeholder {
+      color: #6A0DAD; }
+  .items form button {
+    cursor: pointer;
+    background-color: #6A0DAD;
+    color: white;
+    border: 1px solid white;
+    transition: background-color 0.3s ease; }
+    .items form button:hover {
+      color: #6A0DAD;
+      background-color: white;
+      border: 1px solid #6A0DAD; }
+
+/*# sourceMappingURL=loggin.css.map */

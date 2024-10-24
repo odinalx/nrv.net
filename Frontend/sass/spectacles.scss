@@ -1,0 +1,17 @@
+@import 'variables';
+header{
+    @include header-mixin();
+}
+nav{
+    @include nav-mixin();
+}
+.container{
+    @include responsive(3, 1fr, 2, 1fr, 1, 1fr); 
+}
+.item{
+    @include container-mixin(1,1fr);
+}
+.info{
+    @include grid-item($accent-color);
+    background-color: rgb(198, 198, 198);
+}

@@ -4,3 +4,111 @@ $secondary-color: #fff;
 $accent-color: #6A0DAD;
 $content-color: rgb(122, 122, 122);
 $green: #00b300;
+body{
+    margin: 0px;
+}
+
+
+@mixin nav-mixin(){
+    @include container-mixin(1,1fr);
+    h2{
+        text-align: center;
+    }
+    ul{
+        display: flex;
+        justify-content: center;
+        @include textos-mixin();
+        li{
+            display: flex;
+            justify-content: space-around;
+            text-decoration: none;
+            text-align: center;
+            margin: 0 10px;
+            border-bottom: 1px solid $accent-color;
+        }
+        .filter{
+            background-color:white;
+            color: $accent-color;
+            border-radius: 3px;
+            border: 1px solid $accent-color;
+            padding: 0 1rem;
+            transition: 1s;
+            &:hover{
+                background-color: $accent-color;
+                color: white;
+                border: .1px solid white;
+                cursor: pointer;
+                
+            }
+        }
+    }
+}
+//Mixin para definir textos
+@mixin textos-mixin(){
+    h1,h2,h3,p,ul,li,label{
+        color: $accent-color;
+        text-align: justify;
+        text-decoration: none;
+    }
+}
+
+//mixin para header
+
+@mixin header-mixin(){
+        display: flex;
+        background-color: black;
+        justify-content: space-between;
+        padding: 0 1rem;
+        h1{
+           color: white;
+        }
+        button{
+            color:white;
+            background-color: $accent-color;
+            border-radius: 0px;
+        }
+}
+
+// Mixin para el grid container
+@mixin container-mixin($columnas,$ancho,$gap:20px) {
+    display: grid;
+    grid-template-columns: repeat($columnas,$ancho);
+    grid-template-rows: auto;
+    gap: $gap;  
+    padding: 1em;
+    margin: 0;
+}
+// Mixin para los items de la grilla
+@mixin grid-item($color) {
+    .imagen{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 100%;
+            height: auto;
+        }
+    }
+    .details{
+        background-color:$accent-color;
+        border-radius: 5px;
+        text-align: center;
+        color: white;
+    }
+}
+
+@mixin responsive($lg-columns, $lg-ancho, $md-columns, $md-ancho, $sm-columns, $sm-ancho) {
+    // Pantallas grandes (≥ 1200px)
+    @media (min-width: 1200px) {
+    @include container-mixin($lg-columns, $lg-ancho);
+    }
+    // Pantallas medianas (768px - 1199px)
+    @media (max-width: 1199px) and (min-width: 768px) {
+    @include container-mixin($md-columns, $md-ancho);
+    }
+    // Pantallas pequeñas (≤ 767px)
+    @media (max-width: 767px) {
+    @include container-mixin($sm-columns, $sm-ancho);
+    }
+}
+    

@@ -52,7 +52,7 @@ nav {
 @media (min-width: 1200px) {
   .container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     gap: 20px;
     padding: 1em;
@@ -60,7 +60,7 @@ nav {
 @media (max-width: 1199px) and (min-width: 768px) {
   .container {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     gap: 20px;
     padding: 1em;
@@ -73,10 +73,6 @@ nav {
     gap: 20px;
     padding: 1em;
     margin: 0; } }
-.container h1, .container h2, .container h3, .container p, .container ul, .container li, .container label {
-  color: #6A0DAD;
-  text-align: justify;
-  text-decoration: none; }
 
 .item {
   display: grid;
@@ -85,35 +81,9 @@ nav {
   gap: 20px;
   padding: 1em;
   margin: 0; }
-  .item h1 {
-    text-align: center; }
 
 .info {
-  border-bottom: 1px solid #6A0DAD; }
-  @media (min-width: 1200px) {
-    .info {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: auto;
-      gap: 20px;
-      padding: 1em;
-      margin: 0; } }
-  @media (max-width: 1199px) and (min-width: 768px) {
-    .info {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: auto;
-      gap: 20px;
-      padding: 1em;
-      margin: 0; } }
-  @media (max-width: 767px) {
-    .info {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      grid-template-rows: auto;
-      gap: 20px;
-      padding: 1em;
-      margin: 0; } }
+  background-color: #c6c6c6; }
   .info .imagen {
     display: flex;
     justify-content: center;
@@ -127,4 +97,4 @@ nav {
     text-align: center;
     color: white; }
 
-/*# sourceMappingURL=soiree.css.map */
+/*# sourceMappingURL=spectacles.css.map */

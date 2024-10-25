@@ -27,7 +27,7 @@ services:
     networks:
       - nrv.net
     volumes:
-      - ./app/sql:/var/sql
+      - ./app/sql:/docker-entrypoint-initdb.d
 
   adminer:
     image: adminer

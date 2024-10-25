@@ -6,12 +6,15 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use app\providers\JwtAuthProvider;
 use nrv\core\dto\CredentialsDTO;
+use nrv\core\services\auth\AuthService;
 
 class AuthLoginAction extends AbstractAction {
     private JwtAuthProvider $JwtAuthProvider;
+    private AuthService $AuthService;
 
-    public function __construct(JwtAuthProvider $JwtAuthProvider) {
+    public function __construct(JwtAuthProvider $JwtAuthProvider, AuthService $AuthService) {
         $this->JwtAuthProvider = $JwtAuthProvider;
+        $this->AuthService = $AuthService;
     }
 
     public function __invoke(Request $request, Response $response, array $args): Response {
@@ -28,8 +31,10 @@ class AuthLoginAction extends AbstractAction {
         try {
             $authDTO = new CredentialsDTO($data['email'], $data['password']);
             $authToken = $this->JwtAuthProvider->signin($authDTO);
+            $authemail = $this->AuthService->findByEmail($data['email']);
 
             $responseData = [
+                'user_id' => $authemail->getId(),
                 'accessToken' => $authToken->getAccessToken(),
                 'refreshToken' => $authToken->getRefreshToken(),
             ];

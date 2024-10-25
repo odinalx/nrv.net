@@ -39,7 +39,8 @@ class GetPanierByUserIdAction extends AbstractAction
             foreach ($billetsDTO as $billetDTO) {
                 $soireeDto = $this->serviceSoiree->getSoireeById($billetDTO->soiree_id);
 
-                $billetsResponse[] = [                    
+                $billetsResponse[] = [ 
+                    'id' => $billetDTO->billetpanier_id,                 
                     'soiree' => [
                         'self' => "/soirees/{$soireeDto->soiree_id}",
                         'nom' => $soireeDto->nom

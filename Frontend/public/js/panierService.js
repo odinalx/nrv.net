@@ -1,9 +1,9 @@
 import { API_CONFIG, ApiService } from './api.js';
 
 export class PanierService {
-    static async creerPanier(userId) {
+    static async creerPanier(user_id) {
         try {
-            const data = { user_id: userId };
+            const data = { user_id: user_id };
             console.log("Envoi de la requête de création de panier avec les données :", data);
             
             const response = await ApiService.post(`${API_CONFIG.BASE_URL}/paniers`, data, true);

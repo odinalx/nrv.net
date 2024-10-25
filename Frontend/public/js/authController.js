@@ -60,7 +60,7 @@ export class AuthController {
                     const loginResult = await authService.login(email, password);
                     if (loginResult && loginResult.accessToken) {
                         this.updateAuthButtons();
-                        await PanierService.creerPanier(loginResult.userId);
+                        await PanierService.creerPanier(loginResult.user_id);
                         this.pageManager.navigateToPage('home');
                         return;
                     }

@@ -33,9 +33,20 @@ Handlebars.registerHelper('formatTime', function(timeStr) {
     return `${parseInt(hours)}H${minutes}`;
 });
 
+Handlebars.registerHelper('sortByTime', function(spectacles) {
+    if (!spectacles) return [];
+    return [...spectacles].sort((a, b) => {
+        const timeA = a.horaire_prev.split(':').map(Number);
+        const timeB = b.horaire_prev.split(':').map(Number);
+        return (timeA[0] * 60 + timeA[1]) - (timeB[0] * 60 + timeB[1]);
+    });
+});
+
 Handlebars.registerHelper('eq', function(a, b) {
     return a === b;
 });
+
+
 
 export const templates = {
     home: Handlebars.compile(homeTemplate),

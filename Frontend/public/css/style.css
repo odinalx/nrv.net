@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -78,19 +77,6 @@ nav > :not(button[data-page=home]) {
     margin-right: 0;
   }
 }
-/* Style spécifiques à la page soirée */
-.page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 26px;
-}
-.page > h1 {
-  text-align: center;
-  color: #2e9466;
-  margin-bottom: 26px;
-  font-size: 2.5em;
-}
-
 .soiree-details {
   background: white;
   border-radius: 4px;
@@ -98,10 +84,10 @@ nav > :not(button[data-page=home]) {
   padding: 26px;
   margin-bottom: 34px;
 }
-.soiree-details > h1 {
+.soiree-details > h2 {
   text-align: center;
   color: #2e9466;
-  font-size: 3em;
+  font-size: 2.4em;
   margin-bottom: 26px;
   padding-bottom: 18px;
   border-bottom: 2px solid #2e9466;
@@ -115,76 +101,105 @@ nav > :not(button[data-page=home]) {
 }
 .soiree-info > p {
   margin: 0;
-  font-size: 1em;
   padding: 10px;
   background: rgba(46, 148, 102, 0.05);
   border-radius: 4px;
 }
 .soiree-info > p > strong {
   color: #2e9466;
-  font-size: 1.2em;
+  font-size: 1.1em;
   display: block;
   margin-bottom: 10px;
 }
 
-/* Style pour la section des spectacles */
-.spectacles-section {
-  margin-top: 34px;
+.timeline-spectacles {
+  position: relative;
+  padding-left: 60px;
+  margin: 34px 0;
 }
-.spectacles-section > h2 {
-  text-align: center;
-  font-size: 2em;
-  color: #2e9466;
-  margin-bottom: 26px;
+.timeline-spectacles::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #2e9466;
+  opacity: 0.3;
 }
 
-.soiree-spectacles-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 34px;
+.timeline-spectacle-card {
+  position: relative;
   margin-bottom: 34px;
 }
+.timeline-spectacle-card::before {
+  content: "";
+  position: absolute;
+  left: -45px;
+  top: 24px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2e9466;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #2e9466;
+}
+.timeline-spectacle-card .spectacle-time {
+  position: absolute;
+  left: -60px;
+  top: 19px;
+  color: #2e9466;
+  font-weight: bold;
+  font-size: 1.1em;
+  transform: translateX(-100%);
+  white-space: nowrap;
+}
 
-.soiree-spectacle-card {
+.soiree-spectacle {
   background: white;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  margin-left: 26px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.soiree-spectacle-card .spectacle-header {
-  padding: 26px;
+.soiree-spectacle:hover {
+  transform: translateX(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.soiree-spectacle .spectacle-header {
+  padding: 18px 26px;
   border-bottom: 1px solid rgba(46, 148, 102, 0.1);
+  background: rgba(46, 148, 102, 0.03);
 }
-.soiree-spectacle-card .spectacle-header > h3 {
+.soiree-spectacle .spectacle-header h3 {
   color: #2e9466;
   margin: 0;
   font-size: 1.5em;
 }
-.soiree-spectacle-card .spectacle-content {
+.soiree-spectacle .spectacle-content {
   display: grid;
   grid-template-columns: 1fr;
   gap: 26px;
   padding: 26px;
 }
 @media (min-width: 768px) {
-  .soiree-spectacle-card .spectacle-content {
+  .soiree-spectacle .spectacle-content {
     grid-template-columns: 1fr 1fr;
   }
 }
-.soiree-spectacle-card .spectacle-content .spectacle-info > p {
+.soiree-spectacle .spectacle-content .spectacle-info p {
   margin: 10px 0;
 }
-.soiree-spectacle-card .spectacle-content .spectacle-info > p > strong {
+.soiree-spectacle .spectacle-content .spectacle-info p strong {
   color: #2e9466;
   margin-right: 10px;
 }
-.soiree-spectacle-card .spectacle-content .spectacle-video {
-  width: 100%;
+.soiree-spectacle .spectacle-content .spectacle-video {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
 }
-.soiree-spectacle-card .spectacle-content .spectacle-video iframe {
+.soiree-spectacle .spectacle-content .spectacle-video iframe {
   position: absolute;
   top: 0;
   left: 0;

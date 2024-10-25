@@ -1,162 +1,180 @@
 @import 'variables';
+
+
 @mixin button-base {
-    padding: $spacing-sm $spacing-md;
-    border-radius: $border-radius;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-/* Style spécifiques à la page soirée */
-.page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: $spacing-lg;
-  
-    > h1 {
-      text-align: center;
-      color: $primary-color;
-      margin-bottom: $spacing-lg;
-      font-size: 2.5em;
-    }
-  }
-  
-  .soiree-details {
-    background: $white;
-    border-radius: $border-radius;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: $spacing-lg;
-    margin-bottom: $spacing-xl;
-    
-    > h1 {
-      text-align: center;
-      color: $primary-color;
-      font-size: 3em;
-      margin-bottom: $spacing-lg;
-      padding-bottom: $spacing-md;
-      border-bottom: 2px solid $primary-color;
-    }
-  }
-  
-  .soiree-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.soiree-details {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
+
+  > h2 {
+    text-align: center;
+    color: $primary-color;
+    font-size: 2.4em;
     margin-bottom: $spacing-lg;
-    
-    > p {
-      margin: 0;
-      font-size: 1em;
-      padding: $spacing-sm;
-      background: rgba($primary-color, 0.05);
-      border-radius: $border-radius;
-      
-      > strong {
-        color: $primary-color;
-        font-size: 1.2em;
-        display: block;
-        margin-bottom: $spacing-sm;
-      }
-    }
+    padding-bottom: $spacing-md;
+    border-bottom: 2px solid $primary-color;
   }
-  
-  /* Style pour la section des spectacles */
-  .spectacles-section {
-    margin-top: $spacing-xl;
-    
-    > h2 {
-      text-align: center;
-      font-size: 2em;
+}
+
+.soiree-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+
+  > p {
+    margin: 0;
+    padding: $spacing-sm;
+    background: rgba($primary-color, 0.05);
+    border-radius: $border-radius;
+
+    > strong {
       color: $primary-color;
-      margin-bottom: $spacing-lg;
+      font-size: 1.1em;
+      display: block;
+      margin-bottom: $spacing-sm;
     }
   }
+}
+
+.timeline-spectacles {
+  position: relative;
+  padding-left: 60px;
+  margin: $spacing-xl 0;
   
-  .soiree-spectacles-grid {
+  &::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $primary-color;
+    opacity: 0.3;
+  }
+}
+
+.timeline-spectacle-card {
+  position: relative;
+  margin-bottom: $spacing-xl;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: -45px;
+    top: 24px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $primary-color;
+    border: 2px solid $white;
+    box-shadow: 0 0 0 2px $primary-color;
+  }
+  
+  .spectacle-time {
+    position: absolute;
+    left: -60px;
+    top: 19px;
+    color: $primary-color;
+    font-weight: bold;
+    font-size: 1.1em;
+    transform: translateX(-100%);
+    white-space: nowrap;
+  }
+}
+
+.soiree-spectacle {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: $spacing-lg;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateX($spacing-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .spectacle-header {
+    padding: $spacing-md $spacing-lg;
+    border-bottom: 1px solid rgba($primary-color, 0.1);
+    background: rgba($primary-color, 0.03);
+    
+    h3 {
+      color: $primary-color;
+      margin: 0;
+      font-size: 1.5em;
+    }
+  }
+
+  .spectacle-content {
     display: grid;
     grid-template-columns: 1fr;
-    gap: $spacing-xl;
-    margin-bottom: $spacing-xl;
-  }
-  
-  .soiree-spectacle-card {
-    background: $white;
-    border-radius: $border-radius;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    gap: $spacing-lg;
+    padding: $spacing-lg;
     
-    .spectacle-header {
-      padding: $spacing-lg;
-      border-bottom: 1px solid rgba($primary-color, 0.1);
-      
-      > h3 {
-        color: $primary-color;
-        margin: 0;
-        font-size: 1.5em;
-      }
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
     }
-    
-    .spectacle-content {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: $spacing-lg;
-      padding: $spacing-lg;
-      
-      @media (min-width: 768px) {
-        grid-template-columns: 1fr 1fr;
-      }
-      
-      .spectacle-info {
-        > p {
-          margin: $spacing-sm 0;
-          
-          > strong {
-            color: $primary-color;
-            margin-right: $spacing-sm;
-          }
-        }
-      }
-      
-      .spectacle-video {
-        width: 100%;
-        position: relative;
-        padding-bottom: 56.25%; 
-        height: 0;
-        
-        iframe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: $border-radius;
-        }
-      }
-    }
-  }
-  
 
-  .add-to-cart-section {
-    text-align: center;
-    padding: $spacing-xl 0;
-    position: sticky;
-    bottom: 0;
-    background: rgba($white, 0.95);
-    backdrop-filter: blur(5px);
-    border-top: 1px solid $border-color;
-    z-index: 10;
-    
-    .add-to-cart-button {
-      @include button-base;
-      background-color: $primary-color;
-      color: $white;
-      font-size: 1.2em;
-      padding: $spacing-md $spacing-xl;
-      border: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .spectacle-info {
+      p {
+        margin: $spacing-sm 0;
+        strong {
+          color: $primary-color;
+          margin-right: $spacing-sm;
+        }
+      }
+    }
+
+    .spectacle-video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
       
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: $border-radius;
       }
     }
   }
+}
+
+.add-to-cart-section {
+  text-align: center;
+  padding: $spacing-xl 0;
+  position: sticky;
+  bottom: 0;
+  background: rgba($white, 0.95);
+  backdrop-filter: blur(5px);
+  border-top: 1px solid $border-color;
+  z-index: 10;
+
+  .add-to-cart-button {
+    @include button-base;
+    background-color: $primary-color;
+    color: $white;
+    font-size: 1.2em;
+    padding: $spacing-md $spacing-xl;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

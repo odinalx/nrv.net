@@ -1,10 +1,3 @@
-
-// Variables
-$nav-bg: #242424;
-$nav-text: #acacac;
-$nav-text-hover: #2e9466;
-$nav-height: 70px;
-$spacing: 10em;
 @import 'variables';
 
 nav {
@@ -16,35 +9,6 @@ nav {
     padding: 0 $spacing;
     width: 100%;
 
-
-  // Logo button (left side)
-  button[data-page="home"] {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: $nav-text;
-  }
-
-  // Navigation buttons (right side)
-  button:not([data-page="home"]) {
-    background: none;
-    border: none;
-    color: $nav-text;
-    padding: 0.5em 1em;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: opacity 0.3s ease;
-
-    &:hover {
-      color: $nav-text-hover;
-    }
-
-    // Add spacing between buttons
-    &:not(:last-child) {
-      margin-right: 1em;
-=======
     button[data-page="home"] {
         background: none;
         border: none;
@@ -73,7 +37,6 @@ nav {
                 color: $nav-text-hover;
             }
         }
-
     }
 }
 

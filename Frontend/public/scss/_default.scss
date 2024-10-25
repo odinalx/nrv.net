@@ -1,17 +1,13 @@
-$spacing-sm: 8px;
-$spacing-md: 15px;
-$spacing-lg: 20px;
 @import 'variables';
 
 .page {
     padding: $spacing-lg;
     width: 70%;
     margin: auto;
-
-  }
 }
 
 h1{
   font-size: 3em;
   padding: 0.5em 1em;
 }
+

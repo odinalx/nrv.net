@@ -60,7 +60,7 @@ class SPA {
 
     async fetchSpectacleData() {
         try {
-            const response = await fetch('http://localhost:7080/spectacles');
+            const response = await fetch('http://localhost:48013/spectacles');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -85,7 +85,7 @@ class SPA {
     async fetchSoireeData(soireeUrl) {
         try {
             const cleanUrl = soireeUrl.startsWith('/') ? soireeUrl.slice(1) : soireeUrl;
-            const response = await fetch(`http://localhost:7080/${cleanUrl}`);
+            const response = await fetch(`http://localhost:48013/${cleanUrl}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

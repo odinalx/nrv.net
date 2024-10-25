@@ -9,7 +9,7 @@ services:
       dockerfile: 8.3-cli.Dockerfile
     env_file: nrv.env
     ports:
-      - '7080:80'
+      - '48013:80'
     volumes:
       - ./app:/var/php
     working_dir: /var/php
@@ -23,7 +23,7 @@ services:
     image: 'postgres:latest'
     env_file: nrvdb.env
     ports:
-      - '5433:5432'
+      - '48011:5432'
     networks:
       - nrv.net
     volumes:
@@ -32,7 +32,7 @@ services:
   adminer:
     image: adminer
     ports:
-      - '8081:8080'
+      - '48012:8080'
     networks:
       - nrv.net
 
@@ -41,12 +41,13 @@ services:
       context: .
       dockerfile: Frontend/Dockerfile
     ports:
-      - "8080:8080"
+      - "48010:48010"
     volumes:
       - ./Frontend:/usr/src/app/Frontend
       - /usr/src/app/Frontend/node_modules
     environment:
       - NODE_ENV=development
+      - PORT=48010
     networks:
       - nrv.net
     depends_on:

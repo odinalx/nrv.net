@@ -5864,7 +5864,7 @@
 </div>`;
 
   // public/templates/compte.hbs
-  var compte_default = '<div class="page">\n    <h1>{{title}}</h1>\n    <p>{{description}}</p>\n    \n    <div class="account-content">\n        <h2>Mes informations</h2>\n        <button id="logoutButton">Se d\xE9connecter</button>\n    </div>\n</div>';
+  var compte_default = '<div class="page">\n    <h1 class="page-title">{{title}}</h1>\n  \n    <div class="account-content">\n        <h2 class="account-title">Mes informations</h2>\n        <p class="page-description">{{description}}</p>\n        <button id="logoutButton" class="logout-button">Se d\xE9connecter</button>\n    </div>\n</div>\n';
 
   // public/js/templateLoader.js
   import_handlebars.default.registerHelper("formatDate", function(dateStr) {

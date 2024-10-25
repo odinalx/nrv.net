@@ -129,3 +129,11 @@ VALUES
 ('cac53278-131f-4527-a65f-138713432222','166f1042-bdf0-4023-9169-e62e9005f41c'),
 ('810f8b94-55ae-4015-a4d3-fd4ec712fd93','50e25062-c083-474e-a500-0e23661b80cc'),
 ('87cc8ddd-df4e-425e-83cb-9c152bb0369b','f9b45070-120f-49a4-9f4c-9b648ba3586d');
+
+
+
+INSERT INTO paiment (commande_id, card_number, expiration_date, cvv)
+VALUES 
+    ('180b1348-9721-4e5c-9417-18dbf6f7ce27', '4111111111111111',  '12/24', '123' ),
+    ('06f3b61c-3cd1-4a29-b86b-df0fc7fd9602',  '4242424242424242', '11/25', '456');
+    

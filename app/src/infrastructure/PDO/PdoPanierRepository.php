@@ -121,8 +121,4 @@ class PdoPanierRepository implements PanierRepositoryInterface
         return false;
     }
 
-    
-    
-    
-
 }

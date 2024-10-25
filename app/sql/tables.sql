@@ -144,7 +144,17 @@ CREATE TABLE billet (
     FOREIGN KEY (soiree_id) REFERENCES soiree(soiree_id)
 );
 
+DROP TABLE IF EXISTS "paiment" CASCADE;
 
+CREATE TABLE paiment (
+    paiment_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    commande_id UUID NOT NULL,
+    card_number VARCHAR(16) NOT NULL,  
+    expiration_date VARCHAR(5) NOT NULL, 
+    cvv VARCHAR(3) NOT NULL,
+    is_validated BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (commande_id) REFERENCES commande(commande_id) ON DELETE CASCADE
+);
 
 
 

@@ -2,6 +2,7 @@ import Handlebars from 'handlebars';
 import homeTemplate from '../templates/home.hbs';
 import spectacleTemplate from '../templates/spectacle.hbs';
 import soireeTemplate from '../templates/soiree.hbs';
+import connexionTemplate from '../templates/connexion.hbs';
 
 // Helper pour le formatage des dates standard
 Handlebars.registerHelper('formatDate', function(dateStr) {
@@ -51,5 +52,6 @@ Handlebars.registerHelper('eq', function(a, b) {
 export const templates = {
     home: Handlebars.compile(homeTemplate),
     spectacle: Handlebars.compile(spectacleTemplate),
-    soiree: Handlebars.compile(soireeTemplate)
+    soiree: Handlebars.compile(soireeTemplate),
+    connexion: Handlebars.compile(connexionTemplate)
 };

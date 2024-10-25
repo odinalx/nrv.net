@@ -5812,6 +5812,9 @@
   // public/templates/soiree.hbs
   var soiree_default = '<div class="page">\n<div class="soiree-details">\n  <h2>{{soiree.nom}}</h2>\n  \n  <div class="soiree-info">\n    {{#if soiree.theme}}\n    <p>\n      <strong>Th\xE8me</strong>\n      {{soiree.theme}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.date}}\n    <p>\n      <strong>Date</strong>\n      {{formatDate soiree.date}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.horaire_debut}}\n    <p>\n      <strong>Heure de d\xE9but</strong>\n      {{formatTime soiree.horaire_debut}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.lieu}}\n    <p>\n      <strong>Lieu</strong>\n      {{soiree.lieu}}\n    </p>\n    {{/if}}\n\n    {{#if soiree.tarif_normal}}\n    <p>\n      <strong>Tarif normal</strong>\n      {{soiree.tarif_normal}}\u20AC\n    </p>\n    {{/if}}\n    \n    {{#if soiree.tarif_reduit}}\n    <p>\n      <strong>Tarif r\xE9duit</strong>\n      {{soiree.tarif_reduit}}\u20AC\n    </p>\n    {{/if}}\n  </div>\n</div>\n\n{{#if soiree.spectacles.length}}\n<div class="spectacles-section">\n  <h2 class="section-title">Programme de la soir\xE9e</h2>\n  <div class="timeline-spectacles">\n    {{#each (sortByTime soiree.spectacles)}}\n    <div class="timeline-spectacle-card">\n      <span class="spectacle-time">{{formatTime horaire_prev}}</span>\n      <div class="soiree-spectacle">\n        <div class="spectacle-header">\n          <h3>{{titre}}</h3>\n        </div>\n        <div class="spectacle-content">\n          <div class="spectacle-info">\n            {{#if style}}\n            <div class="style-section">\n              <h4>Style :</h4>\n              <p>{{style}}</p>\n            </div>\n            {{/if}}\n            {{#if artistes}}\n            <div class="artistes-section">\n              <h4>Artistes :</h4>\n              {{#each artistes}}\n              <p class="artiste-item">{{nom}}{{prenom}}</p>\n              {{/each}}\n            </div>\n            {{/if}}\n            {{#if description}}\n            <div class="description-section">\n              <h4>\xC0 propos :</h4>\n              <p>{{description}}</p>\n            </div>\n            {{/if}}\n          </div>\n          {{#if url_video}}\n          <div class="spectacle-video">\n            <iframe\n              src="/video/{{url_video}}"\n              title="{{url_video}}"\n              frameborder="0">\n            </iframe>\n          </div>\n          {{/if}}\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>\n{{/if}}\n</div>\n<div class="add-to-cart-section">\n  <div class="cart-wrapper">\n    <button class="add-to-cart-button">\n      <span>Ajouter un ticket au panier</span>\n    </button>\n  </div>\n</div>';
 
+  // public/templates/connexion.hbs
+  var connexion_default = '<div class="page">\n    <form id="loginForm">\n    <input type="email" id="email" required>\n    <input type="password" id="password" required>\n    <button type="submit">Se connecter</button>\n</form>\n</div>';
+
   // public/js/templateLoader.js
   import_handlebars.default.registerHelper("formatDate", function(dateStr) {
     const [day, month, year] = dateStr.split("-");
@@ -5852,7 +5855,8 @@
   var templates = {
     home: import_handlebars.default.compile(home_default),
     spectacle: import_handlebars.default.compile(spectacle_default),
-    soiree: import_handlebars.default.compile(soiree_default)
+    soiree: import_handlebars.default.compile(soiree_default),
+    connexion: import_handlebars.default.compile(connexion_default)
   };
 
   // public/js/api.js
@@ -5971,7 +5975,11 @@
           description: "Bienvenue d\xE9couvrez ici tout les Spectacles de Nancy Rock Vibrations"
         },
         spectacle: null,
-        soiree: null
+        soiree: null,
+        connexion: {
+          title: "Connexion",
+          description: "Connectez-vous \xE0 votre compte"
+        }
       };
     }
     setPageData(pageName, data) {

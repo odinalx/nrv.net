@@ -8,7 +8,11 @@ export class PageManager {
                 description: "Bienvenue découvrez ici tout les Spectacles de Nancy Rock Vibrations",
             },
             spectacle: null,
-            soiree: null
+            soiree: null,
+            connexion: {
+                 title: "Connexion",
+                description: "Connectez-vous à votre compte"
+            }
         };
     }
 

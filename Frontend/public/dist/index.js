@@ -5743,6 +5743,7 @@
 
   // public/templates/spectacle.hbs
   var spectacle_default = `<div class="page">
+<div class="home-filters">
     <h1>Nos Spectacles</h1>
     
     <div class="filter-types">
@@ -5795,7 +5796,7 @@
         {{/each}}
     </div>
     {{/if}}
-
+</div>
     <div class="spectacles-grid">
         {{#each spectacles}}
         <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">

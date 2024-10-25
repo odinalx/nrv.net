@@ -5739,13 +5739,12 @@
   var import_handlebars = __toESM(require_handlebars());
 
   // public/templates/home.hbs
-  var home_default = '<div class="page">\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n</div>';
+  var home_default = '<div class="page">\n    <div class="home">\n    <h1>Bienvenue sur {{title}}</h1>\n    <p>{{description}}</p>\n    </div>\n</div>';
 
   // public/templates/spectacle.hbs
   var spectacle_default = `<div class="page">
 <div class="home-filters">
     <h1>Nos Spectacles</h1>
-    
     <div class="filter-types">
         <button class="filter-type-button {{#if (eq activeFilter 'dates')}}active{{/if}}" data-filter-type="dates">
             DATES
@@ -5802,11 +5801,9 @@
         <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
             <h2>{{titre}}</h2>
             <div>
-                <p><strong>Date :</strong> {{formatDate date}}</p>
+                <p><strong>Date :</strong> {{formatDateButton date}}</p>
                 <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
-                <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>
-                <p><strong>Lieu :</strong> {{soiree.lieu}}</p>
-                <p><strong>Style :</strong> {{style}}</p>
+                <img src="{{images}}" alt="{{images}}">
             </div>
         </div>
         {{/each}}
@@ -5833,7 +5830,13 @@
     return `${days[date.getDay()]} ${day} ${months[date.getMonth()]}`;
   });
   import_handlebars.default.registerHelper("formatTime", function(timeStr) {
-    return timeStr.slice(0, 5);
+    if (!timeStr)
+      return "";
+    const [hours, minutes] = timeStr.split(":");
+    if (minutes === "00") {
+      return `${parseInt(hours)}H`;
+    }
+    return `${parseInt(hours)}H${minutes}`;
   });
   import_handlebars.default.registerHelper("eq", function(a, b) {
     return a === b;

@@ -13,7 +13,6 @@ Handlebars.registerHelper('formatDate', function(dateStr) {
     });
 });
 
-// Helper pour le formatage des dates dans les boutons
 Handlebars.registerHelper('formatDateButton', function(dateStr) {
     const [day, month, year] = dateStr.split('-');
     const date = new Date(`${year}-${month}-${day}`);
@@ -22,12 +21,18 @@ Handlebars.registerHelper('formatDateButton', function(dateStr) {
     return `${days[date.getDay()]} ${day} ${months[date.getMonth()]}`;
 });
 
-// Helper pour le formatage de l'heure
 Handlebars.registerHelper('formatTime', function(timeStr) {
-    return timeStr.slice(0, 5);
+    if (!timeStr) return '';
+    
+    const [hours, minutes] = timeStr.split(':');
+    
+    if (minutes === '00') {
+        return `${parseInt(hours)}H`;
+    }
+    
+    return `${parseInt(hours)}H${minutes}`;
 });
 
-// Helper pour la comparaison
 Handlebars.registerHelper('eq', function(a, b) {
     return a === b;
 });

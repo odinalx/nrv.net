@@ -57,11 +57,9 @@
         <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
             <h2>{{titre}}</h2>
             <div>
-                <p><strong>Date :</strong> {{formatDate date}}</p>
+                <p><strong>Date :</strong> {{formatDateButton date}}</p>
                 <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
-                <p><strong>Soirée :</strong> {{soiree.nom}}</p>
-                <p><strong>Lieu :</strong> {{soiree.lieu}}</p>
-                <p><strong>Style :</strong> {{style}}</p>
+                <img src="{{images}}" alt="{{images}}">
             </div>
         </div>
         {{/each}}

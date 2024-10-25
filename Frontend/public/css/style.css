@@ -11,6 +11,13 @@
   margin: auto;
 }
 
+.home {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
 nav {
   display: flex;
   justify-content: space-between;

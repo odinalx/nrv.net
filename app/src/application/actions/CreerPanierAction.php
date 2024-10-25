@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use nrv\core\services\panier\ServicePanierInterface;
 use nrv\core\services\panier\ServicePanierInvalidDataException;
+use nrv\core\services\panier\ServicePanierNotFoundException;
 use nrv\application\renderer\JsonRenderer;
 
 class CreerPanierAction extends AbstractAction
@@ -35,8 +36,7 @@ class CreerPanierAction extends AbstractAction
             return JsonRenderer::render($rs, 201, $responseData); //code 201 = created
 
         } catch (ServicePanierInvalidDataException $e) {
-            return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);
-
+            return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);        
         } catch (\Exception $e) {            
             return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
         }

@@ -5761,7 +5761,11 @@
   // public/templates/spectacle.hbs
   var spectacle_default = `<div class="page">
 <div class="home-filters">
+
+    <h1>Nos Spectacles</h1>
+    
     <h1>PROGRAMMATION</h1>
+
     <div class="filter-types">
         <button class="filter-type-button {{#if (eq activeFilter 'dates')}}active{{/if}}" data-filter-type="dates">
             DATES
@@ -5813,6 +5817,10 @@
     </div>
     {{/if}}
 </div>
+    <div class="spectacles-grid">
+        {{#each spectacles}}
+        <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+
  <div class="spectacles-grid">
     {{#each spectacles}}
     <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">

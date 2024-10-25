@@ -6,6 +6,10 @@
 }
 
 .page {
+  padding: 20px;
+  width: 70%;
+  margin: auto;
+
   padding: 26px;
   width: 70%;
   margin: auto;
@@ -55,6 +59,16 @@ nav .nav-right button {
   font-weight: 500;
   transition: opacity 0.3s ease;
 }
+
+nav button:not([data-page=home]):hover {
+  color: #2e9466;
+}
+nav button:not([data-page=home]):not(:last-child) {
+  margin-right: 1em;
+}
+nav > :not(button[data-page=home]) {
+  margin-left: auto;
+
 nav .nav-right button:hover {
   color: #2e9466;
 }
@@ -65,16 +79,27 @@ nav .nav-right button:hover {
     height: auto;
     padding: 10em;
   }
+  
+  nav button[data-page=home] {
+    margin-bottom: 10em;
+
   nav .nav-right {
     flex-direction: column;
     width: 100%;
     gap: 5px;
+
   }
   nav .nav-right button {
     width: 100%;
     padding: 10px;
   }
 }
+
+.item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+
 .soiree-details {
   background: white;
   border-radius: 4px;
@@ -245,6 +270,13 @@ nav .nav-right button:hover {
   margin-bottom: 26px;
 }
 
+.home-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .filter-type-button {
   padding: 10px 18px;
   border-radius: 4px;
@@ -288,6 +320,10 @@ nav .nav-right button:hover {
 
 .spectacles-grid {
   display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 26px;
 }

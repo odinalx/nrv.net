@@ -8,27 +8,32 @@ use nrv\core\services\billet\ServiceBilletInterface;
 use nrv\core\services\billet\ServiceBilletInvalidDataException;
 use nrv\core\services\billet\ServiceBilletNotFoundException;
 use nrv\application\renderer\JsonRenderer;
+use nrv\core\services\auth\AuthService;
+use nrv\core\services\auth\AuthServiceInterface;
 
-class SupprimerBilletAction extends AbstractAction
+class GetUserByIdAction extends AbstractAction
 {
-    private ServiceBilletInterface $serviceBillet;
+    private AuthServiceInterface $authService;
     
-    public function __construct(ServiceBilletInterface $serviceBillet) {
-        $this->serviceBillet = $serviceBillet;
+    public function __construct(AuthServiceInterface $authService) {
+        $this->authService = $authService;
     }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface {
         try {
-            $billetpanier_id = $args['id'];
+            $user_id = $args['id'];
 
-            $newBillet = $this->serviceBillet->supprimerBillet($billetpanier_id);
+            $user = $this->authService->getUserById($user_id);
+            
             $responseData = [
-                'billet supprimé' => $billetpanier_id,
-                'panier' => $newBillet->panier_id,
-                'soiree' => $newBillet->soiree_id
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
             ];
 
             return JsonRenderer::render($rs, 200, $responseData);
+
+        } catch (ServiceBilletInvalidDataException $e) {
+            return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);
 
         } catch (ServiceBilletNotFoundException $e) {
             return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);

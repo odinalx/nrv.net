@@ -7,6 +7,7 @@ use nrv\core\services\billet\ServiceBilletInterface;
 use nrv\core\dto\BilletDTO;
 use nrv\core\dto\BilletPanierDTO;
 use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class ServiceBillet implements ServiceBilletInterface {
     
@@ -32,12 +33,17 @@ class ServiceBillet implements ServiceBilletInterface {
 
     public function ajouterBillet(string $panierId, string $soireeId, int $quantite, float $prix): string
     {
-        //ToDo Try catch
+        try {
+            // $soiree = $this->soireeRepository->getSoireeById($soireeId);
+        
         if (!$this->panierRepository->issetPanier($panierId)) {
             throw new ServiceBilletNotFoundException("Le panier n'existe pas.");
         }
 
         return $this->billetRepository->ajouterBillet($panierId, $soireeId, $quantite, $prix);
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServiceBilletNotFoundException("La soirée n'existe pas.");
+        }
     }
 
     public function supprimerBillet(string $billetId): BilletPanierDTO

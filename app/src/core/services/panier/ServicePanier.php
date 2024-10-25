@@ -6,8 +6,8 @@ use nrv\core\dto\PanierDTO;
 use nrv\core\services\panier\ServicePanierInterface;
 use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
-use nrv\core\domain\entities\panier\Panier;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class ServicePanier implements ServicePanierInterface {
     
@@ -40,36 +40,42 @@ class ServicePanier implements ServicePanierInterface {
 
     public function validerPanier(string $panierId): PanierDTO
     {
-        //ToDo Try catch
-        $panier = $this->panierRepository->getPanierById($panierId); 
-    
-        if ($panier->getValidated()) {
-            return $panier->toDTO();
-        }
-
-        $panierValidé = $this->panierRepository->validerPanier($panierId);
-        $userId = $this->getUserByPanier($panierId);
+        try {
         
-        if ($panierValidé) {
-            $billets = $this->billetRepository->getBilletsPanier($panierId);            
-
-            $prixTotal = $this->prixTotal($panierId);
-            $commandeId = $this->createCommande($userId, $panierId, $prixTotal,'en attente');
-
-            
-            foreach ($billets as $billetData) { // billets différents dans le panier
-                //nombre de bilets de même type
-                $this->billetRepository->createBillet($commandeId, $billetData->getSoireeId(), $billetData->getQuantite());
-                //
-                $this->soireeRepository->decrementPlaces($billetData->getSoireeId(), $billetData->getQuantite());
+            $panier = $this->panierRepository->getPanierById($panierId); 
+        
+            if ($panier->getValidated()) {
+                return $panier->toDTO();
             }
 
-            $panier->setValidated(true);
+            $panierValidé = $this->panierRepository->validerPanier($panierId);
+            $userId = $this->getUserByPanier($panierId);
+            
+            if ($panierValidé) {
+                $billets = $this->billetRepository->getBilletsPanier($panierId);            
 
+                $prixTotal = $this->prixTotal($panierId);
+                $commandeId = $this->createCommande($userId, $panierId, $prixTotal,'en attente');
+
+                
+                foreach ($billets as $billetData) { // billets différents dans le panier
+                    //nombre de bilets de même type
+                    $this->billetRepository->createBillet($commandeId, $billetData->getSoireeId(), $billetData->getQuantite());
+                    //
+                    $this->soireeRepository->decrementPlaces($billetData->getSoireeId(), $billetData->getQuantite());
+                }
+
+                $panier->setValidated(true);
+
+                return $panier->toDTO(); 
+            }            
             return $panier->toDTO(); 
-        }
-        
-        return $panier->toDTO();     
+
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServicePanierNotFoundException($e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }    
 
     } 
 

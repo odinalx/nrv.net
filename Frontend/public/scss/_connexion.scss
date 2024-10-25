@@ -1,0 +1,81 @@
+@import 'variables';
+
+h1 {
+    text-align: center;
+}
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: $spacing-md;
+    background-color: lighten($primary-color, 48%);
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    p {
+        color: darken($primary-color, 20%);
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: $spacing-lg;
+    
+        a {
+            color: $primary-color;
+            font-weight: bold;
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: $spacing-sm;
+
+        label {
+            font-size: 1rem;
+            color: darken($primary-color, 10%);
+            margin-bottom: $spacing-sm / 2;
+        }
+
+        input {
+            width: 100%;
+            padding: $spacing-sm;
+            font-size: 1rem;
+            border: 1px solid $border-color;
+            border-radius: $border-radius;
+            transition: border-color 0.3s ease;
+
+            &:focus {
+                border-color: $primary-color;
+                outline: none;
+            }
+        }
+    }
+
+    #loginError {
+        color: red;
+        font-size: 0.9rem;
+        margin-bottom: $spacing-sm;
+        text-align: center;
+    }
+
+    button {
+        padding: $spacing-sm $spacing-md;
+        font-size: 1rem;
+        background-color: $primary-color;
+        color: $white;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+}

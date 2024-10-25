@@ -1,6 +1,7 @@
 <div class="page">
 <div class="home-filters">
     <h1>Nos Spectacles</h1>
+    <h1>PROGRAMMATION</h1>
     <div class="filter-types">
         <button class="filter-type-button {{#if (eq activeFilter 'dates')}}active{{/if}}" data-filter-type="dates">
             DATES
@@ -55,15 +56,15 @@
     <div class="spectacles-grid">
         {{#each spectacles}}
         <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+ <div class="spectacles-grid">
+    {{#each spectacles}}
+    <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+        <img src="/img/{{images}}" alt="{{images}}">
+        <div>
             <h2>{{titre}}</h2>
-            <div>
-                <p><strong>Date :</strong> {{formatDate date}}</p>
-                <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
-                <p><strong>Soirée :</strong> {{soiree.nom}}</p>
-                <p><strong>Lieu :</strong> {{soiree.lieu}}</p>
-                <p><strong>Style :</strong> {{style}}</p>
-            </div>
+            <p>{{formatDateButton date}} / • {{formatTime horaire}}</p>
         </div>
-        {{/each}}
     </div>
+    {{/each}}
+</div>
 </div>

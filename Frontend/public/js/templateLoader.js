@@ -2,8 +2,10 @@ import Handlebars from 'handlebars';
 import homeTemplate from '../templates/home.hbs';
 import spectacleTemplate from '../templates/spectacle.hbs';
 import soireeTemplate from '../templates/soiree.hbs';
+import connexionTemplate from '../templates/connexion.hbs';
+import inscriptionTemplate from '../templates/inscription.hbs';
+import compteTemplate from '../templates/compte.hbs';
 
-// Helper pour le formatage des dates standard
 Handlebars.registerHelper('formatDate', function(dateStr) {
     const [day, month, year] = dateStr.split('-');
     return new Date(`${year}-${month}-${day}`).toLocaleDateString('fr-FR', {
@@ -13,7 +15,6 @@ Handlebars.registerHelper('formatDate', function(dateStr) {
     });
 });
 
-// Helper pour le formatage des dates dans les boutons
 Handlebars.registerHelper('formatDateButton', function(dateStr) {
     const [day, month, year] = dateStr.split('-');
     const date = new Date(`${year}-${month}-${day}`);
@@ -22,12 +23,27 @@ Handlebars.registerHelper('formatDateButton', function(dateStr) {
     return `${days[date.getDay()]} ${day} ${months[date.getMonth()]}`;
 });
 
-// Helper pour le formatage de l'heure
 Handlebars.registerHelper('formatTime', function(timeStr) {
-    return timeStr.slice(0, 5);
+    if (!timeStr) return '';
+    
+    const [hours, minutes] = timeStr.split(':');
+    
+    if (minutes === '00') {
+        return `${parseInt(hours)}H`;
+    }
+    
+    return `${parseInt(hours)}H${minutes}`;
 });
 
-// Helper pour la comparaison
+Handlebars.registerHelper('sortByTime', function(spectacles) {
+    if (!spectacles) return [];
+    return [...spectacles].sort((a, b) => {
+        const timeA = a.horaire_prev.split(':').map(Number);
+        const timeB = b.horaire_prev.split(':').map(Number);
+        return (timeA[0] * 60 + timeA[1]) - (timeB[0] * 60 + timeB[1]);
+    });
+});
+
 Handlebars.registerHelper('eq', function(a, b) {
     return a === b;
 });
@@ -35,5 +51,8 @@ Handlebars.registerHelper('eq', function(a, b) {
 export const templates = {
     home: Handlebars.compile(homeTemplate),
     spectacle: Handlebars.compile(spectacleTemplate),
-    soiree: Handlebars.compile(soireeTemplate)
+    soiree: Handlebars.compile(soireeTemplate),
+    connexion: Handlebars.compile(connexionTemplate),
+    inscription: Handlebars.compile(inscriptionTemplate),
+    compte: Handlebars.compile(compteTemplate)
 };

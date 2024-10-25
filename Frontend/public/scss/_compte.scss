@@ -1,0 +1,50 @@
+// _mon-compte.scss
+@import 'variables';
+
+// Style pour la page Mon Compte avec des classes spécifiques
+
+.page-title {
+  color: $primary-color;
+  font-size: 2rem;
+  margin-bottom: $spacing-sm;
+}
+
+.page-description {
+  color: darken($primary-color, 20%);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: $spacing-lg;
+}
+
+.account-content {
+  background-color: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .account-title {
+    color: darken($primary-color, 10%);
+    font-size: 1.5rem;
+    margin-bottom: $spacing-sm;
+  }
+
+  .logout-button {
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: lighten($primary-color, 10%);
+    }
+
+    &:active {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+}

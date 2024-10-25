@@ -7,6 +7,7 @@ class SPA {
         this.activeFilter = 'dates';
         this.selectedDate = 'all';
         this.selectedLieu = 'all';
+        this.selectedStyle = 'all';
         this.originalSpectacles = [];
         
         this.pageData = {
@@ -35,6 +36,9 @@ class SPA {
     getAvailableLieux(spectacles) {
         return [...new Set(spectacles.map(s => s.soiree.lieu))].sort();
     }
+    getAvailableStyles(spectacles) {
+        return [...new Set(spectacles.map(s => s.style))].sort();
+    }
 
     filterSpectacles(spectacles) {
         let filtered = [...spectacles];
@@ -45,6 +49,10 @@ class SPA {
 
         if (this.activeFilter === 'lieux' && this.selectedLieu !== 'all') {
             filtered = filtered.filter(s => s.soiree.lieu === this.selectedLieu);
+        }
+
+        if (this.activeFilter === 'styles' && this.selectedStyle !== 'all') {
+            filtered = filtered.filter(s => s.style === this.selectedStyle);
         }
 
         return filtered;
@@ -99,8 +107,10 @@ class SPA {
                 activeFilter: this.activeFilter,
                 selectedDate: this.selectedDate,
                 selectedLieu: this.selectedLieu,
+                selectedStyle: this.selectedStyle,
                 availableDates: this.getAvailableDates(this.originalSpectacles),
                 availableLieux: this.getAvailableLieux(this.originalSpectacles),
+                availableStyles: this.getAvailableStyles(this.originalSpectacles),
                 spectacles: this.filterSpectacles(this.originalSpectacles)
             };
             this.navigateToPage('spectacle');
@@ -132,6 +142,11 @@ class SPA {
 
             if (e.target.matches('.lieu-button')) {
                 this.selectedLieu = e.target.dataset.lieu;
+                this.updateSpectacleDisplay();
+            }
+
+            if (e.target.matches('.style-button')) {
+                this.selectedStyle = e.target.dataset.style;
                 this.updateSpectacleDisplay();
             }
             

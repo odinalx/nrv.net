@@ -107,7 +107,7 @@ input, textarea {
   margin-bottom: 20px;
 }
 
-.lieu-button, .date-button {
+.style-button, .lieu-button, .date-button {
   padding: 8px 15px;
   border-radius: 4px;
   font-weight: bold;
@@ -117,11 +117,11 @@ input, textarea {
   color: #4B0082;
   text-transform: uppercase;
 }
-.active.lieu-button, .active.date-button {
+.active.style-button, .active.lieu-button, .active.date-button {
   background-color: #4B0082;
   color: white;
 }
-.lieu-button:hover, .date-button:hover {
+.style-button:hover, .lieu-button:hover, .date-button:hover {
   background-color: #4B0082;
   color: white;
 }

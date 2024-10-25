@@ -5752,6 +5752,9 @@
         <button class="filter-type-button {{#if (eq activeFilter 'lieux')}}active{{/if}}" data-filter-type="lieux">
             LIEUX
         </button>
+         <button class="filter-type-button {{#if (eq activeFilter 'styles')}}active{{/if}}" data-filter-type="styles">
+            STYLES
+        </button>
     </div>
 
     {{#if (eq activeFilter 'dates')}}
@@ -5780,6 +5783,19 @@
     </div>
     {{/if}}
 
+    {{#if (eq activeFilter 'styles')}}
+    <div class="filter-buttons">
+        <button class="style-button {{#if (eq selectedStyle 'all')}}active{{/if}}" data-style="all">
+            TOUS LES STYLES
+        </button>
+        {{#each availableStyles}}
+        <button class="style-button {{#if (eq ../selectedStyle this)}}active{{/if}}" data-style="{{this}}">
+            {{this}}
+        </button>
+        {{/each}}
+    </div>
+    {{/if}}
+
     <div class="spectacles-grid">
         {{#each spectacles}}
         <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
@@ -5789,6 +5805,7 @@
                 <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
                 <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>
                 <p><strong>Lieu :</strong> {{soiree.lieu}}</p>
+                <p><strong>Style :</strong> {{style}}</p>
             </div>
         </div>
         {{/each}}
@@ -5834,6 +5851,7 @@
       this.activeFilter = "dates";
       this.selectedDate = "all";
       this.selectedLieu = "all";
+      this.selectedStyle = "all";
       this.originalSpectacles = [];
       this.pageData = {
         home: {
@@ -5858,6 +5876,9 @@
     getAvailableLieux(spectacles) {
       return [...new Set(spectacles.map((s) => s.soiree.lieu))].sort();
     }
+    getAvailableStyles(spectacles) {
+      return [...new Set(spectacles.map((s) => s.style))].sort();
+    }
     filterSpectacles(spectacles) {
       let filtered = [...spectacles];
       if (this.activeFilter === "dates" && this.selectedDate !== "all") {
@@ -5865,6 +5886,9 @@
       }
       if (this.activeFilter === "lieux" && this.selectedLieu !== "all") {
         filtered = filtered.filter((s) => s.soiree.lieu === this.selectedLieu);
+      }
+      if (this.activeFilter === "styles" && this.selectedStyle !== "all") {
+        filtered = filtered.filter((s) => s.style === this.selectedStyle);
       }
       return filtered;
     }
@@ -5916,8 +5940,10 @@
           activeFilter: this.activeFilter,
           selectedDate: this.selectedDate,
           selectedLieu: this.selectedLieu,
+          selectedStyle: this.selectedStyle,
           availableDates: this.getAvailableDates(this.originalSpectacles),
           availableLieux: this.getAvailableLieux(this.originalSpectacles),
+          availableStyles: this.getAvailableStyles(this.originalSpectacles),
           spectacles: this.filterSpectacles(this.originalSpectacles)
         };
         this.navigateToPage("spectacle");
@@ -5945,6 +5971,10 @@
         }
         if (e.target.matches(".lieu-button")) {
           this.selectedLieu = e.target.dataset.lieu;
+          this.updateSpectacleDisplay();
+        }
+        if (e.target.matches(".style-button")) {
+          this.selectedStyle = e.target.dataset.style;
           this.updateSpectacleDisplay();
         }
         const spectacleCard = e.target.closest(".spectacle-card");

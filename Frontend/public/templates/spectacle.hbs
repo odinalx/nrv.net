@@ -8,6 +8,9 @@
         <button class="filter-type-button {{#if (eq activeFilter 'lieux')}}active{{/if}}" data-filter-type="lieux">
             LIEUX
         </button>
+         <button class="filter-type-button {{#if (eq activeFilter 'styles')}}active{{/if}}" data-filter-type="styles">
+            STYLES
+        </button>
     </div>
 
     {{#if (eq activeFilter 'dates')}}
@@ -36,6 +39,19 @@
     </div>
     {{/if}}
 
+    {{#if (eq activeFilter 'styles')}}
+    <div class="filter-buttons">
+        <button class="style-button {{#if (eq selectedStyle 'all')}}active{{/if}}" data-style="all">
+            TOUS LES STYLES
+        </button>
+        {{#each availableStyles}}
+        <button class="style-button {{#if (eq ../selectedStyle this)}}active{{/if}}" data-style="{{this}}">
+            {{this}}
+        </button>
+        {{/each}}
+    </div>
+    {{/if}}
+
     <div class="spectacles-grid">
         {{#each spectacles}}
         <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
@@ -45,6 +61,7 @@
                 <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
                 <p><strong>Soirée :</strong> {{soiree.nom}}</p>
                 <p><strong>Lieu :</strong> {{soiree.lieu}}</p>
+                <p><strong>Style :</strong> {{style}}</p>
             </div>
         </div>
         {{/each}}

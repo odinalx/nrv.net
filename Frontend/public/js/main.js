@@ -5,6 +5,7 @@ import { AuthController } from './authController.js';
 import { SpectacleController } from './spectacleController.js';
 import { EventManager } from './eventManager.js';
 import { afficherPanier } from './panierController.js';
+import { ajouterAuPanier } from './spectacleController.js';
 
 class SPA {
     constructor() {
@@ -28,7 +29,6 @@ class SPA {
     initializeApp() {
         this.authController.updateAuthButtons();
 
-        
         const panierLink = document.getElementById('panierLink');
         if (panierLink) {
             panierLink.addEventListener('click', () => {

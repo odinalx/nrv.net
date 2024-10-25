@@ -22,12 +22,10 @@ export class AuthService {
                 })
             });
 
-            // Si la réponse est vide, on considère que c'est un succès
             if (response.status === 204 || response.status === 201) {
                 return { success: true };
             }
 
-            // Si on a une réponse JSON
             if (response.headers.get('content-type')?.includes('application/json')) {
                 const data = await response.json();
                 if (!response.ok) {
@@ -36,7 +34,6 @@ export class AuthService {
                 return data;
             }
 
-            // Si on n'a ni 204/201 ni JSON, c'est une réussite simple
             if (response.ok) {
                 return { success: true };
             }

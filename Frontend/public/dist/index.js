@@ -5827,7 +5827,7 @@
 </div>`;
 
   // public/templates/soiree.hbs
-  var soiree_default = '<div class="page">\n<div class="soiree-details">\n  <h2>{{soiree.nom}}</h2>\n  \n  <div class="soiree-info">\n    {{#if soiree.theme}}\n    <p>\n      <strong>Th\xE8me</strong>\n      {{soiree.theme}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.date}}\n    <p>\n      <strong>Date</strong>\n      {{formatDate soiree.date}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.horaire_debut}}\n    <p>\n      <strong>Heure de d\xE9but</strong>\n      {{formatTime soiree.horaire_debut}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.lieu}}\n    <p>\n      <strong>Lieu</strong>\n      {{soiree.lieu}}\n    </p>\n    {{/if}}\n\n    {{#if soiree.tarif_normal}}\n    <p>\n      <strong>Tarif normal</strong>\n      {{soiree.tarif_normal}}\u20AC\n    </p>\n    {{/if}}\n    \n    {{#if soiree.tarif_reduit}}\n    <p>\n      <strong>Tarif r\xE9duit</strong>\n      {{soiree.tarif_reduit}}\u20AC\n    </p>\n    {{/if}}\n  </div>\n</div>\n\n{{#if soiree.spectacles.length}}\n<div class="spectacles-section">\n  <h2 class="section-title">Programme de la soir\xE9e</h2>\n  <div class="timeline-spectacles">\n    {{#each (sortByTime soiree.spectacles)}}\n    <div class="timeline-spectacle-card">\n      <span class="spectacle-time">{{formatTime horaire_prev}}</span>\n      <div class="soiree-spectacle">\n        <div class="spectacle-header">\n          <h3>{{titre}}</h3>\n        </div>\n        <div class="spectacle-content">\n          <div class="spectacle-info">\n            {{#if style}}\n            <div class="style-section">\n              <h4>Style :</h4>\n              <p>{{style}}</p>\n            </div>\n            {{/if}}\n            {{#if artistes}}\n            <div class="artistes-section">\n              <h4>Artistes :</h4>\n              {{#each artistes}}\n              <p class="artiste-item">{{nom}} {{prenom}}</p>\n              {{/each}}\n            </div>\n            {{/if}}\n            {{#if description}}\n            <div class="description-section">\n              <h4>\xC0 propos :</h4>\n              <p>{{description}}</p>\n            </div>\n            {{/if}}\n          </div>\n          {{#if url_video}}\n          <div class="spectacle-video">\n            <iframe\n              src="/video/{{url_video}}"\n              title="{{url_video}}"\n              frameborder="0">\n            </iframe>\n          </div>\n          {{/if}}\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>\n{{/if}}\n</div>\n<div class="add-to-cart-section">\n  <div class="cart-wrapper">\n    <button class="add-to-cart-button">\n      <span>Ajouter un ticket au panier</span>\n    </button>\n  </div>\n</div>';
+  var soiree_default = '<div class="page">\n<div class="soiree-details">\n  <h2>{{soiree.nom}}</h2>\n  \n  <div class="soiree-info">\n    {{#if soiree.theme}}\n    <p>\n      <strong>Th\xE8me</strong>\n      {{soiree.theme}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.date}}\n    <p>\n      <strong>Date</strong>\n      {{formatDate soiree.date}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.horaire_debut}}\n    <p>\n      <strong>Heure de d\xE9but</strong>\n      {{formatTime soiree.horaire_debut}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.lieu}}\n    <p>\n      <strong>Lieu</strong>\n      {{soiree.lieu}}\n    </p>\n    {{/if}}\n\n    {{#if soiree.tarif_normal}}\n    <p>\n      <strong>Tarif normal</strong>\n      {{soiree.tarif_normal}}\u20AC\n    </p>\n    {{/if}}\n    \n    {{#if soiree.tarif_reduit}}\n    <p>\n      <strong>Tarif r\xE9duit</strong>\n      {{soiree.tarif_reduit}}\u20AC\n    </p>\n    {{/if}}\n  </div>\n</div>\n\n{{#if soiree.spectacles.length}}\n<div class="spectacles-section">\n  <h2 class="section-title">Programme de la soir\xE9e</h2>\n  <div class="timeline-spectacles">\n    {{#each (sortByTime soiree.spectacles)}}\n    <div class="timeline-spectacle-card">\n      <span class="spectacle-time">{{formatTime horaire_prev}}</span>\n      <div class="soiree-spectacle">\n        <div class="spectacle-header">\n          <h3>{{titre}}</h3>\n        </div>\n        <div class="spectacle-content">\n          <div class="spectacle-info">\n            {{#if style}}\n            <div class="style-section">\n              <h4>Style :</h4>\n              <p>{{style}}</p>\n            </div>\n            {{/if}}\n            {{#if artistes}}\n            <div class="artistes-section">\n              <h4>Artistes :</h4>\n              {{#each artistes}}\n              <p class="artiste-item">{{nom}} {{prenom}}</p>\n              {{/each}}\n            </div>\n            {{/if}}\n            {{#if description}}\n            <div class="description-section">\n              <h4>\xC0 propos :</h4>\n              <p>{{description}}</p>\n            </div>\n            {{/if}}\n          </div>\n          {{#if url_video}}\n          <div class="spectacle-video">\n            <iframe\n              src="/video/{{url_video}}"\n              title="{{url_video}}"\n              frameborder="0">\n            </iframe>\n          </div>\n          {{/if}}\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>\n{{/if}}\n</div>\n <form id="add-to-cart-form" class="add-to-cart-section">\n    <label for="ticket-type">Type de billet :</label>\n    <select id="ticket-type" name="ticket-type">\n      <option value="normal" data-price="{{soiree.tarif_normal}}">Normal - {{soiree.tarif_normal}}\u20AC</option>\n      <option value="reduit" data-price="{{soiree.tarif_reduit}}">R\xE9duit - {{soiree.tarif_reduit}}\u20AC</option>\n    </select>\n\n    <label for="ticket-quantity">Quantit\xE9 :</label>\n    <input type="number" id="ticket-quantity" name="ticket-quantity" min="1" value="1">\n\n    <button type="submit" class="add-to-cart-button">Ajouter au panier</button>\n  </form>\n</div>';
 
   // public/templates/connexion.hbs
   var connexion_default = '<div class="page">\n    <form id="loginForm">\n        <h1>{{title}}</h1>\n        <p>{{description}}</p>\n        <div class="form-group">\n            <label for="email">Email :</label>\n            <input type="email" id="email" required>\n        </div>\n        \n        <div class="form-group">\n            <label for="password">Mot de passe :</label>\n            <input type="password" id="password" required>\n        </div>\n\n        <div id="loginError" style="display: none;"></div>\n        \n        <button type="submit">Se connecter</button>\n        <p>Pas encore de compte ? <a href="#" id="registerLink">Inscrivez-vous</a></p>\n    </form>\n</div>';
@@ -6187,6 +6187,36 @@
   };
   var authService = new AuthService();
 
+  // public/js/panierService.js
+  var PanierService = class {
+    static creerPanier(userId) {
+      return __async(this, null, function* () {
+        try {
+          const response = yield ApiService.post(`/paniers`, { user_id: userId }, true);
+          return response;
+        } catch (error) {
+          console.error("Erreur lors de la cr\xE9ation du panier:", error);
+          throw error;
+        }
+      });
+    }
+    static ajouterBillet(panierId, soireeId, quantite, prix) {
+      return __async(this, null, function* () {
+        try {
+          const response = yield ApiService.post(`${API_CONFIG.BASE_URL}/paniers/${panierId}`, {
+            soiree_id: soireeId,
+            quantite,
+            prix
+          }, true);
+          return response;
+        } catch (error) {
+          console.error("Erreur lors de l'ajout d'un billet au panier:", error);
+          throw error;
+        }
+      });
+    }
+  };
+
   // public/js/authController.js
   var AuthController = class {
     constructor(pageManager) {
@@ -6249,6 +6279,7 @@
               const loginResult = yield authService.login(email, password);
               if (loginResult && loginResult.accessToken) {
                 this.updateAuthButtons();
+                yield PanierService.creerPanier(loginResult.userId);
                 this.pageManager.navigateToPage("home");
                 return;
               }

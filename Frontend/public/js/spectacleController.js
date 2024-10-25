@@ -1,5 +1,7 @@
 import { SpectacleService } from './spectacleService.js';
 import { DateUtils } from './dateUtils.js';
+import { authService } from './authService.js';
+import { PanierService } from './panierService.js';
 
 export class SpectacleController {
     constructor(pageManager, spectacleFilter) {
@@ -53,5 +55,33 @@ export class SpectacleController {
             });
             this.pageManager.navigateToPage('spectacle');
         }
+    }
+}
+
+export async function ajouterAuPanier(soireeId, quantite, prix) {
+    if (!authService.isAuthenticated()) {
+        alert("Vous devez être connecté pour ajouter un billet au panier.");
+        return;
+    }
+
+    const userId = localStorage.getItem('user_id');
+    if (!userId) {
+        alert("Erreur: Utilisateur non identifié.");
+        return;
+    }
+
+    try {
+        let panierId = localStorage.getItem('panier_id');
+        if (!panierId) {
+            const panierResponse = await PanierService.creerPanier(userId);
+            panierId = panierResponse.id;
+            localStorage.setItem('panier_id', panierId);
+        }
+
+        await PanierService.ajouterBillet(panierId, soireeId, quantite, prix);
+        alert("Billet ajouté au panier avec succès !");
+    } catch (error) {
+        console.error("Erreur lors de l'ajout au panier:", error);
+        alert("Une erreur s'est produite lors de l'ajout au panier.");
     }
 }

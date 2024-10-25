@@ -1,4 +1,5 @@
 import { authService } from './authService.js';
+import { PanierService } from './panierService.js';
 
 export class AuthController {
     constructor(pageManager) {
@@ -23,7 +24,7 @@ export class AuthController {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const errorDiv = document.getElementById('loginError');
-
+    
         try {
             const loginResult = await authService.login(email, password);
             if (loginResult && loginResult.accessToken) {
@@ -59,6 +60,7 @@ export class AuthController {
                     const loginResult = await authService.login(email, password);
                     if (loginResult && loginResult.accessToken) {
                         this.updateAuthButtons();
+                        await PanierService.creerPanier(loginResult.userId);
                         this.pageManager.navigateToPage('home');
                         return;
                     }
@@ -69,9 +71,9 @@ export class AuthController {
                 this.pageManager.navigateToPage('connexion');
             }
         } catch (error) {
-            console.error('Erreur d\'inscription:', error);
+            console.error("Erreur d'inscription:", error);
             if (errorDiv) {
-                errorDiv.textContent = error.message || 'Erreur lors de l\'inscription. Veuillez réessayer.';
+                errorDiv.textContent = error.message || "Erreur lors de l'inscription. Veuillez réessayer.";
                 errorDiv.style.display = 'block';
             }
         }
@@ -92,5 +94,6 @@ export class AuthController {
         }
         return true;
     }
-    
 }
+
+

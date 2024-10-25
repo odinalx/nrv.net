@@ -1,5 +1,8 @@
 import { templates } from './templateLoader';
 
+// Configuration de l'URL de base de l'API
+const API_BASE_URL = 'http://localhost:48013';
+
 class SPA {
     constructor() {
         this.contentDiv = document.getElementById('content');
@@ -36,6 +39,7 @@ class SPA {
     getAvailableLieux(spectacles) {
         return [...new Set(spectacles.map(s => s.soiree.lieu))].sort();
     }
+    
     getAvailableStyles(spectacles) {
         return [...new Set(spectacles.map(s => s.style))].sort();
     }
@@ -60,7 +64,7 @@ class SPA {
 
     async fetchSpectacleData() {
         try {
-            const response = await fetch('http://localhost:48013/spectacles');
+            const response = await fetch(`${API_BASE_URL}/spectacles`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -85,7 +89,7 @@ class SPA {
     async fetchSoireeData(soireeUrl) {
         try {
             const cleanUrl = soireeUrl.startsWith('/') ? soireeUrl.slice(1) : soireeUrl;
-            const response = await fetch(`http://localhost:48013/${cleanUrl}`);
+            const response = await fetch(`${API_BASE_URL}/${cleanUrl}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

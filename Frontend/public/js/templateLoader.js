@@ -5,6 +5,7 @@ import soireeTemplate from '../templates/soiree.hbs';
 import connexionTemplate from '../templates/connexion.hbs';
 import inscriptionTemplate from '../templates/inscription.hbs';
 import compteTemplate from '../templates/compte.hbs';
+import panierTemplate from '../templates/panier.hbs';
 
 Handlebars.registerHelper('formatDate', function(dateStr) {
     const [day, month, year] = dateStr.split('-');
@@ -54,5 +55,6 @@ export const templates = {
     soiree: Handlebars.compile(soireeTemplate),
     connexion: Handlebars.compile(connexionTemplate),
     inscription: Handlebars.compile(inscriptionTemplate),
-    compte: Handlebars.compile(compteTemplate)
+    compte: Handlebars.compile(compteTemplate),
+    panier: Handlebars.compile(panierTemplate)
 };

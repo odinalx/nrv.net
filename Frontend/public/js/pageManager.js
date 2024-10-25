@@ -20,6 +20,10 @@ export class PageManager {
             compte: {
                 title: "Mon compte",
                 description: "Gérez vos informations personnelles"
+            },
+            panier: {
+                title: "Votre Panier",
+                description: "Consultez vos billets et le total du panier."
             }
         };
     }
@@ -32,6 +36,12 @@ export class PageManager {
     }
 
     navigateToPage(pageName) {
+        if (pageName === 'panier' && !this.isAuthenticated()) {
+            alert("Vous devez être connecté pour accéder au panier.");
+            this.navigateToPage('connexion'); 
+            return;
+        }
+
         if (this.templates[pageName]) {
             const pageData = {
                 ...this.pageData[pageName],

@@ -96,7 +96,7 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        return !!this.token;
+        return !!localStorage.getItem('jwt_token');
     }
 }
 

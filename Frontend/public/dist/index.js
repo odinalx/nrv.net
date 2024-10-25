@@ -5827,7 +5827,7 @@
 </div>`;
 
   // public/templates/soiree.hbs
-  var soiree_default = '<div class="page">\n<div class="soiree-details">\n  <h2>{{soiree.nom}}</h2>\n  \n  <div class="soiree-info">\n    {{#if soiree.theme}}\n    <p>\n      <strong>Th\xE8me</strong>\n      {{soiree.theme}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.date}}\n    <p>\n      <strong>Date</strong>\n      {{formatDate soiree.date}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.horaire_debut}}\n    <p>\n      <strong>Heure de d\xE9but</strong>\n      {{formatTime soiree.horaire_debut}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.lieu}}\n    <p>\n      <strong>Lieu</strong>\n      {{soiree.lieu}}\n    </p>\n    {{/if}}\n\n    {{#if soiree.tarif_normal}}\n    <p>\n      <strong>Tarif normal</strong>\n      {{soiree.tarif_normal}}\u20AC\n    </p>\n    {{/if}}\n    \n    {{#if soiree.tarif_reduit}}\n    <p>\n      <strong>Tarif r\xE9duit</strong>\n      {{soiree.tarif_reduit}}\u20AC\n    </p>\n    {{/if}}\n  </div>\n</div>\n\n{{#if soiree.spectacles.length}}\n<div class="spectacles-section">\n  <h2 class="section-title">Programme de la soir\xE9e</h2>\n  <div class="timeline-spectacles">\n    {{#each (sortByTime soiree.spectacles)}}\n    <div class="timeline-spectacle-card">\n      <span class="spectacle-time">{{formatTime horaire_prev}}</span>\n      <div class="soiree-spectacle">\n        <div class="spectacle-header">\n          <h3>{{titre}}</h3>\n        </div>\n        <div class="spectacle-content">\n          <div class="spectacle-info">\n            {{#if style}}\n            <div class="style-section">\n              <h4>Style :</h4>\n              <p>{{style}}</p>\n            </div>\n            {{/if}}\n            {{#if artistes}}\n            <div class="artistes-section">\n              <h4>Artistes :</h4>\n              {{#each artistes}}\n              <p class="artiste-item">{{nom}}{{prenom}}</p>\n              {{/each}}\n            </div>\n            {{/if}}\n            {{#if description}}\n            <div class="description-section">\n              <h4>\xC0 propos :</h4>\n              <p>{{description}}</p>\n            </div>\n            {{/if}}\n          </div>\n          {{#if url_video}}\n          <div class="spectacle-video">\n            <iframe\n              src="/video/{{url_video}}"\n              title="{{url_video}}"\n              frameborder="0">\n            </iframe>\n          </div>\n          {{/if}}\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>\n{{/if}}\n</div>\n<div class="add-to-cart-section">\n  <div class="cart-wrapper">\n    <button class="add-to-cart-button">\n      <span>Ajouter un ticket au panier</span>\n    </button>\n  </div>\n</div>';
+  var soiree_default = '<div class="page">\n<div class="soiree-details">\n  <h2>{{soiree.nom}}</h2>\n  \n  <div class="soiree-info">\n    {{#if soiree.theme}}\n    <p>\n      <strong>Th\xE8me</strong>\n      {{soiree.theme}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.date}}\n    <p>\n      <strong>Date</strong>\n      {{formatDate soiree.date}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.horaire_debut}}\n    <p>\n      <strong>Heure de d\xE9but</strong>\n      {{formatTime soiree.horaire_debut}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.lieu}}\n    <p>\n      <strong>Lieu</strong>\n      {{soiree.lieu}}\n    </p>\n    {{/if}}\n\n    {{#if soiree.tarif_normal}}\n    <p>\n      <strong>Tarif normal</strong>\n      {{soiree.tarif_normal}}\u20AC\n    </p>\n    {{/if}}\n    \n    {{#if soiree.tarif_reduit}}\n    <p>\n      <strong>Tarif r\xE9duit</strong>\n      {{soiree.tarif_reduit}}\u20AC\n    </p>\n    {{/if}}\n  </div>\n</div>\n\n{{#if soiree.spectacles.length}}\n<div class="spectacles-section">\n  <h2 class="section-title">Programme de la soir\xE9e</h2>\n  <div class="timeline-spectacles">\n    {{#each (sortByTime soiree.spectacles)}}\n    <div class="timeline-spectacle-card">\n      <span class="spectacle-time">{{formatTime horaire_prev}}</span>\n      <div class="soiree-spectacle">\n        <div class="spectacle-header">\n          <h3>{{titre}}</h3>\n        </div>\n        <div class="spectacle-content">\n          <div class="spectacle-info">\n            {{#if style}}\n            <div class="style-section">\n              <h4>Style :</h4>\n              <p>{{style}}</p>\n            </div>\n            {{/if}}\n            {{#if artistes}}\n            <div class="artistes-section">\n              <h4>Artistes :</h4>\n              {{#each artistes}}\n              <p class="artiste-item">{{nom}} {{prenom}}</p>\n              {{/each}}\n            </div>\n            {{/if}}\n            {{#if description}}\n            <div class="description-section">\n              <h4>\xC0 propos :</h4>\n              <p>{{description}}</p>\n            </div>\n            {{/if}}\n          </div>\n          {{#if url_video}}\n          <div class="spectacle-video">\n            <iframe\n              src="/video/{{url_video}}"\n              title="{{url_video}}"\n              frameborder="0">\n            </iframe>\n          </div>\n          {{/if}}\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>\n{{/if}}\n</div>\n<div class="add-to-cart-section">\n  <div class="cart-wrapper">\n    <button class="add-to-cart-button">\n      <span>Ajouter un ticket au panier</span>\n    </button>\n  </div>\n</div>';
 
   // public/templates/connexion.hbs
   var connexion_default = '<div class="page">\n    <form id="loginForm">\n        <h1>{{title}}</h1>\n        <p>{{description}}</p>\n        <div class="form-group">\n            <label for="email">Email :</label>\n            <input type="email" id="email" required>\n        </div>\n        \n        <div class="form-group">\n            <label for="password">Mot de passe :</label>\n            <input type="password" id="password" required>\n        </div>\n\n        <div id="loginError" style="display: none;"></div>\n        \n        <button type="submit">Se connecter</button>\n        <p>Pas encore de compte ? <a href="#" id="registerLink">Inscrivez-vous</a></p>\n    </form>\n</div>';
@@ -5865,6 +5865,9 @@
 
   // public/templates/compte.hbs
   var compte_default = '<div class="page">\n    <h1 class="page-title">{{title}}</h1>\n  \n    <div class="account-content">\n        <h2 class="account-title">Mes informations</h2>\n        <p class="page-description">{{description}}</p>\n        <button id="logoutButton" class="logout-button">Se d\xE9connecter</button>\n    </div>\n</div>\n';
+
+  // public/templates/panier.hbs
+  var panier_default = '<div class="page"><h2>Votre Panier</h2>\n{{#if billets.length}}\n  <table>\n    <thead>\n      <tr>\n        <th>Quantit\xE9</th>\n        <th>Prix Unitaire</th>\n        <th>Total</th>\n      </tr>\n    </thead>\n    <tbody>\n      {{#each billets}}\n        <tr>\n          <td>{{quantite}}</td>\n          <td>{{prix_unitaire}} \u20AC</td>\n          <td>{{total_prix}} \u20AC</td>\n        </tr>\n      {{/each}}\n    </tbody>\n  </table>\n  <p><strong>Total du Panier : {{total}} \u20AC</strong></p>\n{{else}}\n  <p>Votre panier est vide.</p>\n{{/if}}\n</div>';
 
   // public/js/templateLoader.js
   import_handlebars.default.registerHelper("formatDate", function(dateStr) {
@@ -5909,7 +5912,8 @@
     soiree: import_handlebars.default.compile(soiree_default),
     connexion: import_handlebars.default.compile(connexion_default),
     inscription: import_handlebars.default.compile(inscription_default),
-    compte: import_handlebars.default.compile(compte_default)
+    compte: import_handlebars.default.compile(compte_default),
+    panier: import_handlebars.default.compile(panier_default)
   };
 
   // public/js/dateUtils.js
@@ -6002,6 +6006,10 @@
         compte: {
           title: "Mon compte",
           description: "G\xE9rez vos informations personnelles"
+        },
+        panier: {
+          title: "Votre Panier",
+          description: "Consultez vos billets et le total du panier."
         }
       };
     }
@@ -6009,6 +6017,11 @@
       this.pageData[pageName] = __spreadValues(__spreadValues({}, this.pageData[pageName]), data);
     }
     navigateToPage(pageName) {
+      if (pageName === "panier" && !this.isAuthenticated()) {
+        alert("Vous devez \xEAtre connect\xE9 pour acc\xE9der au panier.");
+        this.navigateToPage("connexion");
+        return;
+      }
       if (this.templates[pageName]) {
         const pageData = __spreadProps(__spreadValues({}, this.pageData[pageName]), {
           isAuthenticated: this.isAuthenticated()
@@ -6027,6 +6040,60 @@
   // public/js/api.js
   var API_CONFIG = {
     BASE_URL: "http://localhost:48013"
+  };
+  var ApiService = class {
+    static get(endpoint, requiresAuth = false) {
+      return __async(this, null, function* () {
+        let headers = {};
+        if (requiresAuth) {
+          const token = localStorage.getItem("jwt_token");
+          if (!token) {
+            throw new Error("Authentication required");
+          }
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+        const response = yield fetch(`${API_CONFIG.BASE_URL}${endpoint}`, {
+          method: "GET",
+          headers
+        });
+        if (response.status === 401) {
+          localStorage.removeItem("jwt_token");
+          localStorage.removeItem("refresh_token");
+          window.location.href = "/connexion";
+          throw new Error("Session expir\xE9e");
+        }
+        if (!response.ok) {
+          throw new Error("API request failed");
+        }
+        return response.json();
+      });
+    }
+    static post(endpoint, data, requiresAuth = false) {
+      return __async(this, null, function* () {
+        let headers = {
+          "Content-Type": "application/json"
+        };
+        if (requiresAuth) {
+          const token = localStorage.getItem("jwt_token");
+          if (!token) {
+            throw new Error("Authentication required");
+          }
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+        const response = yield fetch(`${API_CONFIG.BASE_URL}${endpoint}`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify(data)
+        });
+        if (response.status === 401) {
+          localStorage.removeItem("jwt_token");
+          localStorage.removeItem("refresh_token");
+          window.location.href = "/connexion";
+          throw new Error("Session expir\xE9e");
+        }
+        return response.json();
+      });
+    }
   };
 
   // public/js/authService.js
@@ -6115,7 +6182,7 @@
       return this.token;
     }
     isAuthenticated() {
-      return !!this.token;
+      return !!localStorage.getItem("jwt_token");
     }
   };
   var authService = new AuthService();
@@ -6390,6 +6457,25 @@
     }
   };
 
+  // public/js/panierController.js
+  function afficherPanier() {
+    return __async(this, null, function* () {
+      if (!authService.isAuthenticated()) {
+        alert("Vous devez \xEAtre connect\xE9 pour voir le panier.");
+        window.location.href = "#connexion";
+        return;
+      }
+      try {
+        const response = yield ApiService.get("/api/panier", true);
+        const panierData = yield response;
+        const html = templates.panier(panierData);
+        document.getElementById("content").innerHTML = html;
+      } catch (error) {
+        console.error("Erreur lors de la r\xE9cup\xE9ration du panier", error);
+      }
+    });
+  }
+
   // public/js/main.js
   var SPA = class {
     constructor() {
@@ -6401,7 +6487,6 @@
       this.eventManager = new EventManager(
         this.contentDiv,
         this.pageManager,
-        // Ajout du pageManager ici
         this.authController,
         this.spectacleController,
         this.spectacleFilter
@@ -6410,6 +6495,12 @@
     }
     initializeApp() {
       this.authController.updateAuthButtons();
+      const panierLink = document.getElementById("panierLink");
+      if (panierLink) {
+        panierLink.addEventListener("click", () => {
+          afficherPanier();
+        });
+      }
       if (this.authController.checkAuthentication()) {
         const currentPage = window.location.hash.slice(1) || "home";
         this.pageManager.navigateToPage(currentPage);

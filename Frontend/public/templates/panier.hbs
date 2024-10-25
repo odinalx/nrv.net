@@ -1,0 +1,25 @@
+<div class="page"><h2>Votre Panier</h2>
+{{#if billets.length}}
+  <table>
+    <thead>
+      <tr>
+        <th>Quantité</th>
+        <th>Prix Unitaire</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each billets}}
+        <tr>
+          <td>{{quantite}}</td>
+          <td>{{prix_unitaire}} €</td>
+          <td>{{total_prix}} €</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <p><strong>Total du Panier : {{total}} €</strong></p>
+{{else}}
+  <p>Votre panier est vide.</p>
+{{/if}}
+</div>

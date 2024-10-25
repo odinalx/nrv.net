@@ -14,7 +14,13 @@ class ServiceSpectacle implements ServiceSpectacleInterface
         $this->spectacleRepository = $spectacleRepository;
     }
 
-    
+    /**
+     * Récupère un spectacle par son id
+     * 
+     * @param string $id identifiant du spectacle
+     * @throws ServiceSpectacleNotFoundException
+     * @return SpectacleDTO le spectacle
+     */
     public function getSpectacleById(string $id): SpectacleDTO
     {   
         try {
@@ -26,6 +32,12 @@ class ServiceSpectacle implements ServiceSpectacleInterface
         }
     }
 
+    /**
+     * Récupère tous les spectacles
+     * 
+     * @throws ServiceSpectacleNotFoundException
+     * @return SpectacleDTO[] tableau des spectacles
+     */
     public function getSpectacles(): array
     {   try {
             $spectacles = $this->spectacleRepository->getSpectacles();
@@ -41,6 +53,13 @@ class ServiceSpectacle implements ServiceSpectacleInterface
         }
     }
 
+    /**
+     * Récupère les images d'un spectacle
+     * 
+     * @param string $id identifiant du spectacle
+     * @throws ServiceSpectacleNotFoundException
+     * @return string[] tableau des images
+     */
     public function getImagesSpectacle(string $id): array
     {   try {
             $images = $this->spectacleRepository->getImagesSpectacle($id);
@@ -52,6 +71,13 @@ class ServiceSpectacle implements ServiceSpectacleInterface
         }
     }
     
+    /**
+     * Récupère les artistes d'un spectacle
+     * 
+     * @param string $id identifiant du spectacle
+     * @throws ServiceSpectacleNotFoundException
+     * @return array tableau des artistes
+     */
     public function getArtistes(string $id): array
     {   try {
         $artistes = $this->spectacleRepository->getArtistes($id);

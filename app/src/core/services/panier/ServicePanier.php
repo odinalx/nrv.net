@@ -22,7 +22,13 @@ class ServicePanier implements ServicePanierInterface {
         $this->billetRepository = $billetRepository;
         $this->soireeRepository = $soireeRepository;
     }
-
+    /**
+     * Récupère un panier par l'identifiant de l'utilisateur
+     * 
+     * @param string $userId l'identifiant de l'utilisateur
+     * @throws ServicePanierNotFoundException
+     * @return PanierDTO le panier
+     */
     public function getPanierByUserId(string $userId) :PanierDTO {
         try {
             return $this->panierRepository->getPanierByUserId($userId)->toDTO();
@@ -33,6 +39,13 @@ class ServicePanier implements ServicePanierInterface {
         }
     }
 
+    /**
+     * Création d'un panier pour un utilisateur
+     * 
+     * @param string $userId l'identifiant de l'utilisateur
+     * @throws ServicePanierInvalidDataException
+     * @return PanierDTO le panier créé
+     */
     public function createPanier(string $userId): PanierDTO
     {
         try{
@@ -48,6 +61,14 @@ class ServicePanier implements ServicePanierInterface {
         }
     }   
 
+    /**
+     * Validation d'un panier
+     * 
+     * @param string $panierId l'identifiant du panier
+     * @throws ServicePanierNotFoundException
+     * @throws ServicePanierInvalidDataException
+     * @return PanierDTO le panier validé
+     */
     public function validerPanier(string $panierId): PanierDTO
     {
         try {
@@ -91,6 +112,13 @@ class ServicePanier implements ServicePanierInterface {
 
     } 
 
+    /**
+     * Calcul du prix total d'un panier
+     * 
+     * @param string $panierId l'identifiant du panier
+     * @throws ServicePanierNotFoundException
+     * @return float le prix total
+     */
     public function prixTotal(string $panierId): float
     {
         try {
@@ -102,6 +130,16 @@ class ServicePanier implements ServicePanierInterface {
         }
     } 
     
+    /**
+     * Création d'une commande
+     * 
+     * @param string $userid l'identifiant de l'utilisateur
+     * @param string $panierid l'identifiant du panier
+     * @param float $prixtotal le prix total
+     * @param string $status le status de la commande
+     * @throws ServicePanierInvalidDataException
+     * @return string l'identifiant de la commande
+     */
     private function createCommande(string $userid, string $panierid, float $prixtotal, string $status): string
     {
         try {
@@ -113,6 +151,13 @@ class ServicePanier implements ServicePanierInterface {
         }
     }
 
+    /**
+     * Récupère l'utilisateur d'un panier
+     * 
+     * @param string $panierId l'identifiant du panier
+     * @throws ServicePanierNotFoundException
+     * @return string l'identifiant de l'utilisateur
+     */
     private function getUserByPanier(string $panierId): string
     {
         try {

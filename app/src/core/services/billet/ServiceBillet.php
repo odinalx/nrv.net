@@ -23,7 +23,13 @@ class ServiceBillet implements ServiceBilletInterface {
         $this->soireeRepository = $soireeRepository;
     }
 
-
+    /**
+     * Récupère les billets en attente d'un panier
+     * 
+     * @param string $panierid L'identifiant du panier
+     * @throws ServiceBilletNotFoundException
+     * @return BilletPanierDTO[] un tableau de billets en attente
+     */
     public function getBilletsPanier(string $panierid): array
     {
         try {
@@ -40,6 +46,17 @@ class ServiceBillet implements ServiceBilletInterface {
         }
     }
 
+    /**
+     * Ajoute un billet à un panier
+     * 
+     * @param string $panierId L'identifiant du panier
+     * @param string $soireeId L'identifiant de la soirée
+     * @param int $quantite La quantité de billets
+     * @param float $prix Le prix du billet
+     * @throws ServiceBilletNotFoundException
+     * @throws ServiceBilletInvalidDataException
+     * @return string L'identifiant du billet ajouté
+     */
     public function ajouterBillet(string $panierId, string $soireeId, int $quantite, float $prix): string
     {
         try {     
@@ -60,6 +77,13 @@ class ServiceBillet implements ServiceBilletInterface {
         }
     }
 
+    /**
+     * Supprime un billet d'un panier
+     * 
+     * @param string $billetId L'identifiant du billet
+     * @throws ServiceBilletNotFoundException
+     * @return BilletPanierDTO Le billet supprimé
+     */
     public function supprimerBillet(string $billetId): BilletPanierDTO
     {
         try {
@@ -71,15 +95,22 @@ class ServiceBillet implements ServiceBilletInterface {
         }    
     }
 
+    /**
+     * Récupère les billets générés d'un utilisateur
+     * 
+     * @param string $userId L'identifiant de l'utilisateur
+     * @throws ServiceBilletNotFoundException
+     * @return BilletDTO[] Un tableau de billets générés
+     */
     public function getBilletsByUserId(string $userId): array
     {
         try {
-        $billets = $this->billetRepository->getBilletsByUserId($userId);
-        $billetsDTO = [];
-        foreach ($billets as $billet) {
-            $billetsDTO[] = $billet->toDTO();
-        }
-        return $billetsDTO;
+            $billets = $this->billetRepository->getBilletsByUserId($userId);
+            $billetsDTO = [];
+            foreach ($billets as $billet) {
+                $billetsDTO[] = $billet->toDTO();
+            }
+            return $billetsDTO;
         } catch (RepositoryEntityNotFoundException $e) {
             throw new ServiceBilletNotFoundException($e->getMessage());
         } catch (\Exception $e) {

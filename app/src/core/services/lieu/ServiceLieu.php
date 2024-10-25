@@ -16,6 +16,13 @@ class ServiceLieu implements ServiceLieuInterface {
         
     }
 
+    /**
+     * Récupère un lieu
+     * 
+     * @param string $id Identifiant du lieu
+     * @throws ServiceLieuNotFoundException
+     * @return LieuDTO Lieu
+     */
     public function getLieuById(string $id): LieuDTO
     {   
         try{

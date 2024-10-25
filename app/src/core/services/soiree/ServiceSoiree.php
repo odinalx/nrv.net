@@ -16,6 +16,13 @@ class ServiceSoiree implements ServiceSoireeInterface
         $this->soireeRepository = $soireeRepository;
     }
 
+    /**
+     * Récupère une soirée par son id
+     * 
+     * @param string $id id de la soirée
+     * @throws ServiceSoireeNotFoundException
+     * @return SoireeDTO la soiree
+     */
     public function getSoireeById(string $id): SoireeDTO
     {   
         try {
@@ -27,6 +34,13 @@ class ServiceSoiree implements ServiceSoireeInterface
         }
     }  
     
+    /**
+     * Récupère les spectacles d'une soirée
+     * 
+     * @param string $id identifiant de la soirée
+     * @throws ServiceSoireeNotFoundException
+     * @return SpectacleDTO[] les spectacles de la soirée
+     */
     public function getSpectaclesBySoireeId(string $id): array
     {   
         try {

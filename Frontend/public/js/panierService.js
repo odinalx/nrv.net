@@ -6,7 +6,7 @@ export class PanierService {
             const data = { user_id: user_id };
             console.log("Envoi de la requête de création de panier avec les données :", data);
             
-            const response = await ApiService.post(`${API_CONFIG.BASE_URL}/paniers`, data, true);
+            const response = await ApiService.post(`/paniers`, data, true);
             return response;
         } catch (error) {
             console.error("Erreur lors de la création du panier:", error);
@@ -16,14 +16,14 @@ export class PanierService {
 
     static async ajouterBillet(panierId, soireeId, quantite, prix) {
         try {
-            const data = {
+            const data = {  
                 soiree_id: soireeId,
                 quantite: quantite,
                 prix: prix
             };
             console.log("Envoi de la requête d'ajout de billet avec les données :", data);
             
-            const response = await ApiService.post(`${API_CONFIG.BASE_URL}/paniers/${panierId}`, data, true);
+            const response = await ApiService.post(`/paniers/${panierId}`, data, true);
             return response;
         } catch (error) {
             console.error("Erreur lors de l'ajout d'un billet au panier:", error);

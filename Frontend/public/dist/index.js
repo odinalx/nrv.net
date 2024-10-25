@@ -6178,9 +6178,6 @@
       localStorage.removeItem("refresh_token");
       return true;
     }
-    getToken() {
-      return this.token;
-    }
     isAuthenticated() {
       return !!localStorage.getItem("jwt_token");
     }
@@ -6189,10 +6186,12 @@
 
   // public/js/panierService.js
   var PanierService = class {
-    static creerPanier(userId) {
+    static creerPanier(user_id) {
       return __async(this, null, function* () {
         try {
-          const response = yield ApiService.post(`/paniers`, { user_id: userId }, true);
+          const data = { user_id };
+          console.log("Envoi de la requ\xEAte de cr\xE9ation de panier avec les donn\xE9es :", data);
+          const response = yield ApiService.post(`/paniers`, data, true);
           return response;
         } catch (error) {
           console.error("Erreur lors de la cr\xE9ation du panier:", error);
@@ -6203,11 +6202,13 @@
     static ajouterBillet(panierId, soireeId, quantite, prix) {
       return __async(this, null, function* () {
         try {
-          const response = yield ApiService.post(`${API_CONFIG.BASE_URL}/paniers/${panierId}`, {
+          const data = {
             soiree_id: soireeId,
             quantite,
             prix
-          }, true);
+          };
+          console.log("Envoi de la requ\xEAte d'ajout de billet avec les donn\xE9es :", data);
+          const response = yield ApiService.post(`/paniers/${panierId}`, data, true);
           return response;
         } catch (error) {
           console.error("Erreur lors de l'ajout d'un billet au panier:", error);
@@ -6279,7 +6280,10 @@
               const loginResult = yield authService.login(email, password);
               if (loginResult && loginResult.accessToken) {
                 this.updateAuthButtons();
-                yield PanierService.creerPanier(loginResult.userId);
+                const panierResponse = yield PanierService.creerPanier(loginResult.user_id);
+                if (panierResponse && panierResponse.id) {
+                  localStorage.setItem("panier_id", panierResponse.id);
+                }
                 this.pageManager.navigateToPage("home");
                 return;
               }
@@ -6378,11 +6382,48 @@
             soiree: soireeData
           });
           this.pageManager.navigateToPage("soiree");
+          const form = document.getElementById("add-to-cart-form");
+          if (form) {
+            form.addEventListener("submit", this.handleAddToCartForm.bind(this, soireeData.id));
+          } else {
+            console.warn("Formulaire 'Ajouter au panier' non trouv\xE9.");
+          }
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es de la soir\xE9e:", error);
           if (error.message === "Authentication required") {
             this.pageManager.navigateToPage("connexion");
           }
+        }
+      });
+    }
+    handleAddToCartForm(soireeId, event) {
+      return __async(this, null, function* () {
+        event.preventDefault();
+        const ticketTypeElement = document.getElementById("ticket-type");
+        const prix = parseFloat(ticketTypeElement.selectedOptions[0].getAttribute("data-price"));
+        const quantite = parseInt(document.getElementById("ticket-quantity").value, 10);
+        if (isNaN(quantite) || quantite < 1) {
+          alert("Veuillez entrer une quantit\xE9 valide.");
+          return;
+        }
+        if (!authService.isAuthenticated()) {
+          alert("Vous devez \xEAtre connect\xE9 pour ajouter un billet au panier.");
+          return;
+        }
+        let panierId = localStorage.getItem("panier_id");
+        try {
+          if (!panierId) {
+            const panierResponse = yield PanierService.creerPanier(authService.getUserId());
+            if (panierResponse && panierResponse.id) {
+              panierId = panierResponse.id;
+              localStorage.setItem("panier_id", panierId);
+            }
+          }
+          yield PanierService.ajouterBillet(panierId, soireeId, quantite, prix);
+          alert("Billet ajout\xE9 au panier avec succ\xE8s !");
+        } catch (error) {
+          console.error("Erreur lors de l'ajout au panier:", error);
+          alert("Une erreur s'est produite lors de l'ajout au panier.");
         }
       });
     }

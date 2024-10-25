@@ -88,10 +88,6 @@ export class AuthService {
         return true;
     }
 
-    getToken() {
-        return this.token;
-    }
-
     isAuthenticated() {
         return !!localStorage.getItem('jwt_token');
     }

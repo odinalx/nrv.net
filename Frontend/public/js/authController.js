@@ -60,7 +60,12 @@ export class AuthController {
                     const loginResult = await authService.login(email, password);
                     if (loginResult && loginResult.accessToken) {
                         this.updateAuthButtons();
-                        await PanierService.creerPanier(loginResult.user_id);
+
+                        const panierResponse = await PanierService.creerPanier(loginResult.user_id);
+                        if (panierResponse && panierResponse.id) {
+                            localStorage.setItem('panier_id', panierResponse.id);
+                        }
+                        
                         this.pageManager.navigateToPage('home');
                         return;
                     }
@@ -95,5 +100,3 @@ export class AuthController {
         return true;
     }
 }
-
-

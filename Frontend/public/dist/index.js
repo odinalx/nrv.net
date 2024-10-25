@@ -5744,7 +5744,7 @@
   // public/templates/spectacle.hbs
   var spectacle_default = `<div class="page">
 <div class="home-filters">
-    <h1>Nos Spectacles</h1>
+    <h1>PROGRAMMATION</h1>
     <div class="filter-types">
         <button class="filter-type-button {{#if (eq activeFilter 'dates')}}active{{/if}}" data-filter-type="dates">
             DATES
@@ -5796,18 +5796,17 @@
     </div>
     {{/if}}
 </div>
-    <div class="spectacles-grid">
-        {{#each spectacles}}
-        <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+ <div class="spectacles-grid">
+    {{#each spectacles}}
+    <div class="spectacle-card" data-soiree-id="{{soiree.self}}" style="cursor: pointer;">
+        <img src="/img/{{images}}" alt="{{images}}">
+        <div>
             <h2>{{titre}}</h2>
-            <div>
-                <p><strong>Date :</strong> {{formatDateButton date}}</p>
-                <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
-                <img src="{{images}}" alt="{{images}}">
-            </div>
+            <p>{{formatDateButton date}} / \u2022 {{formatTime horaire}}</p>
         </div>
-        {{/each}}
     </div>
+    {{/each}}
+</div>
 </div>`;
 
   // public/templates/soiree.hbs
@@ -5848,6 +5847,7 @@
   };
 
   // public/js/main.js
+  var API_BASE_URL = "http://localhost:48013";
   var SPA = class {
     constructor() {
       this.contentDiv = document.getElementById("content");
@@ -5899,7 +5899,7 @@
     fetchSpectacleData() {
       return __async(this, null, function* () {
         try {
-          const response = yield fetch("http://localhost:48013/spectacles");
+          const response = yield fetch(`${API_BASE_URL}/spectacles`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
@@ -5923,7 +5923,7 @@
       return __async(this, null, function* () {
         try {
           const cleanUrl = soireeUrl.startsWith("/") ? soireeUrl.slice(1) : soireeUrl;
-          const response = yield fetch(`http://localhost:48013/${cleanUrl}`);
+          const response = yield fetch(`${API_BASE_URL}/${cleanUrl}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }

@@ -13,8 +13,7 @@ use nrv\core\services\lieu\ServiceLieuNotFoundException;
 use nrv\core\services\soiree\ServiceSoireeNotFoundException;
 
 class GetSoireeByIdAction extends AbstractAction
-{
-    
+{    
     private ServiceSoireeInterface $serviceSoiree;
     private ServiceLieuInterface $serviceLieu;
 

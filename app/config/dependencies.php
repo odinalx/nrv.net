@@ -70,7 +70,8 @@ return [
 
     ServiceSoireeInterface::class => function (ContainerInterface $container) {
         $soireeRepository = $container->get(SoireeRepositoryInterface::class);
-        return new ServiceSoiree($soireeRepository);
+        $spectacleRepository = $container->get(SpectacleRepositoryInterface::class);
+        return new ServiceSoiree($soireeRepository, $spectacleRepository);
     },
 
     ServicePanierInterface::class => function (ContainerInterface $container) {

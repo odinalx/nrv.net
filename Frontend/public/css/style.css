@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +7,7 @@
 }
 
 .page {
-  padding: 20px;
+  padding: 26px;
   width: 70%;
   margin: auto;
 }
@@ -77,6 +78,148 @@ nav > :not(button[data-page=home]) {
     margin-right: 0;
   }
 }
+/* Style spécifiques à la page soirée */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 26px;
+}
+.page > h1 {
+  text-align: center;
+  color: #2e9466;
+  margin-bottom: 26px;
+  font-size: 2.5em;
+}
+
+.soiree-details {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 26px;
+  margin-bottom: 34px;
+}
+.soiree-details > h1 {
+  text-align: center;
+  color: #2e9466;
+  font-size: 3em;
+  margin-bottom: 26px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid #2e9466;
+}
+
+.soiree-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+  margin-bottom: 26px;
+}
+.soiree-info > p {
+  margin: 0;
+  font-size: 1em;
+  padding: 10px;
+  background: rgba(46, 148, 102, 0.05);
+  border-radius: 4px;
+}
+.soiree-info > p > strong {
+  color: #2e9466;
+  font-size: 1.2em;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Style pour la section des spectacles */
+.spectacles-section {
+  margin-top: 34px;
+}
+.spectacles-section > h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #2e9466;
+  margin-bottom: 26px;
+}
+
+.soiree-spectacles-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
+  margin-bottom: 34px;
+}
+
+.soiree-spectacle-card {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.soiree-spectacle-card .spectacle-header {
+  padding: 26px;
+  border-bottom: 1px solid rgba(46, 148, 102, 0.1);
+}
+.soiree-spectacle-card .spectacle-header > h3 {
+  color: #2e9466;
+  margin: 0;
+  font-size: 1.5em;
+}
+.soiree-spectacle-card .spectacle-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+  padding: 26px;
+}
+@media (min-width: 768px) {
+  .soiree-spectacle-card .spectacle-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.soiree-spectacle-card .spectacle-content .spectacle-info > p {
+  margin: 10px 0;
+}
+.soiree-spectacle-card .spectacle-content .spectacle-info > p > strong {
+  color: #2e9466;
+  margin-right: 10px;
+}
+.soiree-spectacle-card .spectacle-content .spectacle-video {
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+.soiree-spectacle-card .spectacle-content .spectacle-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.add-to-cart-section {
+  text-align: center;
+  padding: 34px 0;
+  position: sticky;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  border-top: 1px solid #ddd;
+  z-index: 10;
+}
+.add-to-cart-section .add-to-cart-button {
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #2e9466;
+  color: white;
+  font-size: 1.2em;
+  padding: 18px 34px;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.add-to-cart-section .add-to-cart-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .filter-types {
   margin: 26px 0 10px 0;
 }

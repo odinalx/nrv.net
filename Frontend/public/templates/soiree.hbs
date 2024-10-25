@@ -1,52 +1,74 @@
 <div class="page">
-  <h1>{{title}}</h1>
-  
+
   <div class="soiree-details">
-    <h2>{{soiree.nom}}</h2>
-    
+    <h1>{{soiree.nom}}</h1>
     <div class="soiree-info">
-      {{#if soiree.description}}
-        <p><strong>Description :</strong> {{soiree.description}}</p>
+      {{#if soiree.lieu}}
+      <p><strong>Lieu :</strong> {{soiree.lieu}}</p>
       {{/if}}
-      
       {{#if soiree.tarif_normal}}
-        <p><strong>Tarif normal :</strong> {{soiree.tarif_normal}}€</p>
+      <p><strong>Tarif normal :</strong> {{soiree.tarif_normal}}€</p>
       {{/if}}
-      
       {{#if soiree.tarif_reduit}}
-        <p><strong>Tarif réduit :</strong> {{soiree.tarif_reduit}}€</p>
+      <p><strong>Tarif réduit :</strong> {{soiree.tarif_reduit}}€</p>
       {{/if}}
-      
       {{#if soiree.date}}
-        <p><strong>Date :</strong> {{formatDate soiree.date}}</p>
+      <p><strong>Date :</strong> {{formatDate soiree.date}}</p>
       {{/if}}
-      
       {{#if soiree.horaire_debut}}
-        <p><strong>Heure de début :</strong> {{formatTime soiree.horaire_debut}}</p>
+      <p><strong>Heure de début :</strong> {{formatTime soiree.horaire_debut}}</p>
       {{/if}}
-      
       {{#if soiree.theme}}
-        <p><strong>Thème :</strong> {{soiree.theme}}</p>
+      <p><strong>Thème :</strong> {{soiree.theme}}</p>
       {{/if}}
     </div>
+  </div>
 
-    {{#if soiree.spectacles.length}}
-      <div class="spectacles-grid">
-        {{#each soiree.spectacles}}
-            <div class="spectacle-card">
-              <h3>{{titre}}</h3>
-              {{#if description}}
-                <p><strong>Description :</strong> {{description}}</p>
-              {{/if}}
-              {{#if style}}
-                <p><strong>Style :</strong> {{style}}</p>
-              {{/if}}
-              {{#if horaire_prev}}
-                <p><strong>Horaire :</strong> {{formatTime horaire_prev}}</p>
-              {{/if}}
-            </div>
-        {{/each}}
+  {{#if soiree.spectacles.length}}
+  <div class="spectacles-section">
+    <h2>Les spectacles de la soirée</h2>
+    <div class="soiree-spectacles-grid">
+      {{#each soiree.spectacles}}
+      <div class="soiree-spectacle-card">
+        <div class="spectacle-header">
+          <h3>{{titre}}</h3>
+        </div>
+        <div class="spectacle-content">
+          <div class="spectacle-info">
+            {{#if description}}
+            <p><strong>Description :</strong> {{description}}</p>
+            {{/if}}
+            {{#if artistes}}
+            {{#each artistes}}
+            <p><strong>Artistes :</strong> {{artistes.nom}} {{artistes.prenom}} </p>
+            {{/each}}
+            {{/if}}
+            {{#if style}}
+            <p><strong>Style :</strong> {{style}}</p>
+            {{/if}}
+            {{#if horaire_prev}}
+            <p><strong>Horaire :</strong> {{formatTime horaire_prev}}</p>
+            {{/if}}
+          </div>
+          {{#if url_video}}
+          <div class="spectacle-video">
+            <iframe 
+              src="/video/{{url_video}}" 
+              title="{{url_video}}"
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          {{/if}}
+        </div>
       </div>
-    {{/if}}
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
+  <div class="add-to-cart-section">
+    <button class="add-to-cart-button">Ajouter au panier</button>
   </div>
 </div>

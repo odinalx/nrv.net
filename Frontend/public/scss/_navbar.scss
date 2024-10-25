@@ -1,9 +1,4 @@
-// Variables
-$nav-bg: #242424;
-$nav-text: #acacac;
-$nav-text-hover: #2e9466;
-$nav-height: 70px;
-$spacing: 10em;
+@import 'variables';
 
 nav {
   display: flex;

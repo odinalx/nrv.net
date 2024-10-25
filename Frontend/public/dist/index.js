@@ -5810,7 +5810,7 @@
 </div>`;
 
   // public/templates/soiree.hbs
-  var soiree_default = '<div class="page">\n  <h1>{{title}}</h1>\n  \n  <div class="soiree-details">\n    <h2>{{soiree.nom}}</h2>\n    \n    <div class="soiree-info">\n      {{#if soiree.description}}\n        <p><strong>Description :</strong> {{soiree.description}}</p>\n      {{/if}}\n      \n      {{#if soiree.tarif_normal}}\n        <p><strong>Tarif normal :</strong> {{soiree.tarif_normal}}\u20AC</p>\n      {{/if}}\n      \n      {{#if soiree.tarif_reduit}}\n        <p><strong>Tarif r\xE9duit :</strong> {{soiree.tarif_reduit}}\u20AC</p>\n      {{/if}}\n      \n      {{#if soiree.date}}\n        <p><strong>Date :</strong> {{formatDate soiree.date}}</p>\n      {{/if}}\n      \n      {{#if soiree.horaire_debut}}\n        <p><strong>Heure de d\xE9but :</strong> {{formatTime soiree.horaire_debut}}</p>\n      {{/if}}\n      \n      {{#if soiree.theme}}\n        <p><strong>Th\xE8me :</strong> {{soiree.theme}}</p>\n      {{/if}}\n    </div>\n\n    {{#if soiree.spectacles.length}}\n      <div class="spectacles-grid">\n        {{#each soiree.spectacles}}\n            <div class="spectacle-card">\n              <h3>{{titre}}</h3>\n              {{#if description}}\n                <p><strong>Description :</strong> {{description}}</p>\n              {{/if}}\n              {{#if style}}\n                <p><strong>Style :</strong> {{style}}</p>\n              {{/if}}\n              {{#if horaire_prev}}\n                <p><strong>Horaire :</strong> {{formatTime horaire_prev}}</p>\n              {{/if}}\n            </div>\n        {{/each}}\n      </div>\n    {{/if}}\n  </div>\n</div>';
+  var soiree_default = '<div class="page">\n\n  <div class="soiree-details">\n    <h1>{{soiree.nom}}</h1>\n    <div class="soiree-info">\n      {{#if soiree.lieu}}\n      <p><strong>Lieu :</strong> {{soiree.lieu}}</p>\n      {{/if}}\n      {{#if soiree.tarif_normal}}\n      <p><strong>Tarif normal :</strong> {{soiree.tarif_normal}}\u20AC</p>\n      {{/if}}\n      {{#if soiree.tarif_reduit}}\n      <p><strong>Tarif r\xE9duit :</strong> {{soiree.tarif_reduit}}\u20AC</p>\n      {{/if}}\n      {{#if soiree.date}}\n      <p><strong>Date :</strong> {{formatDate soiree.date}}</p>\n      {{/if}}\n      {{#if soiree.horaire_debut}}\n      <p><strong>Heure de d\xE9but :</strong> {{formatTime soiree.horaire_debut}}</p>\n      {{/if}}\n      {{#if soiree.theme}}\n      <p><strong>Th\xE8me :</strong> {{soiree.theme}}</p>\n      {{/if}}\n    </div>\n  </div>\n\n  {{#if soiree.spectacles.length}}\n  <div class="spectacles-section">\n    <h2>Les spectacles de la soir\xE9e</h2>\n    <div class="soiree-spectacles-grid">\n      {{#each soiree.spectacles}}\n      <div class="soiree-spectacle-card">\n        <div class="spectacle-header">\n          <h3>{{titre}}</h3>\n        </div>\n        <div class="spectacle-content">\n          <div class="spectacle-info">\n            {{#if description}}\n            <p><strong>Description :</strong> {{description}}</p>\n            {{/if}}\n            {{#if artistes}}\n            {{#each artistes}}\n            <p><strong>Artistes :</strong> {{soiree.artistes.nom}}</p>\n            {{/each}}\n            {{/if}}\n            {{#if style}}\n            <p><strong>Style :</strong> {{style}}</p>\n            {{/if}}\n            {{#if horaire_prev}}\n            <p><strong>Horaire :</strong> {{formatTime horaire_prev}}</p>\n            {{/if}}\n          </div>\n          {{#if url_video}}\n          <div class="spectacle-video">\n            <iframe \n              src="/video/{{url_video}}" \n              title="{{url_video}}"\n              frameborder="0" \n              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" \n              allowfullscreen>\n            </iframe>\n          </div>\n          {{/if}}\n        </div>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n\n  <div class="add-to-cart-section">\n    <button class="add-to-cart-button">Ajouter au panier</button>\n  </div>\n</div>';
 
   // public/js/templateLoader.js
   import_handlebars.default.registerHelper("formatDate", function(dateStr) {
@@ -5846,29 +5846,56 @@
     soiree: import_handlebars.default.compile(soiree_default)
   };
 
-  // public/js/main.js
-  var API_BASE_URL = "http://localhost:48013";
-  var SPA = class {
-    constructor() {
-      this.contentDiv = document.getElementById("content");
-      this.templates = templates;
-      this.activeFilter = "dates";
-      this.selectedDate = "all";
-      this.selectedLieu = "all";
-      this.selectedStyle = "all";
-      this.originalSpectacles = [];
-      this.pageData = {
-        home: {
-          title: "Notre NRV",
-          description: "Bienvenue sur notre application mono-page NRV!"
-        },
-        spectacle: null,
-        soiree: null
-      };
-      this.initializeEventListeners();
-      this.navigateToPage("home");
+  // public/js/api.js
+  var API_CONFIG = {
+    BASE_URL: "http://localhost:48013"
+  };
+
+  // public/js/spectacleService.js
+  var SpectacleService = class {
+    static fetchSpectacles() {
+      return __async(this, null, function* () {
+        try {
+          const response = yield fetch(`${API_CONFIG.BASE_URL}/spectacles`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return yield response.json();
+        } catch (error) {
+          console.error("Erreur lors de la r\xE9cup\xE9ration des spectacles:", error);
+          return { spectacles: [] };
+        }
+      });
     }
-    getAvailableDates(spectacles) {
+    static fetchSoiree(soireeUrl) {
+      return __async(this, null, function* () {
+        try {
+          const cleanUrl = soireeUrl.startsWith("/") ? soireeUrl.slice(1) : soireeUrl;
+          const response = yield fetch(`${API_CONFIG.BASE_URL}/${cleanUrl}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return yield response.json();
+        } catch (error) {
+          console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e:", error);
+          throw error;
+        }
+      });
+    }
+  };
+
+  // public/js/dateUtils.js
+  var DateUtils = class {
+    static sortByDate(spectacles) {
+      return spectacles.sort((a, b) => {
+        const [dayA, monthA, yearA] = a.date.split("-");
+        const [dayB, monthB, yearB] = b.date.split("-");
+        const dateA = /* @__PURE__ */ new Date(`${yearA}-${monthA}-${dayA}`);
+        const dateB = /* @__PURE__ */ new Date(`${yearB}-${monthB}-${dayB}`);
+        return dateA - dateB;
+      });
+    }
+    static getAvailableDates(spectacles) {
       return [...new Set(spectacles.map((s) => s.date))].sort((a, b) => {
         const [dayA, monthA, yearA] = a.split("-");
         const [dayB, monthB, yearB] = b.split("-");
@@ -5877,11 +5904,15 @@
         return dateA - dateB;
       });
     }
-    getAvailableLieux(spectacles) {
-      return [...new Set(spectacles.map((s) => s.soiree.lieu))].sort();
-    }
-    getAvailableStyles(spectacles) {
-      return [...new Set(spectacles.map((s) => s.style))].sort();
+  };
+
+  // public/js/spectacleFilter.js
+  var SpectacleFilter = class {
+    constructor() {
+      this.activeFilter = "dates";
+      this.selectedDate = "all";
+      this.selectedLieu = "all";
+      this.selectedStyle = "all";
     }
     filterSpectacles(spectacles) {
       let filtered = [...spectacles];
@@ -5894,45 +5925,91 @@
       if (this.activeFilter === "styles" && this.selectedStyle !== "all") {
         filtered = filtered.filter((s) => s.style === this.selectedStyle);
       }
-      return filtered;
+      return DateUtils.sortByDate(filtered);
+    }
+    getAvailableLieux(spectacles) {
+      return [...new Set(spectacles.map((s) => s.soiree.lieu))].sort();
+    }
+    getAvailableStyles(spectacles) {
+      return [...new Set(spectacles.map((s) => s.style))].sort();
+    }
+    updateFilter(type, value) {
+      switch (type) {
+        case "filterType":
+          this.activeFilter = value;
+          break;
+        case "date":
+          this.selectedDate = value;
+          break;
+        case "lieu":
+          this.selectedLieu = value;
+          break;
+        case "style":
+          this.selectedStyle = value;
+          break;
+      }
+    }
+  };
+
+  // public/js/pageManager.js
+  var PageManager = class {
+    constructor(contentDiv, templates2) {
+      this.contentDiv = contentDiv;
+      this.templates = templates2;
+      this.pageData = {
+        home: {
+          title: "Nancy Rock Vibrations",
+          description: "Bienvenue d\xE9couvrez ici tout les Spectacles de Nancy Rock Vibrations"
+        },
+        spectacle: null,
+        soiree: null
+      };
+    }
+    setPageData(pageName, data) {
+      this.pageData[pageName] = data;
+    }
+    navigateToPage(pageName) {
+      if (this.templates[pageName]) {
+        const pageData = this.pageData[pageName];
+        if (pageData) {
+          const html = this.templates[pageName](pageData);
+          this.contentDiv.innerHTML = html;
+        }
+      }
+    }
+  };
+
+  // public/js/main.js
+  var SPA = class {
+    constructor() {
+      this.contentDiv = document.getElementById("content");
+      this.pageManager = new PageManager(this.contentDiv, templates);
+      this.spectacleFilter = new SpectacleFilter();
+      this.originalSpectacles = [];
+      this.initializeEventListeners();
+      this.pageManager.navigateToPage("home");
     }
     fetchSpectacleData() {
       return __async(this, null, function* () {
         try {
-          const response = yield fetch(`${API_BASE_URL}/spectacles`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = yield response.json();
-          this.originalSpectacles = data.spectacles || [];
+          const data = yield SpectacleService.fetchSpectacles();
+          this.originalSpectacles = DateUtils.sortByDate(data.spectacles || []);
           this.updateSpectacleDisplay();
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es:", error);
-          this.pageData.spectacle = {
-            activeFilter: this.activeFilter,
-            selectedDate: this.selectedDate,
-            selectedLieu: this.selectedLieu,
-            availableDates: [],
-            availableLieux: [],
-            spectacles: []
-          };
+          this.updateSpectacleDisplay();
         }
       });
     }
     fetchSoireeData(soireeUrl) {
       return __async(this, null, function* () {
         try {
-          const cleanUrl = soireeUrl.startsWith("/") ? soireeUrl.slice(1) : soireeUrl;
-          const response = yield fetch(`${API_BASE_URL}/${cleanUrl}`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const soireeData = yield response.json();
-          this.pageData.soiree = {
+          const soireeData = yield SpectacleService.fetchSoiree(soireeUrl);
+          this.pageManager.setPageData("soiree", {
             title: "D\xE9tails de la soir\xE9e",
             soiree: soireeData
-          };
-          this.navigateToPage("soiree");
+          });
+          this.pageManager.navigateToPage("soiree");
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es de la soir\xE9e:", error);
         }
@@ -5940,17 +6017,17 @@
     }
     updateSpectacleDisplay() {
       if (this.originalSpectacles) {
-        this.pageData.spectacle = {
-          activeFilter: this.activeFilter,
-          selectedDate: this.selectedDate,
-          selectedLieu: this.selectedLieu,
-          selectedStyle: this.selectedStyle,
-          availableDates: this.getAvailableDates(this.originalSpectacles),
-          availableLieux: this.getAvailableLieux(this.originalSpectacles),
-          availableStyles: this.getAvailableStyles(this.originalSpectacles),
-          spectacles: this.filterSpectacles(this.originalSpectacles)
-        };
-        this.navigateToPage("spectacle");
+        this.pageManager.setPageData("spectacle", {
+          activeFilter: this.spectacleFilter.activeFilter,
+          selectedDate: this.spectacleFilter.selectedDate,
+          selectedLieu: this.spectacleFilter.selectedLieu,
+          selectedStyle: this.spectacleFilter.selectedStyle,
+          availableDates: DateUtils.getAvailableDates(this.originalSpectacles),
+          availableLieux: this.spectacleFilter.getAvailableLieux(this.originalSpectacles),
+          availableStyles: this.spectacleFilter.getAvailableStyles(this.originalSpectacles),
+          spectacles: this.spectacleFilter.filterSpectacles(this.originalSpectacles)
+        });
+        this.pageManager.navigateToPage("spectacle");
       }
     }
     initializeEventListeners() {
@@ -5960,25 +6037,24 @@
           if (pageName === "spectacle") {
             yield this.fetchSpectacleData();
           }
-          this.navigateToPage(pageName);
+          this.pageManager.navigateToPage(pageName);
         }));
       });
       this.contentDiv.addEventListener("click", (e) => __async(this, null, function* () {
         if (e.target.matches(".filter-type-button")) {
-          const filterType = e.target.dataset.filterType;
-          this.activeFilter = filterType;
+          this.spectacleFilter.updateFilter("filterType", e.target.dataset.filterType);
           this.updateSpectacleDisplay();
         }
         if (e.target.matches(".date-button")) {
-          this.selectedDate = e.target.dataset.date;
+          this.spectacleFilter.updateFilter("date", e.target.dataset.date);
           this.updateSpectacleDisplay();
         }
         if (e.target.matches(".lieu-button")) {
-          this.selectedLieu = e.target.dataset.lieu;
+          this.spectacleFilter.updateFilter("lieu", e.target.dataset.lieu);
           this.updateSpectacleDisplay();
         }
         if (e.target.matches(".style-button")) {
-          this.selectedStyle = e.target.dataset.style;
+          this.spectacleFilter.updateFilter("style", e.target.dataset.style);
           this.updateSpectacleDisplay();
         }
         const spectacleCard = e.target.closest(".spectacle-card");
@@ -5989,15 +6065,6 @@
           }
         }
       }));
-    }
-    navigateToPage(pageName) {
-      if (this.templates[pageName]) {
-        const pageData = this.pageData[pageName];
-        if (pageData) {
-          const html = this.templates[pageName](pageData);
-          this.contentDiv.innerHTML = html;
-        }
-      }
     }
   };
   document.addEventListener("DOMContentLoaded", () => {

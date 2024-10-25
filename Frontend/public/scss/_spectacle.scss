@@ -1,11 +1,4 @@
-// Variables
-$primary-color: #2e9466;
-$border-color: #ddd;
-$white: white;
-$border-radius: 4px;
-$spacing-sm: 10px;
-$spacing-md: 18px;
-$spacing-lg: 26px;
+@import 'variables';
 
 // Mixins
 @mixin button-base {

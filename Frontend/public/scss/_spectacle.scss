@@ -1,0 +1,113 @@
+// Variables
+$primary-color: #4B0082;
+$border-color: #ddd;
+$white: white;
+$border-radius: 4px;
+$spacing-sm: 8px;
+$spacing-md: 15px;
+$spacing-lg: 20px;
+
+// Mixins
+@mixin button-base {
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.page {
+  padding: $spacing-lg;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  max-width: 400px;
+}
+
+input, textarea {
+  padding: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.item {
+  border: 1px solid $border-color;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+  border-radius: $border-radius;
+}
+
+/* page spectacle */
+.filter-types {
+  margin: $spacing-lg 0 $spacing-sm 0;
+}
+
+.filter-type-button {
+  @include button-base;
+  background-color: $primary-color;
+  color: $white;
+  border: none;
+  margin-right: $spacing-sm;
+  opacity: 0.7;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+%button-shared {
+  @include button-base;
+  border: 2px solid $primary-color;
+  background: $white;
+  color: $primary-color;
+  text-transform: uppercase;
+
+  &.active {
+    background-color: $primary-color;
+    color: $white;
+  }
+
+  &:hover {
+    background-color: $primary-color;
+    color: $white;
+  }
+}
+
+.date-button {
+  @extend %button-shared;
+}
+
+.lieu-button {
+  @extend %button-shared;
+}
+
+.spectacles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-lg;
+}
+
+.spectacle-card {
+  border: 1px solid $border-color;
+  border-radius: $spacing-sm;
+  padding: $spacing-md;
+  background: $white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-top: 0;
+    color: $primary-color;
+  }
+
+  p {
+    margin: $spacing-sm 0;
+  }
+}

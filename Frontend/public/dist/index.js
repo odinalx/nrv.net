@@ -5788,7 +5788,7 @@
                 <p><strong>Date :</strong> {{formatDate date}}</p>
                 <p><strong>Horaire :</strong> {{formatTime horaire}}</p>
                 <p><strong>Soir\xE9e :</strong> {{soiree.nom}}</p>
-                <p><strong>Lieu :</strong> {{lieu}}</p>
+                <p><strong>Lieu :</strong> {{soiree.lieu}}</p>
             </div>
         </div>
         {{/each}}
@@ -5856,7 +5856,7 @@
       });
     }
     getAvailableLieux(spectacles) {
-      return [...new Set(spectacles.map((s) => s.lieu))].sort();
+      return [...new Set(spectacles.map((s) => s.soiree.lieu))].sort();
     }
     filterSpectacles(spectacles) {
       let filtered = [...spectacles];
@@ -5864,7 +5864,7 @@
         filtered = filtered.filter((s) => s.date === this.selectedDate);
       }
       if (this.activeFilter === "lieux" && this.selectedLieu !== "all") {
-        filtered = filtered.filter((s) => s.lieu === this.selectedLieu);
+        filtered = filtered.filter((s) => s.soiree.lieu === this.selectedLieu);
       }
       return filtered;
     }

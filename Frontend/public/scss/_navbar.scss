@@ -1,0 +1,73 @@
+// Variables
+$nav-bg: #000;
+$nav-text: #fff;
+$nav-height: 70px;
+$logo-size: 50px;
+$spacing: 20px;
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $nav-bg;
+  height: $nav-height;
+  padding: 0 $spacing;
+  width: 100%;
+
+  // Logo button (left side)
+  button[data-page="home"] {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: $nav-text;
+  }
+
+  // Navigation buttons (right side)
+  button:not([data-page="home"]) {
+    background: none;
+    border: none;
+    color: $nav-text;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    // Add spacing between buttons
+    &:not(:last-child) {
+      margin-right: $spacing;
+    }
+  }
+
+  // Group all buttons except logo to the right
+  & > :not(button[data-page="home"]) {
+    margin-left: auto;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    height: auto;
+    padding: $spacing;
+    
+    button[data-page="home"] {
+      margin-bottom: $spacing;
+    }
+
+    button:not([data-page="home"]) {
+      margin: 5px 0;
+      width: 100%;
+      padding: 10px;
+
+      &:not(:last-child) {
+        margin-right: 0;
+      }
+    }
+  }
+}

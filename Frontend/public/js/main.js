@@ -33,7 +33,7 @@ class SPA {
     }
 
     getAvailableLieux(spectacles) {
-        return [...new Set(spectacles.map(s => s.lieu))].sort();
+        return [...new Set(spectacles.map(s => s.soiree.lieu))].sort();
     }
 
     filterSpectacles(spectacles) {
@@ -44,7 +44,7 @@ class SPA {
         }
 
         if (this.activeFilter === 'lieux' && this.selectedLieu !== 'all') {
-            filtered = filtered.filter(s => s.lieu === this.selectedLieu);
+            filtered = filtered.filter(s => s.soiree.lieu === this.selectedLieu);
         }
 
         return filtered;

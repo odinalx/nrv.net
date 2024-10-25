@@ -3,8 +3,9 @@ import homeTemplate from '../templates/home.hbs';
 import spectacleTemplate from '../templates/spectacle.hbs';
 import soireeTemplate from '../templates/soiree.hbs';
 import connexionTemplate from '../templates/connexion.hbs';
+import inscriptionTemplate from '../templates/inscription.hbs';
+import compteTemplate from '../templates/compte.hbs';
 
-// Helper pour le formatage des dates standard
 Handlebars.registerHelper('formatDate', function(dateStr) {
     const [day, month, year] = dateStr.split('-');
     return new Date(`${year}-${month}-${day}`).toLocaleDateString('fr-FR', {
@@ -47,11 +48,11 @@ Handlebars.registerHelper('eq', function(a, b) {
     return a === b;
 });
 
-
-
 export const templates = {
     home: Handlebars.compile(homeTemplate),
     spectacle: Handlebars.compile(spectacleTemplate),
     soiree: Handlebars.compile(soireeTemplate),
-    connexion: Handlebars.compile(connexionTemplate)
+    connexion: Handlebars.compile(connexionTemplate),
+    inscription: Handlebars.compile(inscriptionTemplate),
+    compte: Handlebars.compile(compteTemplate)
 };

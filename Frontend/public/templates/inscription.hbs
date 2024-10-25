@@ -1,0 +1,30 @@
+<div class="page">
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+    
+    <form id="registerForm" class="register-form">
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="email" id="register-email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="register-password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nom">Nom :</label>
+            <input type="text" id="register-nom" required>
+        </div>
+
+        <div class="form-group">
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="register-prenom" required>
+        </div>
+
+        <div id="registerError" class="error-message" style="display: none;"></div>
+        
+        <button type="submit">S'inscrire</button>
+    </form>
+</div>

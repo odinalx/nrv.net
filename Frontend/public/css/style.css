@@ -39,7 +39,13 @@ nav button[data-page=home] {
   font-size: 1rem;
   color: #acacac;
 }
-nav button:not([data-page=home]) {
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-left: auto;
+}
+nav .nav-right button {
   background: none;
   border: none;
   color: #acacac;
@@ -49,14 +55,8 @@ nav button:not([data-page=home]) {
   font-weight: 500;
   transition: opacity 0.3s ease;
 }
-nav button:not([data-page=home]):hover {
+nav .nav-right button:hover {
   color: #2e9466;
-}
-nav button:not([data-page=home]):not(:last-child) {
-  margin-right: 1em;
-}
-nav > :not(button[data-page=home]) {
-  margin-left: auto;
 }
 
 @media (max-width: 768px) {
@@ -65,16 +65,14 @@ nav > :not(button[data-page=home]) {
     height: auto;
     padding: 10em;
   }
-  nav button[data-page=home] {
-    margin-bottom: 10em;
+  nav .nav-right {
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
   }
-  nav button:not([data-page=home]) {
-    margin: 5px 0;
+  nav .nav-right button {
     width: 100%;
     padding: 10px;
-  }
-  nav button:not([data-page=home]):not(:last-child) {
-    margin-right: 0;
   }
 }
 .soiree-details {

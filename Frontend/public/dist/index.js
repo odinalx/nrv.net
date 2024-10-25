@@ -1,10 +1,27 @@
 (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
+  var __defProps = Object.defineProperties;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop))
+          __defNormalProp(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
@@ -5813,7 +5830,42 @@
   var soiree_default = '<div class="page">\n<div class="soiree-details">\n  <h2>{{soiree.nom}}</h2>\n  \n  <div class="soiree-info">\n    {{#if soiree.theme}}\n    <p>\n      <strong>Th\xE8me</strong>\n      {{soiree.theme}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.date}}\n    <p>\n      <strong>Date</strong>\n      {{formatDate soiree.date}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.horaire_debut}}\n    <p>\n      <strong>Heure de d\xE9but</strong>\n      {{formatTime soiree.horaire_debut}}\n    </p>\n    {{/if}}\n    \n    {{#if soiree.lieu}}\n    <p>\n      <strong>Lieu</strong>\n      {{soiree.lieu}}\n    </p>\n    {{/if}}\n\n    {{#if soiree.tarif_normal}}\n    <p>\n      <strong>Tarif normal</strong>\n      {{soiree.tarif_normal}}\u20AC\n    </p>\n    {{/if}}\n    \n    {{#if soiree.tarif_reduit}}\n    <p>\n      <strong>Tarif r\xE9duit</strong>\n      {{soiree.tarif_reduit}}\u20AC\n    </p>\n    {{/if}}\n  </div>\n</div>\n\n{{#if soiree.spectacles.length}}\n<div class="spectacles-section">\n  <h2 class="section-title">Programme de la soir\xE9e</h2>\n  <div class="timeline-spectacles">\n    {{#each (sortByTime soiree.spectacles)}}\n    <div class="timeline-spectacle-card">\n      <span class="spectacle-time">{{formatTime horaire_prev}}</span>\n      <div class="soiree-spectacle">\n        <div class="spectacle-header">\n          <h3>{{titre}}</h3>\n        </div>\n        <div class="spectacle-content">\n          <div class="spectacle-info">\n            {{#if style}}\n            <div class="style-section">\n              <h4>Style :</h4>\n              <p>{{style}}</p>\n            </div>\n            {{/if}}\n            {{#if artistes}}\n            <div class="artistes-section">\n              <h4>Artistes :</h4>\n              {{#each artistes}}\n              <p class="artiste-item">{{nom}}{{prenom}}</p>\n              {{/each}}\n            </div>\n            {{/if}}\n            {{#if description}}\n            <div class="description-section">\n              <h4>\xC0 propos :</h4>\n              <p>{{description}}</p>\n            </div>\n            {{/if}}\n          </div>\n          {{#if url_video}}\n          <div class="spectacle-video">\n            <iframe\n              src="/video/{{url_video}}"\n              title="{{url_video}}"\n              frameborder="0">\n            </iframe>\n          </div>\n          {{/if}}\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n</div>\n{{/if}}\n</div>\n<div class="add-to-cart-section">\n  <div class="cart-wrapper">\n    <button class="add-to-cart-button">\n      <span>Ajouter un ticket au panier</span>\n    </button>\n  </div>\n</div>';
 
   // public/templates/connexion.hbs
-  var connexion_default = '<div class="page">\n    <form id="loginForm">\n    <input type="email" id="email" required>\n    <input type="password" id="password" required>\n    <button type="submit">Se connecter</button>\n</form>\n</div>';
+  var connexion_default = '<div class="page">\n    <h1>{{title}}</h1>\n    <p>{{description}}</p>\n    \n    <form id="loginForm">\n        <div class="form-group">\n            <label for="email">Email :</label>\n            <input type="email" id="email" required>\n        </div>\n        \n        <div class="form-group">\n            <label for="password">Mot de passe :</label>\n            <input type="password" id="password" required>\n        </div>\n\n        <div id="loginError" style="display: none;"></div>\n        \n        <button type="submit">Se connecter</button>\n    </form>\n\n    <p>Pas encore de compte ? <a href="#" id="registerLink">Inscrivez-vous</a></p>\n</div>';
+
+  // public/templates/inscription.hbs
+  var inscription_default = `<div class="page">
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+    
+    <form id="registerForm" class="register-form">
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="email" id="register-email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="register-password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nom">Nom :</label>
+            <input type="text" id="register-nom" required>
+        </div>
+
+        <div class="form-group">
+            <label for="prenom">Pr\xE9nom :</label>
+            <input type="text" id="register-prenom" required>
+        </div>
+
+        <div id="registerError" class="error-message" style="display: none;"></div>
+        
+        <button type="submit">S'inscrire</button>
+    </form>
+</div>`;
+
+  // public/templates/compte.hbs
+  var compte_default = '<div class="page">\n    <h1>{{title}}</h1>\n    <p>{{description}}</p>\n    \n    <div class="account-content">\n        <h2>Mes informations</h2>\n        <button id="logoutButton">Se d\xE9connecter</button>\n    </div>\n</div>';
 
   // public/js/templateLoader.js
   import_handlebars.default.registerHelper("formatDate", function(dateStr) {
@@ -5856,45 +5908,9 @@
     home: import_handlebars.default.compile(home_default),
     spectacle: import_handlebars.default.compile(spectacle_default),
     soiree: import_handlebars.default.compile(soiree_default),
-    connexion: import_handlebars.default.compile(connexion_default)
-  };
-
-  // public/js/api.js
-  var API_CONFIG = {
-    BASE_URL: "http://localhost:48013"
-  };
-
-  // public/js/spectacleService.js
-  var SpectacleService = class {
-    static fetchSpectacles() {
-      return __async(this, null, function* () {
-        try {
-          const response = yield fetch(`${API_CONFIG.BASE_URL}/spectacles`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return yield response.json();
-        } catch (error) {
-          console.error("Erreur lors de la r\xE9cup\xE9ration des spectacles:", error);
-          return { spectacles: [] };
-        }
-      });
-    }
-    static fetchSoiree(soireeUrl) {
-      return __async(this, null, function* () {
-        try {
-          const cleanUrl = soireeUrl.startsWith("/") ? soireeUrl.slice(1) : soireeUrl;
-          const response = yield fetch(`${API_CONFIG.BASE_URL}/${cleanUrl}`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return yield response.json();
-        } catch (error) {
-          console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e:", error);
-          throw error;
-        }
-      });
-    }
+    connexion: import_handlebars.default.compile(connexion_default),
+    inscription: import_handlebars.default.compile(inscription_default),
+    compte: import_handlebars.default.compile(compte_default)
   };
 
   // public/js/dateUtils.js
@@ -5979,32 +5995,266 @@
         connexion: {
           title: "Connexion",
           description: "Connectez-vous \xE0 votre compte"
+        },
+        inscription: {
+          title: "Inscription",
+          description: "Cr\xE9ez votre compte pour acc\xE9der aux spectacles"
+        },
+        compte: {
+          title: "Mon compte",
+          description: "G\xE9rez vos informations personnelles"
         }
       };
     }
     setPageData(pageName, data) {
-      this.pageData[pageName] = data;
+      this.pageData[pageName] = __spreadValues(__spreadValues({}, this.pageData[pageName]), data);
     }
     navigateToPage(pageName) {
       if (this.templates[pageName]) {
-        const pageData = this.pageData[pageName];
+        const pageData = __spreadProps(__spreadValues({}, this.pageData[pageName]), {
+          isAuthenticated: this.isAuthenticated()
+        });
         if (pageData) {
           const html = this.templates[pageName](pageData);
           this.contentDiv.innerHTML = html;
         }
       }
     }
+    isAuthenticated() {
+      return !!localStorage.getItem("jwt_token");
+    }
   };
 
-  // public/js/main.js
-  var SPA = class {
+  // public/js/api.js
+  var API_CONFIG = {
+    BASE_URL: "http://localhost:48013"
+  };
+
+  // public/js/authService.js
+  var AuthService = class {
     constructor() {
-      this.contentDiv = document.getElementById("content");
-      this.pageManager = new PageManager(this.contentDiv, templates);
-      this.spectacleFilter = new SpectacleFilter();
-      this.originalSpectacles = [];
-      this.initializeEventListeners();
+      this.token = localStorage.getItem("jwt_token");
+      this.baseUrl = API_CONFIG.BASE_URL;
+    }
+    register(email, password, nom, prenom) {
+      return __async(this, null, function* () {
+        var _a;
+        try {
+          const response = yield fetch(`${this.baseUrl}/auth/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              email,
+              password,
+              nom,
+              prenom,
+              role: "user"
+            })
+          });
+          if (response.status === 204 || response.status === 201) {
+            return { success: true };
+          }
+          if ((_a = response.headers.get("content-type")) == null ? void 0 : _a.includes("application/json")) {
+            const data = yield response.json();
+            if (!response.ok) {
+              throw new Error(data.error || "Erreur lors de l'inscription");
+            }
+            return data;
+          }
+          if (response.ok) {
+            return { success: true };
+          }
+          throw new Error("Erreur lors de l'inscription");
+        } catch (error) {
+          console.error("Erreur d'inscription:", error);
+          throw error;
+        }
+      });
+    }
+    login(email, password) {
+      return __async(this, null, function* () {
+        try {
+          const response = yield fetch(`${this.baseUrl}/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+          });
+          const data = yield response.json();
+          if (!response.ok) {
+            throw new Error(data.error || "Email ou mot de passe incorrect");
+          }
+          if (data.accessToken) {
+            this.setToken(data.accessToken);
+            if (data.refreshToken) {
+              localStorage.setItem("refresh_token", data.refreshToken);
+            }
+            return data;
+          } else {
+            throw new Error("Format de r\xE9ponse invalide");
+          }
+        } catch (error) {
+          console.error("Erreur de connexion:", error);
+          throw error;
+        }
+      });
+    }
+    setToken(token) {
+      this.token = token;
+      localStorage.setItem("jwt_token", token);
+    }
+    logout() {
+      this.token = null;
+      localStorage.removeItem("jwt_token");
+      localStorage.removeItem("refresh_token");
+      return true;
+    }
+    getToken() {
+      return this.token;
+    }
+    isAuthenticated() {
+      return !!this.token;
+    }
+  };
+  var authService = new AuthService();
+
+  // public/js/authController.js
+  var AuthController = class {
+    constructor(pageManager) {
+      this.pageManager = pageManager;
+    }
+    updateAuthButtons() {
+      const loginButton = document.getElementById("login-button");
+      const compteButton = document.getElementById("compte-button");
+      if (authService.isAuthenticated()) {
+        if (loginButton)
+          loginButton.style.display = "none";
+        if (compteButton)
+          compteButton.style.display = "block";
+      } else {
+        if (loginButton)
+          loginButton.style.display = "block";
+        if (compteButton)
+          compteButton.style.display = "none";
+      }
+    }
+    handleLogin(event) {
+      return __async(this, null, function* () {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const errorDiv = document.getElementById("loginError");
+        try {
+          const loginResult = yield authService.login(email, password);
+          if (loginResult && loginResult.accessToken) {
+            if (errorDiv)
+              errorDiv.style.display = "none";
+            this.updateAuthButtons();
+            this.pageManager.navigateToPage("home");
+          } else {
+            throw new Error("Connexion \xE9chou\xE9e");
+          }
+        } catch (error) {
+          console.error("Erreur de connexion:", error);
+          if (errorDiv) {
+            errorDiv.textContent = error.message || "Email ou mot de passe incorrect";
+            errorDiv.style.display = "block";
+          }
+        }
+      });
+    }
+    handleRegister(event) {
+      return __async(this, null, function* () {
+        event.preventDefault();
+        const email = document.getElementById("register-email").value;
+        const password = document.getElementById("register-password").value;
+        const nom = document.getElementById("register-nom").value;
+        const prenom = document.getElementById("register-prenom").value;
+        const errorDiv = document.getElementById("registerError");
+        try {
+          const result = yield authService.register(email, password, nom, prenom);
+          if (result) {
+            if (errorDiv)
+              errorDiv.style.display = "none";
+            try {
+              const loginResult = yield authService.login(email, password);
+              if (loginResult && loginResult.accessToken) {
+                this.updateAuthButtons();
+                this.pageManager.navigateToPage("home");
+                return;
+              }
+            } catch (loginError) {
+              console.error("Auto-login failed:", loginError);
+            }
+            this.pageManager.navigateToPage("connexion");
+          }
+        } catch (error) {
+          console.error("Erreur d'inscription:", error);
+          if (errorDiv) {
+            errorDiv.textContent = error.message || "Erreur lors de l'inscription. Veuillez r\xE9essayer.";
+            errorDiv.style.display = "block";
+          }
+        }
+      });
+    }
+    handleLogout() {
+      authService.logout();
+      this.updateAuthButtons();
       this.pageManager.navigateToPage("home");
+    }
+    checkAuthentication() {
+      const protectedRoutes = ["spectacle", "soiree", "compte"];
+      const currentPage = window.location.hash.slice(1) || "home";
+      if (protectedRoutes.includes(currentPage) && !authService.isAuthenticated()) {
+        this.pageManager.navigateToPage("connexion");
+        return false;
+      }
+      return true;
+    }
+  };
+
+  // public/js/spectacleService.js
+  var SpectacleService = class {
+    static fetchSpectacles() {
+      return __async(this, null, function* () {
+        try {
+          const response = yield fetch(`${API_CONFIG.BASE_URL}/spectacles`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return yield response.json();
+        } catch (error) {
+          console.error("Erreur lors de la r\xE9cup\xE9ration des spectacles:", error);
+          return { spectacles: [] };
+        }
+      });
+    }
+    static fetchSoiree(soireeUrl) {
+      return __async(this, null, function* () {
+        try {
+          const cleanUrl = soireeUrl.startsWith("/") ? soireeUrl.slice(1) : soireeUrl;
+          const response = yield fetch(`${API_CONFIG.BASE_URL}/${cleanUrl}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return yield response.json();
+        } catch (error) {
+          console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e:", error);
+          throw error;
+        }
+      });
+    }
+  };
+
+  // public/js/spectacleController.js
+  var SpectacleController = class {
+    constructor(pageManager, spectacleFilter) {
+      this.pageManager = pageManager;
+      this.spectacleFilter = spectacleFilter;
+      this.originalSpectacles = [];
     }
     fetchSpectacleData() {
       return __async(this, null, function* () {
@@ -6014,7 +6264,11 @@
           this.updateSpectacleDisplay();
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es:", error);
-          this.updateSpectacleDisplay();
+          if (error.message === "Authentication required") {
+            this.pageManager.navigateToPage("connexion");
+          } else {
+            this.updateSpectacleDisplay();
+          }
         }
       });
     }
@@ -6029,6 +6283,9 @@
           this.pageManager.navigateToPage("soiree");
         } catch (error) {
           console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es de la soir\xE9e:", error);
+          if (error.message === "Authentication required") {
+            this.pageManager.navigateToPage("connexion");
+          }
         }
       });
     }
@@ -6047,41 +6304,118 @@
         this.pageManager.navigateToPage("spectacle");
       }
     }
+  };
+
+  // public/js/eventManager.js
+  var EventManager = class {
+    constructor(contentDiv, pageManager, authController, spectacleController, spectacleFilter) {
+      this.contentDiv = contentDiv;
+      this.pageManager = pageManager;
+      this.authController = authController;
+      this.spectacleController = spectacleController;
+      this.spectacleFilter = spectacleFilter;
+    }
     initializeEventListeners() {
+      this.initializeNavigationListeners();
+      this.initializeAuthListeners();
+      this.initializeSpectacleListeners();
+      this.initializeHistoryListener();
+    }
+    initializeNavigationListeners() {
       document.querySelectorAll("button[data-page]").forEach((button) => {
         button.addEventListener("click", (e) => __async(this, null, function* () {
           const pageName = e.target.dataset.page;
           if (pageName === "spectacle") {
-            yield this.fetchSpectacleData();
+            yield this.spectacleController.fetchSpectacleData();
+          } else {
+            this.pageManager.navigateToPage(pageName);
           }
-          this.pageManager.navigateToPage(pageName);
         }));
       });
+    }
+    initializeAuthListeners() {
+      this.contentDiv.addEventListener("submit", (e) => {
+        if (e.target.matches("#loginForm")) {
+          this.authController.handleLogin(e);
+        }
+        if (e.target.matches("#registerForm")) {
+          this.authController.handleRegister(e);
+        }
+      });
+      this.contentDiv.addEventListener("click", (e) => {
+        if (e.target.matches("#registerLink")) {
+          e.preventDefault();
+          this.pageManager.navigateToPage("inscription");
+        }
+        if (e.target.matches("#loginLink")) {
+          e.preventDefault();
+          this.pageManager.navigateToPage("connexion");
+        }
+        if (e.target.matches("#logoutButton")) {
+          e.preventDefault();
+          this.authController.handleLogout();
+        }
+      });
+    }
+    initializeSpectacleListeners() {
       this.contentDiv.addEventListener("click", (e) => __async(this, null, function* () {
         if (e.target.matches(".filter-type-button")) {
           this.spectacleFilter.updateFilter("filterType", e.target.dataset.filterType);
-          this.updateSpectacleDisplay();
+          this.spectacleController.updateSpectacleDisplay();
         }
         if (e.target.matches(".date-button")) {
           this.spectacleFilter.updateFilter("date", e.target.dataset.date);
-          this.updateSpectacleDisplay();
+          this.spectacleController.updateSpectacleDisplay();
         }
         if (e.target.matches(".lieu-button")) {
           this.spectacleFilter.updateFilter("lieu", e.target.dataset.lieu);
-          this.updateSpectacleDisplay();
+          this.spectacleController.updateSpectacleDisplay();
         }
         if (e.target.matches(".style-button")) {
           this.spectacleFilter.updateFilter("style", e.target.dataset.style);
-          this.updateSpectacleDisplay();
+          this.spectacleController.updateSpectacleDisplay();
         }
         const spectacleCard = e.target.closest(".spectacle-card");
         if (spectacleCard) {
           const soireeUrl = spectacleCard.dataset.soireeId;
           if (soireeUrl) {
-            yield this.fetchSoireeData(soireeUrl);
+            yield this.spectacleController.fetchSoireeData(soireeUrl);
           }
         }
       }));
+    }
+    initializeHistoryListener() {
+      window.addEventListener("popstate", () => {
+        this.authController.checkAuthentication();
+      });
+    }
+  };
+
+  // public/js/main.js
+  var SPA = class {
+    constructor() {
+      this.contentDiv = document.getElementById("content");
+      this.pageManager = new PageManager(this.contentDiv, templates);
+      this.spectacleFilter = new SpectacleFilter();
+      this.authController = new AuthController(this.pageManager);
+      this.spectacleController = new SpectacleController(this.pageManager, this.spectacleFilter);
+      this.eventManager = new EventManager(
+        this.contentDiv,
+        this.pageManager,
+        // Ajout du pageManager ici
+        this.authController,
+        this.spectacleController,
+        this.spectacleFilter
+      );
+      this.initializeApp();
+    }
+    initializeApp() {
+      this.authController.updateAuthButtons();
+      if (this.authController.checkAuthentication()) {
+        const currentPage = window.location.hash.slice(1) || "home";
+        this.pageManager.navigateToPage(currentPage);
+      }
+      this.eventManager.initializeEventListeners();
     }
   };
   document.addEventListener("DOMContentLoaded", () => {

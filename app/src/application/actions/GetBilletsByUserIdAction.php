@@ -5,8 +5,8 @@ namespace nrv\application\actions;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use nrv\core\services\billet\ServiceBilletInterface;
-use nrv\core\services\billet\ServiceBilletInvalidDataException;
 use nrv\core\services\billet\ServiceBilletNotFoundException;
+use nrv\core\services\soiree\ServiceSoireeNotFoundException;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\services\soiree\ServiceSoireeInterface;
 
@@ -40,12 +40,10 @@ class GetBilletsByUserIdAction extends AbstractAction
 
             return JsonRenderer::render($rs, 200, $responseData);
 
-        } catch (ServiceBilletInvalidDataException $e) {
-            return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);
-
         } catch (ServiceBilletNotFoundException $e) {
             return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
-
+        } catch (ServiceSoireeNotFoundException $e) {
+            return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
         } catch (\Exception $e) {            
             return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
         }

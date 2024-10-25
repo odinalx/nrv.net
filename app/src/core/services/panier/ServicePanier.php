@@ -6,8 +6,10 @@ use nrv\core\dto\PanierDTO;
 use nrv\core\services\panier\ServicePanierInterface;
 use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityInvalidDataException;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\services\billet\ServiceBilletNotFoundException;
 
 class ServicePanier implements ServicePanierInterface {
     
@@ -22,13 +24,18 @@ class ServicePanier implements ServicePanierInterface {
     }
 
     public function getPanierByUserId(string $userId) :PanierDTO {
-        //ToDo Try catch
-        return $this->panierRepository->getPanierByUserId($userId)->toDTO();
+        try {
+            return $this->panierRepository->getPanierByUserId($userId)->toDTO();
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServicePanierNotFoundException($e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function createPanier(string $userId): PanierDTO
     {
-        //ToDo Try catch
+        try{
         $panierExistant = $this->panierRepository->panierExistant($userId);
 
         if ($panierExistant) {
@@ -36,6 +43,9 @@ class ServicePanier implements ServicePanierInterface {
         }
     
         return $this->panierRepository->createPanier($userId)->toDTO();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }   
 
     public function validerPanier(string $panierId): PanierDTO
@@ -73,6 +83,8 @@ class ServicePanier implements ServicePanierInterface {
 
         } catch (RepositoryEntityNotFoundException $e) {
             throw new ServicePanierNotFoundException($e->getMessage());
+        } catch (RepositoryEntityInvalidDataException $e) {
+            throw new ServicePanierInvalidDataException($e->getMessage());
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }    
@@ -81,20 +93,35 @@ class ServicePanier implements ServicePanierInterface {
 
     public function prixTotal(string $panierId): float
     {
-        //ToDo Try catch
-        return $this->panierRepository->prixTotal($panierId);
+        try {
+            return $this->panierRepository->prixTotal($panierId);
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServicePanierNotFoundException($e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     } 
     
     private function createCommande(string $userid, string $panierid, float $prixtotal, string $status): string
     {
-        //ToDo Try catch
-        return $this->panierRepository->createCommande($userid, $panierid, $prixtotal, $status);
+        try {
+            return $this->panierRepository->createCommande($userid, $panierid, $prixtotal, $status);
+        } catch(RepositoryEntityInvalidDataException $e) {
+            throw new ServicePanierInvalidDataException($e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     private function getUserByPanier(string $panierId): string
     {
-        //ToDo Try catch
-        return $this->panierRepository->getUserByPanier($panierId);
+        try {
+            return $this->panierRepository->getUserByPanier($panierId);
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServicePanierNotFoundException($e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
        

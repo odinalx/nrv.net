@@ -4,6 +4,7 @@ namespace nrv\core\services\lieu;
 
 use nrv\core\dto\LieuDTO;
 use nrv\core\repositoryInterfaces\LieuRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class ServiceLieu implements ServiceLieuInterface {
     
@@ -16,8 +17,15 @@ class ServiceLieu implements ServiceLieuInterface {
     }
 
     public function getLieuById(string $id): LieuDTO
-    { 
-        return $this->lieuRepository->getLieuById($id)->toDTO();
+    {   
+        try{
+            return $this->lieuRepository->getLieuById($id)->toDTO();
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServiceLieuNotFoundException($e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        
     }
     
 }

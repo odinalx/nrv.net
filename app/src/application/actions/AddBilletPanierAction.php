@@ -27,9 +27,7 @@ class AddBilletPanierAction extends AbstractAction
             }
 
             $newBillet = $this->serviceBillet->ajouterBillet($panier_id, $data['soiree_id'], $data['quantite'], $data['prix']);
-            if(!$newBillet) {
-                throw new ServiceBilletNotFoundException("Le billet n'a pas pu être ajouté");
-            }
+            
             $responseData = [
                 'billet ajouté' => $newBillet,
                 'panier' => $panier_id,

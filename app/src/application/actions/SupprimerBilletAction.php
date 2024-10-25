@@ -21,7 +21,6 @@ class SupprimerBilletAction extends AbstractAction
         try {
             $billetpanier_id = $args['id'];
 
-
             $newBillet = $this->serviceBillet->supprimerBillet($billetpanier_id);
             $responseData = [
                 'billet supprimé' => $billetpanier_id,
@@ -30,9 +29,6 @@ class SupprimerBilletAction extends AbstractAction
             ];
 
             return JsonRenderer::render($rs, 200, $responseData);
-
-        } catch (ServiceBilletInvalidDataException $e) {
-            return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);
 
         } catch (ServiceBilletNotFoundException $e) {
             return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);

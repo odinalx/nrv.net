@@ -7,9 +7,12 @@ use nrv\core\services\soiree\ServiceSoireeInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use nrv\application\renderer\JsonRenderer;
+use nrv\core\services\lieu\ServiceLieu;
 use nrv\core\services\spectacle\ServiceSpectacleNotFoundException;
 use nrv\core\services\soiree\ServiceSoiree;
 use nrv\core\services\lieu\ServiceLieuInterface;
+use nrv\core\services\soiree\ServiceSoireeNotFoundException;
+use nrv\core\services\lieu\ServiceLieuNotFoundException;
 
 class GetSpectaclesAction extends AbstractAction
 {
@@ -57,6 +60,12 @@ class GetSpectaclesAction extends AbstractAction
 
         } catch (ServiceSpectacleNotFoundException $e) {
             return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
+        } catch (ServiceSoireeNotFoundException $e) {
+            return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
+        } catch (ServiceLieuNotFoundException $e) {
+            return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
+        } catch (\Exception $e) {
+            return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
         }
     }
 }

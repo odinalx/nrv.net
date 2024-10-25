@@ -42,11 +42,11 @@ class PdoUserRepository implements UserRepositoryInterface {
 
     public function findById(string $id): ?AuthDTO
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM utilisateur WHERE id = :id');
+        $stmt = $this->pdo->prepare('SELECT * FROM utilisateur WHERE user_id = :id');
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new AuthDTO($row['id'], $row['email'], $row['password'], $row['role']);
+            return new AuthDTO($id, $row['email'], $row['password'], $row['role']);
         }
         return null;
     }

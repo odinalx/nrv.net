@@ -18,6 +18,7 @@ use nrv\application\actions\GetBilletsByUserIdAction;
 use nrv\application\actions\AuthLoginAction;
 use nrv\application\actions\AuthRegisterAction;
 use nrv\application\actions\GetPanierByUserIdAction;
+use nrv\application\actions\GetUserByIdAction;
 
 return function( \Slim\App $app):\Slim\App {
 
@@ -57,5 +58,6 @@ return function( \Slim\App $app):\Slim\App {
     //Route Auth
     $app->post('/auth/login', AuthLoginAction::class);
     $app->post('/auth/register', AuthRegisterAction::class);
+    $app->get('/auth/{id}', GetUserByIdAction::class);
     return $app;
 };

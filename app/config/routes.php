@@ -46,14 +46,14 @@ return function( \Slim\App $app):\Slim\App {
 
 
     //Routes Panier
-    $app->post('/paniers', CreerPanierAction::class); //création d'un panier
-    $app->post('/paniers/{id}/billet', AddBilletPanierAction::class); //ajout d'un billet dans un panier
-    $app->get('/panier/{user_id}', GetPanierByUserIdAction::class); //récupération des billets d'un panier d'un user
+    $app->post('/paniers', CreerPanierAction::class); //création d'un panier    
+    $app->post('/paniers/{id}/billets', AddBilletPanierAction::class); //ajout d'un billet dans un panier
+    $app->delete('/paniers/{panier_id}/billets/{id}', SupprimerBilletAction::class); //surrpession d'un billet dans un panier
+    $app->get('/users/{user_id}/panier', GetPanierByUserIdAction::class); //récupération des billets d'un panier d'un user
     $app->post('/paniers/{id}/valider', ValiderPanierAction::class); //validation d'un panier
 
-    //Route Billets
-    $app->post('/billetspanier/{id}/supprimer', SupprimerBilletAction::class); //surrpession d'un billet dans un panier
-    $app->get('/billets/{id}', GetBilletsByUserIdAction::class); //récupération des billets d'un panier
+    //Route Billets    
+    $app->get('/users/{id}/billets', GetBilletsByUserIdAction::class); //récupération des billets d'un panier
 
     //Route Auth
     $app->post('/auth/login', AuthLoginAction::class);

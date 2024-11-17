@@ -6039,7 +6039,7 @@
 
   // public/js/api.js
   var API_CONFIG = {
-    BASE_URL: "http://localhost:48013"
+    BASE_URL: "http://docketu.iutnc.univ-lorraine.fr:48013"
   };
   var ApiService = class {
     static get(endpoint, requiresAuth = false) {

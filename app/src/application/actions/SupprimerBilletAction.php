@@ -20,8 +20,14 @@ class SupprimerBilletAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface {
         try {
             $billetpanier_id = $args['id'];
+            $panier_id = $args['panier_id'];
 
             $newBillet = $this->serviceBillet->supprimerBillet($billetpanier_id);
+
+            if ($newBillet->panier_id != $panier_id) {
+                throw new ServiceBilletInvalidDataException('Le billet n\'appartient pas au panier');
+            }
+
             $responseData = [
                 'billet supprimé' => $billetpanier_id,
                 'panier' => $newBillet->panier_id,
@@ -32,7 +38,8 @@ class SupprimerBilletAction extends AbstractAction
 
         } catch (ServiceBilletNotFoundException $e) {
             return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
-
+        } catch (ServiceBilletInvalidDataException $e) {
+            return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);
         } catch (\Exception $e) {            
             return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
         }

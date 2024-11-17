@@ -31,7 +31,7 @@ nrv.net est une application web développée dans le cadre d'un projet étudiant
 - [x] Ajout de billets au panier depuis la page d'une soirée
 - [x] Visualisation du panier et calcul du montant total
 - [x] Validation du panier et transformation en commande avec génération des billets achetés
-- [x] Simulation de paiement avec mise à jour du nombre de place disponibles
+- [ ] Simulation de paiement avec mise à jour du nombre de place disponibles
 - [ ] Génération de billets imprimables (HTML/CSS avec @media print) 
 
 ### Backoffice  

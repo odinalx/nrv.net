@@ -43,36 +43,45 @@ export class AuthController {
         }
     }
 
-    async handleRegister(event) {
+    async  handleRegister(event) {
         event.preventDefault();
         const email = document.getElementById('register-email').value;
         const password = document.getElementById('register-password').value;
+        const confirmPassword = document.getElementById('register-confirm-password').value;
         const nom = document.getElementById('register-nom').value;
         const prenom = document.getElementById('register-prenom').value;
         const errorDiv = document.getElementById('registerError');
-
+    
+        if (password !== confirmPassword) {
+            if (errorDiv) {
+                errorDiv.textContent = "Les mots de passe ne correspondent pas.";
+                errorDiv.style.display = 'block';
+            }
+            return;
+        }
+    
         try {
             const result = await authService.register(email, password, nom, prenom);
             if (result) {
                 if (errorDiv) errorDiv.style.display = 'none';
-                
+    
                 try {
                     const loginResult = await authService.login(email, password);
                     if (loginResult && loginResult.accessToken) {
                         this.updateAuthButtons();
-
+    
                         const panierResponse = await PanierService.creerPanier(loginResult.user_id);
                         if (panierResponse && panierResponse.id) {
                             localStorage.setItem('panier_id', panierResponse.id);
                         }
-                        
+    
                         this.pageManager.navigateToPage('home');
                         return;
                     }
                 } catch (loginError) {
                     console.error('Auto-login failed:', loginError);
                 }
-                
+    
                 this.pageManager.navigateToPage('connexion');
             }
         } catch (error) {
@@ -83,6 +92,8 @@ export class AuthController {
             }
         }
     }
+    
+    
 
     handleLogout() {
         authService.logout();

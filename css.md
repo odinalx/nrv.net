@@ -1,0 +1,2 @@
+
+Le site est responsive en utilisant des rem uniqument car cela s'dapte à l'utilisateur et juste car le site est fait de manière à ce que la police ne soit pas trop grande à certains endroits donc il n'y pas besoin de la rétrécir.
